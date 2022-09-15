@@ -1,0 +1,31 @@
+<form [formGroup]="broadcastForm" (ngSubmit)="onBroadcast()">
+  <div>
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input formControlName="title" type="text" matInput>
+      <mat-error>Title required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>Body</mat-label>
+      <textarea formControlName="body" matInput></textarea>
+      <mat-error>Description required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-select formControlName="users" placeholder="User" multiple>
+        <mat-option *ngFor="let user of users" [value]="user._id">
+          {{user.username}}
+        </mat-option>
+      </mat-select>
+      <mat-error>User required at least one</mat-error>
+    </mat-form-field>
+  </div>
+
+  <button *ngIf="!loader" mat-raised-button color="primary">Broadcast</button>
+  <app-spinner [loader]="loader" [diameter]="20"></app-spinner>
+</form>

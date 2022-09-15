@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+}
+
+@font-face {
+  font-family: 'unique';
+  src: url(./assets/AvenirLTStd-Black.woff);
+}
+
+@font-face {
+  font-family: 'unique-sub';
+  src: url(./assets/AvenirLTStd-Book.woff);
+}
+
+table, th, td, tr, input, form, button, p {
+  font-family: 'unique-sub' !important;
+  font-weight: bold !important;
+}

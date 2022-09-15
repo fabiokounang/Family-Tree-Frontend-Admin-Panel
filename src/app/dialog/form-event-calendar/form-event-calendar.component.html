@@ -1,0 +1,29 @@
+<form (ngSubmit)="onSubmitEvent()" [formGroup]="eventForm">
+  <div formArrayName="events">
+    <div class="event" [formGroupName]="i" *ngFor="let event of eventForm.get('events')['controls']; let i = index; first as isFirst">
+      <mat-form-field>
+        <mat-label>Event Name</mat-label>
+        <input formControlName="name" matInput type="text">
+        <mat-error>Event name required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Event Description (Optional)</mat-label>
+        <textarea formControlName="description" matInput></textarea>
+      </mat-form-field>
+      <mat-icon *ngIf="eventForm.get('events')['controls'].length > 1" matTooltip="Delete Event" (click)="removeFormArray(i)" class="trash">close</mat-icon>
+    </div>
+    <div *ngIf="!loader" style="text-align: center">
+      <button type="button" (click)="onAddNewEvent()" color="warn" mat-raised-button>
+        Add New Event
+      </button>
+      &nbsp;
+      <button type="submit" color="primary" mat-raised-button>
+        Save Event
+      </button>
+    </div>
+
+    <div *ngIf="loader">
+      <app-spinner></app-spinner>
+    </div>
+  </div>
+</form>

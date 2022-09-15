@@ -1,0 +1,37 @@
+<div class="container" fxLayout="row">
+  <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" class="left">
+    <div class="form-wrapper">
+      <h3>Login Admin</h3>
+      <form (ngSubmit)="onLogin()" [formGroup]="loginForm">
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input matInput type="text" formControlName="username">
+          <mat-error *ngIf="loginForm.get('username').hasError('required')">Username required</mat-error>
+          <mat-error *ngIf="loginForm.get('username').hasError('username')">{{loginForm.get('username').errors['username']}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput [type]="type" formControlName="password">
+          <mat-icon matSuffix (click)="onSetVisibility()">{{eye}}</mat-icon>
+          <mat-error *ngIf="loginForm.get('password').hasError('required')">Password required</mat-error>
+          <mat-error *ngIf="loginForm.get('password').hasError('minlength')">Password min 6 character alphanumeric</mat-error>
+          <mat-error *ngIf="loginForm.get('password').hasError('password')">{{loginForm.get('password').errors['password']}}</mat-error>
+        </mat-form-field>
+
+        <div>
+          <button *ngIf="!loader" [disabled]="loginForm.invalid" type="submit" class="btn" mat-raised-button color="primary">Log In</button>
+          <mat-spinner *ngIf="loader" [diameter]="15"></mat-spinner>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div fxHide.xs="true" fxHide.sm="true" fxFlex.md="50" fxFlex.lg="50" class="right">
+    <div class="right-wrapper">
+      <h4>Welcome back, Fam!</h4>
+      <h3>Marga {{marga}} </h3>
+      <br>
+      <p>If you're good, you don't only attract good people. You bring out goodness from people who dont even know they're good</p>
+      <small style="text-transform: uppercase;">That's a great leader</small>
+    </div>
+  </div>
+</div>

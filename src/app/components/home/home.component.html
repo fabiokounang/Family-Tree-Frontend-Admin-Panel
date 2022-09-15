@@ -1,0 +1,53 @@
+<mat-sidenav-container class="example-container">
+
+  <mat-sidenav (window:resize)="onResize()" #sidenav [mode]="modeSide" [opened]="open" role="navigation">
+
+    <div class="profile-container">
+      <p class="text">
+        <span class="circle"></span>
+        {{username}}
+      </p>
+    </div>
+
+    <mat-nav-list>
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/admin" (click)="onToggle(sidenav)">
+        <mat-icon>person</mat-icon>
+        <span class="nav-caption">Admin</span>
+      </a>
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/user" (click)="onToggle(sidenav)">
+        <mat-icon>store</mat-icon>
+        <span class="nav-caption">User</span>
+      </a>
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/calendar" (click)="onToggle(sidenav)">
+        <mat-icon>money</mat-icon>
+        <span class="nav-caption">Calendar</span>
+      </a>
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/broadcast" (click)="onToggle(sidenav)">
+        <mat-icon>notifications</mat-icon>
+        <span class="nav-caption">Broadcast</span>
+      </a>
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <div>
+        <button (click)="onToggleButton(sidenav)" mat-icon-button>
+          <mat-icon class="material-icons">menu</mat-icon>
+        </button>
+      </div>
+
+      <span class="example-spacer"></span>
+      <div>
+        <button mat-button (click)="onLogout(sidenav)">Logout</button>
+      </div>
+
+    </mat-toolbar>
+
+    <div style="margin: 15px">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

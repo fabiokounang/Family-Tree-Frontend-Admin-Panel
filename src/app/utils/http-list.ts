@@ -1,0 +1,21 @@
+export default {
+  'master-signin': 'api/admin/signin',
+  'master-check-transaction': 'api/transaction/check_transaction',
+  'master-transaction': 'api/transaction',
+  'master-log-transaction': 'api/transaction/log_transaction',
+  'master-admin': 'api/admin',
+  'master-admin-create': 'api/admin/create',
+  'master-admin-update': 'api/admin/update',
+  'master-admin-status': 'api/admin/update_status',
+  'master-admin-password': 'api/admin/update_password',
+  'master-admin-delete': 'api/admin/delete',
+  'master-admin-signout': 'api/admin/signout', 
+  'master-user': 'api/user',
+  'master-user-detail': 'api/user/self',
+  'master-calendar': 'api/calendar',
+  'master-calendar-create': 'api/calendar/create',
+  'master-calendar-update': 'api/calendar/update',
+  'master-calendar-update-status': 'api/calendar/update_status',
+  'master-calendar-delete': 'api/calendar/delete',
+  'master-broadcast-push': 'api/broadcast/push'
+}

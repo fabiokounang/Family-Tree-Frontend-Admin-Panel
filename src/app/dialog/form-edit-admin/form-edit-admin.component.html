@@ -1,0 +1,36 @@
+<div class="form-wrapper">
+  <form [formGroup]="adminForm" (ngSubmit)="onUpdateAdmin()">
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="username" placeholder="Username">
+        <mat-error *ngIf="adminForm.get('username').hasError('required')">Username required</mat-error>
+        <mat-error *ngIf="adminForm.get('username').hasError('username')">{{adminForm.get('username').errors['username']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <mat-select formControlName="role" placeholder="Role">
+          <mat-option *ngFor="let role of roles" [value]="role.id">
+            {{role.name}}              
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="adminForm.get('role').hasError('required')">Role required</mat-error>
+        <mat-error *ngIf="adminForm.get('role').hasError('role')">{{adminForm.get('role').errors['role']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="btn-container">
+      <ng-container *ngIf="!loader">
+        <button type="button" (click)="onCloseDialog()" mat-raised-button color="warn">
+          Close
+        </button>
+        &nbsp;
+        <button type="submit" [disabled]="adminForm.invalid" mat-raised-button color="primary">
+          Save
+        </button>
+      </ng-container>
+      <app-spinner [loader]="loader" [diameter]="20"></app-spinner>
+    </div>
+  </form>
+</div>

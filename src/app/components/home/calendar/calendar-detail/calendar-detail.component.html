@@ -1,0 +1,51 @@
+<ng-container *ngIf="calendar">
+  <div class="wrapper-calendar">
+    <mat-icon routerLink="/home/calendar" class="cursor">keyboard_backspace</mat-icon>
+    <div class="title-calendar">
+      <span>{{calendar.name | uppercase}}</span>
+      <span>{{calendar.status == 1 ? ' (Active)' : ' (Not Active)'}}</span>
+    </div>
+    <span class="example-spacer"></span>
+    <span>
+      <span class="box box1"></span>
+      <span>Weekend</span>
+    </span>
+    <span>
+      <span class="box box2"></span>
+      <span>Event</span>
+    </span>
+    <span>
+      <span class="box box3"></span>
+      <span>Weekend & Event</span>
+    </span>
+  </div>
+  <div class="calendar">
+    <div 
+      fxFlex.xs="100" 
+      fxFlex.sm="48" 
+      fxFlex.md="45" 
+      fxFlex.lg="30" 
+      class="month" 
+      *ngFor="let month of objectKeys(calendar.calendar)"
+    >
+      <p class="bold">
+        {{months[month - 1]}}
+      </p>
+      
+      <span
+        class="day"
+        (click)="onOpenFormEvent(calendar, month, day)" 
+        [matTooltip]="calendar.calendar[month][day].length <= 1 ? calendar.calendar[month][day].length + ' event' : calendar.calendar[month][day].length + ' events'" 
+        [ngClass]="{ isEvent: calendar.calendar[month][day].length > 0 }" 
+        appWeekend 
+        [year]="calendar.year" 
+        [month]="month" 
+        [day]="day" 
+        [event]="calendar.calendar[month][day].length"
+        *ngFor="let day of objectKeys(calendar.calendar[month])"
+      >
+        {{day}}
+      </span>
+    </div>
+  </div>
+</ng-container>
