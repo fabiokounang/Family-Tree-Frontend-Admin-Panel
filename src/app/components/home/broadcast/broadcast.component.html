@@ -26,6 +26,6 @@
     </mat-form-field>
   </div>
 
-  <button *ngIf="!loader" mat-raised-button color="primary">Broadcast</button>
+  <button *ngIf="!loader" [disabled]="broadcastForm.invalid" mat-raised-button color="primary">Broadcast</button>
   <app-spinner [loader]="loader" [diameter]="20"></app-spinner>
 </form>

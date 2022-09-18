@@ -20,7 +20,6 @@ export class FormAddAdminComponent implements OnInit {
   eyeConfirmPassword = 'visibility';
   typeConfirmPassword = 'password';
   adminRole: any = null;
-  merchants: any[] = [];
 
   constructor (@Inject(MAT_DIALOG_DATA) private data: any, private sharedService: SharedService, private apiService: ApiService, private dialog: MatDialog, private dialogRef: MatDialogRef<any>) {}
 
@@ -32,7 +31,6 @@ export class FormAddAdminComponent implements OnInit {
   fillData () {
     this.roles = this.sharedService.getRoleAdmin();
     this.status = this.sharedService.getStatusAdmin();
-    this.merchants = this.data.merchants;
   }
 
   makeForm () {
@@ -74,23 +72,6 @@ export class FormAddAdminComponent implements OnInit {
     } else {
       this.apiService.callSnack('Input not valid', 'Close');
     }
-  }
-
-  helperOnAddForm () {
-    this.adminForm.enable();
-    this.loader = false;
-    this.dialogRef.disableClose = false;
-  }
-
-  processError (errors) {
-    if (errors.type === 'validation') {
-      Object.keys(errors.msg).forEach((key) => {
-        this.adminForm.get(key).setErrors({
-          [key]: errors.msg[key]
-        });
-      });
-    }
-    if (errors.type === 'snack') this.apiService.callSnack(errors.msg.default, 'Close');
   }
 
   onToggle (eye, type) {

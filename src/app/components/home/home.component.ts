@@ -36,14 +36,6 @@ export class HomeComponent implements OnInit {
 
   onLogout (sidenav: MatSidenav) {
     this.apiService.removeLocalStorage();
-    this.apiService.connection('DELETE', 'master-admin-signout').subscribe({
-      next: (response: any) => {
-        sidenav.close();
-        this.router.navigate(['/']);
-        this.apiService.removeLocalStorage();
-      },
-      error: (error: HttpErrorResponse) => {}
-    });
   }
 
   onResize() {

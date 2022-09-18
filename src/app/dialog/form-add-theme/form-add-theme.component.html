@@ -1,0 +1,32 @@
+<div class="form-wrapper">
+  <form [formGroup]="themeForm" (ngSubmit)="onAddTheme()">
+    <div>
+      <mat-form-field class="theme">
+        <input type="text" matInput formControlName="theme" placeholder="Theme">
+        <mat-error *ngIf="themeForm.get('theme').hasError('required')">Theme name required</mat-error>
+        <mat-error *ngIf="themeForm.get('theme').hasError('theme')">{{themeForm.get('theme').errors['theme']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field class="color">
+        <input type="color" matInput formControlName="color" placeholder="Color">
+        <mat-error *ngIf="themeForm.get('color').hasError('required')">Color required</mat-error>
+        <mat-error *ngIf="themeForm.get('color').hasError('color')">{{themeForm.get('color').errors['color']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="btn-container">
+      <ng-container *ngIf="!loader">
+        <button type="button" (click)="onCloseDialog()" mat-raised-button color="warn">
+          Close
+        </button>
+        &nbsp;
+        <button type="submit" [disabled]="themeForm.invalid" mat-raised-button color="primary">
+          Save
+        </button>
+      </ng-container>
+      <app-spinner [loader]="loader" [diameter]="20"></app-spinner>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,19 @@
+mat-form-field {
+  margin-bottom: .7rem;
+}
+
+mat-form-field.theme {
+  width: 100%;
+}
+
+mat-form-field.color {
+  width: 50px;
+}
+
+.btn-container {
+  text-align: center;
+}
+
+mat-icon {
+  cursor: pointer;
+}

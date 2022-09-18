@@ -28,6 +28,9 @@ import { BroadcastComponent } from './components/home/broadcast/broadcast.compon
 import { ProvinceComponent } from './components/home/province/province.component';
 import { CityComponent } from './components/home/province/city/city.component';
 import { DetailUserComponent } from './dialog/detail-user/detail-user.component';
+import { ThemeComponent } from './components/home/theme/theme.component';
+import { FormEditThemeComponent } from './dialog/form-edit-theme/form-edit-theme.component';
+import { FormAddThemeComponent } from './dialog/form-add-theme/form-add-theme.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,10 @@ import { DetailUserComponent } from './dialog/detail-user/detail-user.component'
     BroadcastComponent,
     ProvinceComponent,
     CityComponent,
-    DetailUserComponent
+    DetailUserComponent,
+    ThemeComponent,
+    FormEditThemeComponent,
+    FormAddThemeComponent
   ],
   imports: [
     BrowserModule,

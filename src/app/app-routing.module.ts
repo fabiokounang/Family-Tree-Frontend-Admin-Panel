@@ -5,6 +5,7 @@ import { BroadcastComponent } from './components/home/broadcast/broadcast.compon
 import { CalendarDetailComponent } from './components/home/calendar/calendar-detail/calendar-detail.component';
 import { CalendarComponent } from './components/home/calendar/calendar.component';
 import { HomeComponent } from './components/home/home.component';
+import { ThemeComponent } from './components/home/theme/theme.component';
 import { UserComponent } from './components/home/user/user.component';
 import { LoginComponent } from './components/login/login.component';
 
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'user',
         component: UserComponent
+      },
+      {
+        path: 'theme',
+        component: ThemeComponent
       },
       {
         path: 'broadcast',

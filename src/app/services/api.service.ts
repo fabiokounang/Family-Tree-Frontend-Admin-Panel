@@ -26,6 +26,7 @@ export class ApiService {
 
   saveToLocalStorage (data: any) {
     localStorage.setItem('_id', data._id);
+    localStorage.setItem('token', data.token);
     localStorage.setItem('username', data.username);
     localStorage.setItem('role', data.role);
     localStorage.setItem('status', data.status);
@@ -33,13 +34,18 @@ export class ApiService {
 
   removeLocalStorage () {
     localStorage.removeItem('_id');
+    localStorage.removeItem('token');
     localStorage.removeItem('username');
     localStorage.removeItem('role');
     localStorage.removeItem('status');
   }
 
   checkLocalStorage () {
-    return localStorage.getItem('_id') && localStorage.getItem('username') && localStorage.getItem('role') && localStorage.getItem('token');
+    return localStorage.getItem('_id') && localStorage.getItem('token')&& localStorage.getItem('username') && localStorage.getItem('role') && localStorage.getItem('token');
+  }
+
+  getLocalStorageToken () {
+    return localStorage.getItem('token');
   }
 
   getLocalStorageRole () {

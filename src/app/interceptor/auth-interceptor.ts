@@ -14,7 +14,8 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const type = "application/json; charset=utf-8";
     const headers = new HttpHeaders({
-      'Accept': 'text/html, application/json, text/plain, multipart/form-data, */*'
+      'Accept': 'text/html, application/json, text/plain, multipart/form-data, */*',
+      'Authorization': 'Bearer ' + this.apiService.getLocalStorageToken()
     });
     
     const updatedRequest = req.clone({

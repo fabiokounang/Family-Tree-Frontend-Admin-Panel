@@ -1,26 +1,24 @@
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { elementAt, Subscription } from 'rxjs';
-import { FormAddAdminComponent } from 'src/app/dialog/form-add-admin/form-add-admin.component';
-import { FormChangePasswordAdminComponent } from 'src/app/dialog/form-change-password-admin/form-change-password-admin.component';
+import { Subscription } from 'rxjs';
+
+import { FormAddThemeComponent } from 'src/app/dialog/form-add-theme/form-add-theme.component';
 import { FormConfirmationComponent } from 'src/app/dialog/form-confirmation/form-confirmation.component';
-import { FormEditAdminComponent } from 'src/app/dialog/form-edit-admin/form-edit-admin.component';
-import { AdminInterface } from 'src/app/interfaces/admin.interface';
+import { FormEditThemeComponent } from 'src/app/dialog/form-edit-theme/form-edit-theme.component';
 import { AdminPaginationInterface } from 'src/app/interfaces/adminpagination.interface';
+import { ThemeInterface } from 'src/app/interfaces/theme.interface';
 
 import { ApiService } from '../../../services/api.service';
-
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: 'app-theme',
+  templateUrl: './theme.component.html',
+  styleUrls: ['./theme.component.css']
 })
-
-export class AdminComponent implements OnInit {
-  displayedColumns: any[] = ['username', 'role', 'status', 'created_at', 'action'];
+export class ThemeComponent implements OnInit {
+  displayedColumns: any[] = ['theme', 'color', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   loader: boolean = false;
@@ -59,7 +57,7 @@ export class AdminComponent implements OnInit {
 
   getAllData () {
     this.loader = true;
-    this.apiService.connection('POST', 'master-admin', this.tableQueryData).subscribe({
+    this.apiService.connection('POST', 'master-theme', this.tableQueryData).subscribe({
       next: (response: AdminPaginationInterface) => {
         this.tableQueryData.page = response.page;
         this.tableQueryData.limit = response.limit;
@@ -77,21 +75,36 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  onOpenConfirmation (admin: AdminInterface, type: String) {
+  onChangecolor (theme: ThemeInterface, event) {
+    const color = event.target.value;
+    this.apiService.connection('POST', 'master-theme-color', { color: color }, '', theme._id).subscribe({
+      next: (response: any) => {
+        this.apiService.callSnack('Success update color theme', 'Close');
+        this.loader = false;
+        this.getAllData();
+      },
+      error: ({error}: HttpErrorResponse) => {
+        this.loader = false;
+        this.apiService.processErrorHttp(error.error);
+      }
+    });
+  }
+
+  onOpenConfirmation (theme: ThemeInterface, type: String) {
     const dialog = this.dialog.open(FormConfirmationComponent, {
       data: {
-        text: 'Are you sure you want to ' + type + ' this admin ?'
+        text: 'Are you sure you want to ' + type + ' this theme ?'
       }
     });
     dialog.afterClosed().subscribe((result) => {
-      if (result) this.deleteAdmin(admin);
+      if (result) this.deleteTheme(theme);
     })
   }
 
-  deleteAdmin (admin: AdminInterface) {
-    this.apiService.connection('POST', 'master-admin-delete', {}, '', admin._id).subscribe({
+  deleteTheme (theme: ThemeInterface) {
+    this.apiService.connection('POST', 'master-theme-delete', {}, '', theme._id).subscribe({
       next: (response: any) => {
-        this.apiService.callSnack('Success delete admin', 'Close');
+        this.apiService.callSnack('Success delete theme', 'Close');
         this.loader = false;
         this.getAllData();
       },
@@ -102,10 +115,10 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  updateStatusAdmin (admin: AdminInterface, event) {
-    this.apiService.connection('POST', 'master-admin-status', { status: event.checked ? 1 : 2 }, '', admin._id).subscribe({
+  updateStatusTheme (theme: ThemeInterface, event) {
+    this.apiService.connection('POST', 'master-theme-status', { status: event.checked ? 1 : 2 }, '', theme._id).subscribe({
       next: (response: any) => {
-        this.apiService.callSnack('Success update status admin', 'Close');
+        this.apiService.callSnack('Success update status theme', 'Close');
         this.loader = false;
         this.getAllData();
       },
@@ -114,21 +127,10 @@ export class AdminComponent implements OnInit {
         this.apiService.processErrorHttp(error.error);
       }
     });
-  }
-
-  onOpenChangePassword (admin: AdminInterface, index) {
-    const dialog = this.dialog.open(FormChangePasswordAdminComponent, {
-      width: '500px',
-      data: {
-        rowData: admin,
-        index: index
-      }
-    });
-    dialog.afterClosed().subscribe((result) => {});
   }
 
   onOpenAddForm () {
-    const dialog = this.dialog.open(FormAddAdminComponent, {
+    const dialog = this.dialog.open(FormAddThemeComponent, {
       width: '500px',
       data: {}
     });
@@ -141,16 +143,19 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  onOpenEditForm (data, index) {
-    const dialog = this.dialog.open(FormEditAdminComponent, {
+  onOpenEditForm (element) {
+    const dialog = this.dialog.open(FormEditThemeComponent, {
       width: '500px',
       data: {
-        rowData: data,
-        index: index
+        rowData: element
       }
     });
+
     dialog.afterClosed().subscribe((result) => {
-      if (result) this.getAllData();
+      if (result) {
+        this.resetData();
+        this.getAllData();
+      }
     });
   }
 
