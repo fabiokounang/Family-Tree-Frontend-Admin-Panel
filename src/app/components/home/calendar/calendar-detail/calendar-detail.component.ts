@@ -15,7 +15,7 @@ export class CalendarDetailComponent implements OnInit {
   calendar: any;
   loader: boolean = false;
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
+  emptyDay: any = [];
   constructor (private dialog: MatDialog, private apiService: ApiService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -24,7 +24,7 @@ export class CalendarDetailComponent implements OnInit {
 
   getOneCalendar () {
     this.loader = true;
-		this.apiService.connection('POST', 'master-calendar', {}, '', this.route.snapshot.params['id']).subscribe({
+		this.apiService.connection('POST', 'master-calendar-admin', {}, '', this.route.snapshot.params['id']).subscribe({
 			next: (response: any) => {
 				this.calendar = response.value;
 			},

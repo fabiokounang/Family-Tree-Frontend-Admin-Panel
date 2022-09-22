@@ -17,6 +17,7 @@ export default {
   'master-theme-status': 'api/theme/update_status',
   'master-theme-delete': 'api/theme/delete',
   'master-calendar': 'api/calendar',
+  'master-calendar-admin': 'api/calendar/admin/active',
   'master-calendar-create': 'api/calendar/create',
   'master-calendar-update': 'api/calendar/update',
   'master-calendar-update-status': 'api/calendar/update_status',

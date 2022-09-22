@@ -31,7 +31,9 @@
       <p class="bold">
         {{months[month - 1]}}
       </p>
-      
+      <span *ngFor="let d of emptyDay" class="day">
+        {{' '}}
+      </span>
       <span
         class="day"
         (click)="onOpenFormEvent(calendar, month, day)" 
