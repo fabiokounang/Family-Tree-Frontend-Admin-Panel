@@ -29,6 +29,13 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="text">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Text Color</th>
+      <td class="imp" mat-cell *matCellDef="let element">
+        <input type="color" (change)="onChangetext(element, $event)" [value]="element.text">
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="status">
       <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Status</th>
       <td class="imp" mat-cell *matCellDef="let element">

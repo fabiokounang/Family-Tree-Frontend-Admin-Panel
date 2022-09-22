@@ -83,7 +83,7 @@ export class FormEventCalendarComponent implements OnInit {
       },
       error: (error: HttpErrorResponse) => {
         this.loader = false;
-        this.apiService.processErrorHttp(error.error);
+        this.apiService.processErrorHttp(!error.error ? error : error.error);
       },
       complete: () => {
         this.loader = false;

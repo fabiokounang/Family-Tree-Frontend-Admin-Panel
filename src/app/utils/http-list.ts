@@ -1,8 +1,5 @@
 export default {
   'master-signin': 'api/admin/signin',
-  'master-check-transaction': 'api/transaction/check_transaction',
-  'master-transaction': 'api/transaction',
-  'master-log-transaction': 'api/transaction/log_transaction',
   'master-admin': 'api/admin',
   'master-admin-create': 'api/admin/create',
   'master-admin-update': 'api/admin/update',
@@ -12,9 +9,10 @@ export default {
   'master-admin-signout': 'api/admin/signout', 
   'master-user': 'api/user',
   'master-user-detail': 'api/user/self',
-  'master-theme': 'api/theme',
+  'master-theme': 'api/theme/admin',
   'master-theme-create': 'api/theme/create',
   'master-theme-color': 'api/theme/update_color',
+  'master-theme-text': 'api/theme/update_text',
   'master-theme-name': 'api/theme/update_theme',
   'master-theme-status': 'api/theme/update_status',
   'master-theme-delete': 'api/theme/delete',
@@ -23,5 +21,6 @@ export default {
   'master-calendar-update': 'api/calendar/update',
   'master-calendar-update-status': 'api/calendar/update_status',
   'master-calendar-delete': 'api/calendar/delete',
-  'master-broadcast-push': 'api/broadcast/push'
+  'master-broadcast-push': 'api/broadcast/push',
+  'master-log': 'api/log'
 }

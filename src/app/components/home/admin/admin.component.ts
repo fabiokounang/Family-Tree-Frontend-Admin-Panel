@@ -69,7 +69,7 @@ export class AdminComponent implements OnInit {
       }, 
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
-        this.apiService.processErrorHttp(error.error);
+        this.apiService.processErrorHttp(!error.error ? error : error.error);
       },
       complete: () => {
         this.loader = false;
@@ -97,7 +97,7 @@ export class AdminComponent implements OnInit {
       },
       error: ({error}: HttpErrorResponse) => {
         this.loader = false;
-        this.apiService.processErrorHttp(error.error);
+        this.apiService.processErrorHttp(!error.error ? error : error.error);
       }
     });
   }
@@ -111,7 +111,7 @@ export class AdminComponent implements OnInit {
       },
       error: ({error}: HttpErrorResponse) => {
         this.loader = false;
-        this.apiService.processErrorHttp(error.error);
+        this.apiService.processErrorHttp(!error.error ? error : error.error);
       }
     });
   }

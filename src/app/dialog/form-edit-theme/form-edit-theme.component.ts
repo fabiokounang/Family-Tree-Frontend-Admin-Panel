@@ -50,7 +50,7 @@ export class FormEditThemeComponent implements OnInit {
         error: ({error}: HttpErrorResponse) => {
           this.loader = false;
           this.themeForm.enable();
-          this.apiService.processErrorHttp(error.error);
+          this.apiService.processErrorHttp(!error.error ? error : error.error);
           this.dialogRef.disableClose = false;
         }
       })

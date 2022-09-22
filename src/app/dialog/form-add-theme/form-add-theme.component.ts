@@ -31,7 +31,8 @@ export class FormAddThemeComponent implements OnInit {
   makeForm () {
     this.themeForm = new FormGroup({
       theme: new FormControl(null, [Validators.required]),
-      color: new FormControl(null, [Validators.required])
+      color: new FormControl(null, [Validators.required]),
+      text: new FormControl(null, [Validators.required])
     });
   }
 
@@ -53,7 +54,7 @@ export class FormAddThemeComponent implements OnInit {
         error: ({error}: HttpErrorResponse) => {
           this.loader = false;
           this.dialogRef.close(true);
-          this.apiService.processErrorHttp(error.error);
+          this.apiService.processErrorHttp(!error.error ? error : error.error);
         }
       })
     } else {

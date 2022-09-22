@@ -18,7 +18,7 @@ import { ApiService } from '../../../services/api.service';
   styleUrls: ['./theme.component.css']
 })
 export class ThemeComponent implements OnInit {
-  displayedColumns: any[] = ['theme', 'color', 'status', 'created_at', 'action'];
+  displayedColumns: any[] = ['theme', 'color', 'text', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   loader: boolean = false;
@@ -67,7 +67,7 @@ export class ThemeComponent implements OnInit {
       }, 
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
-        this.apiService.processErrorHttp(error.error);
+        this.apiService.processErrorHttp(!error.error ? error : error.error);
       },
       complete: () => {
         this.loader = false;
@@ -85,7 +85,22 @@ export class ThemeComponent implements OnInit {
       },
       error: ({error}: HttpErrorResponse) => {
         this.loader = false;
-        this.apiService.processErrorHttp(error.error);
+        this.apiService.processErrorHttp(!error.error ? error : error.error);
+      }
+    });
+  }
+
+  onChangetext (theme: ThemeInterface, event) {
+    const text = event.target.value;
+    this.apiService.connection('POST', 'master-theme-text', { text: text }, '', theme._id).subscribe({
+      next: (response: any) => {
+        this.apiService.callSnack('Success update text theme', 'Close');
+        this.loader = false;
+        this.getAllData();
+      },
+      error: ({error}: HttpErrorResponse) => {
+        this.loader = false;
+        this.apiService.processErrorHttp(!error.error ? error : error.error);
       }
     });
   }
@@ -110,7 +125,7 @@ export class ThemeComponent implements OnInit {
       },
       error: ({error}: HttpErrorResponse) => {
         this.loader = false;
-        this.apiService.processErrorHttp(error.error);
+        this.apiService.processErrorHttp(!error.error ? error : error.error);
       }
     });
   }
@@ -124,7 +139,7 @@ export class ThemeComponent implements OnInit {
       },
       error: ({error}: HttpErrorResponse) => {
         this.loader = false;
-        this.apiService.processErrorHttp(error.error);
+        this.apiService.processErrorHttp(!error.error ? error : error.error);
       }
     });
   }

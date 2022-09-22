@@ -1,5 +1,4 @@
 <mat-sidenav-container class="example-container">
-
   <mat-sidenav (window:resize)="onResize()" #sidenav [mode]="modeSide" [opened]="open" role="navigation">
 
     <div class="profile-container">
@@ -29,6 +28,10 @@
       <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/broadcast" (click)="onToggle(sidenav)">
         <mat-icon>notifications</mat-icon>
         <span class="nav-caption">Broadcast</span>
+      </a>
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/log" (click)="onToggle(sidenav)">
+        <mat-icon>history</mat-icon>
+        <span class="nav-caption">Log</span>
       </a>
     </mat-nav-list>
 

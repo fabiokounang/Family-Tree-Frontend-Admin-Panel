@@ -1,0 +1,52 @@
+<div class="filter-wrapper">
+  <span class="example-spacer"></span>
+  <div>
+    <mat-form-field>
+      <input type="text" [(ngModel)]="searchText" (keyup)="onDetectEmpty()" (keyup.enter)="onSearch()"  placeholder="Search" matInput>
+    </mat-form-field>
+  </div>
+</div>
+
+<app-progress-bar [loader]="loader"></app-progress-bar>
+<app-no-data-display [dataSource]="dataSource" [loader]="loader"></app-no-data-display>
+
+<div class="table-wrapper" *ngIf="dataSource.data.length > 0">
+  <table #table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="dataSource" [trackBy]="identify" class="table table-data mat-elevation-z8">
+    <ng-container matColumnDef="user" sticky>
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> User </th>
+      <td class="imp" mat-cell *matCellDef="let element"> {{element.user.username}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Action </th>
+      <td class="imp" mat-cell *matCellDef="let element"> {{element.action | titlecase}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Created At</th>
+      <td class="imp" mat-cell *matCellDef="let element">
+        <p style="margin: 0">{{element.created_at | date: 'dd MMM yyyy'}}</p>
+        <p style="margin: 0">{{element.created_at | date: 'HH:mm:ss a'}}</p>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr class="rows" mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      style="cursor: pointer; transition: 0.5s"
+    ></tr>
+
+  </table>
+</div>
+
+<mat-paginator
+  *ngIf="dataSource.data.length > 0"
+  class="table-pagination"
+  (page)="onPageChange($event)"
+  [pageSize]="tableQueryData.limit"
+  [pageSizeOptions]="[10, 50, 100, 200]"
+  [length]="totalAll"
+  [pageIndex]="tableQueryData.page - 1"
+  [hidePageSize]="false"
+  [showFirstLastButtons]="true">
+</mat-paginator>

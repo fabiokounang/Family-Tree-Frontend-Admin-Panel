@@ -31,6 +31,7 @@ import { DetailUserComponent } from './dialog/detail-user/detail-user.component'
 import { ThemeComponent } from './components/home/theme/theme.component';
 import { FormEditThemeComponent } from './dialog/form-edit-theme/form-edit-theme.component';
 import { FormAddThemeComponent } from './dialog/form-add-theme/form-add-theme.component';
+import { LogComponent } from './components/home/log/log.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { FormAddThemeComponent } from './dialog/form-add-theme/form-add-theme.co
     DetailUserComponent,
     ThemeComponent,
     FormEditThemeComponent,
-    FormAddThemeComponent
+    FormAddThemeComponent,
+    LogComponent
   ],
   imports: [
     BrowserModule,

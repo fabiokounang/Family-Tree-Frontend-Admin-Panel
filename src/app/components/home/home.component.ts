@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
 
   onLogout (sidenav: MatSidenav) {
     this.apiService.removeLocalStorage();
+    this.router.navigate(['/'])
   }
 
   onResize() {

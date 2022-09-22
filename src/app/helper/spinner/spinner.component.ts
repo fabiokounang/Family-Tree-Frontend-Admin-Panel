@@ -10,7 +10,6 @@ export class SpinnerComponent implements OnInit {
   @Input('diameter') diameter: any = "30";
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }
