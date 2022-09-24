@@ -18,7 +18,7 @@ import { ApiService } from '../../../services/api.service';
   styleUrls: ['./theme.component.css']
 })
 export class ThemeComponent implements OnInit {
-  displayedColumns: any[] = ['theme', 'color', 'text', 'status', 'created_at', 'action'];
+  displayedColumns: String[] = ['theme', 'color', 'text', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   loader: boolean = false;
@@ -192,7 +192,7 @@ export class ThemeComponent implements OnInit {
   }
 
   onPageChange (event) {
-    this.tableQueryData.page = event.pageIndex + 1;
+    this.tableQueryData.page = event.pageIndex;
     this.tableQueryData.limit = event.pageSize ? event.pageSize : this.tableQueryData.limit;
     this.getAllData();
   }

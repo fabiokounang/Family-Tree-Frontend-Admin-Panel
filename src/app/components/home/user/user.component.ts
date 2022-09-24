@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { Subscription } from 'rxjs';
 import { DetailUserComponent } from 'src/app/dialog/detail-user/detail-user.component';
+import { FormAddUserComponent } from 'src/app/dialog/form-add-user/form-add-user.component';
 import { UserInterface } from 'src/app/interfaces/user.interface';
 import { UserPaginationInterface } from 'src/app/interfaces/userpagination.interface';
 
@@ -19,7 +20,7 @@ import { ApiService } from '../../../services/api.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  displayedColumns: any[] = ['username', 'status', 'created_at', 'action'];
+  displayedColumns: String[] = ['username', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   loader: boolean = false;
@@ -36,7 +37,6 @@ export class UserComponent implements OnInit {
     filter: {}
   }
   subscription: Subscription;
-  merchants: any[] = [];
   isFilter: any = false;
   userRole: any = null;
 
@@ -102,19 +102,17 @@ export class UserComponent implements OnInit {
   }
 
   onOpenAddForm () {
-    // const dialog = this.dialog.open(FormAddAdminComponent, {
-    //   width: '500px',
-    //   data: {
-    //     merchants: this.merchants
-    //   }
-    // });
+    const dialog = this.dialog.open(FormAddUserComponent, {
+      width: '1000px',
+      height: '600px'
+    });
 
-    // dialog.afterClosed().subscribe((result) => {
-    //   if (result) {
-    //     this.resetData();
-    //     this.getAllData();
-    //   }
-    // });
+    dialog.afterClosed().subscribe((result) => {
+      if (result) {
+        this.resetData();
+        this.getAllData();
+      }
+    });
   }
 
   onOpenEditForm (data, index) {
@@ -163,7 +161,7 @@ export class UserComponent implements OnInit {
   }
 
   onPageChange (event) {
-    this.tableQueryData.page = event.pageIndex + 1;
+    this.tableQueryData.page = event.pageIndex;
     this.tableQueryData.limit = event.pageSize ? event.pageSize : this.tableQueryData.limit;
     this.getAllData();
   }

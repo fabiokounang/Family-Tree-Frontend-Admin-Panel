@@ -1,0 +1,183 @@
+<div class="form-wrapper" *ngIf="load">
+  <form [formGroup]="userForm" (ngSubmit)="onAddUser()">
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="username" placeholder="Username">
+        <mat-error *ngIf="userForm.get('username').hasError('required')">Username required</mat-error>
+        <mat-error *ngIf="userForm.get('username').hasError('maxlength')">Username max 30 characters</mat-error>
+        <mat-error *ngIf="userForm.get('username').hasError('username')">{{userForm.get('username').errors['username']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input [type]="typePassword" matInput formControlName="password" placeholder="Password">
+        <mat-icon (click)="onToggle('eyePassword', 'typePassword')" matSuffix>{{eyePassword}}</mat-icon>
+        <mat-error *ngIf="userForm.get('password').hasError('required')">Password required</mat-error>
+        <mat-error *ngIf="userForm.get('password').hasError('minlength')">Password min 6 characters</mat-error>
+        <mat-error *ngIf="userForm.get('password').hasError('maxlength')">Password min 16 characters</mat-error>
+        <mat-error *ngIf="userForm.get('password').hasError('password')">{{userForm.get('password').errors['password']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input [type]="typeConfirmPassword" matInput formControlName="confirmation_password" placeholder="Confirmation Password">
+        <mat-icon (click)="onToggle('eyeConfirmPassword', 'typeConfirmPassword')" matSuffix>{{eyeConfirmPassword}}</mat-icon>
+        <mat-error *ngIf="userForm.get('confirmation_password').hasError('required')">Confirmation password required</mat-error>
+        <mat-error *ngIf="userForm.get('confirmation_password').hasError('minlength')">Confirmation password min 6 characters</mat-error>
+        <mat-error *ngIf="userForm.get('confirmation_password').hasError('maxlength')">Confirmation password min 16 characters</mat-error>
+        <mat-error *ngIf="userForm.get('confirmation_password').hasError('confirmation_password')">{{userForm.get('confirmation_password').errors['confirmation_password']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <mat-select formControlName="status" placeholder="Status">
+          <mat-option *ngFor="let status of statuses" [value]="status.id">
+            {{status.name}}              
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="userForm.get('status').hasError('required')">Status required</mat-error>
+        <mat-error *ngIf="userForm.get('status').hasError('status')">{{userForm.get('status').errors['status']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <mat-select formControlName="gender" placeholder="Gender">
+          <mat-option *ngFor="let gender of genders" [value]="gender.id">
+            {{gender.name}}              
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="userForm.get('gender').hasError('required')">Gender required</mat-error>
+        <mat-error *ngIf="userForm.get('gender').hasError('gender')">{{userForm.get('gender').errors['gender']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="first_name_latin" placeholder="Latin first name">
+        <mat-error *ngIf="userForm.get('first_name_latin').hasError('required')">Latin first name required</mat-error>
+        <mat-error *ngIf="userForm.get('first_name_latin').hasError('maxlength')">Latin first name max 200 characters</mat-error>
+        <mat-error *ngIf="userForm.get('first_name_latin').hasError('first_name_latin')">{{userForm.get('first_name_latin').errors['first_name_latin']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="last_name_latin" placeholder="Latin last name">
+        <mat-error *ngIf="userForm.get('last_name_latin').hasError('required')">Latin last name required</mat-error>
+        <mat-error *ngIf="userForm.get('last_name_latin').hasError('maxlength')">Latin last name max 200 characters</mat-error>
+        <mat-error *ngIf="userForm.get('last_name_latin').hasError('last_name_latin')">{{userForm.get('last_name_latin').errors['last_name_latin']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="chinese_name" placeholder="Chinese name">
+        <mat-error *ngIf="userForm.get('chinese_name').hasError('required')">Chinese name required</mat-error>
+        <mat-error *ngIf="userForm.get('chinese_name').hasError('maxlength')">Chinese name max 200 characters</mat-error>
+        <mat-error *ngIf="userForm.get('chinese_name').hasError('chinese_name')">{{userForm.get('chinese_name').errors['chinese_name']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <mat-select formControlName="life_status" placeholder="Life Status">
+          <mat-option *ngFor="let life of lifeStatus" [value]="life.id">
+            {{life.name}}              
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="userForm.get('life_status').hasError('required')">Life Status required</mat-error>
+        <mat-error *ngIf="userForm.get('life_status').hasError('life_status')">{{userForm.get('life_status').errors['life_status']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="full">
+      <mat-form-field class="full">
+        <input type="text" matInput formControlName="address" placeholder="Address">
+        <mat-error *ngIf="userForm.get('address').hasError('required')">Address name required</mat-error>
+        <mat-error *ngIf="userForm.get('address').hasError('maxlength')">Address name max 200 characters</mat-error>
+        <mat-error *ngIf="userForm.get('address').hasError('address')">{{userForm.get('address').errors['address']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <mat-select (selectionChange)="onSelectProvince($event)" formControlName="place_of_birth" placeholder="Birthplace">
+          <mat-option *ngFor="let prov of province" [value]="prov">
+            {{prov.name}}              
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="userForm.get('place_of_birth').hasError('required')">Birthplace required</mat-error>
+        <mat-error *ngIf="userForm.get('place_of_birth').hasError('place_of_birth')">{{userForm.get('place_of_birth').errors['place_of_birth']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <mat-select formControlName="city_of_residence" placeholder="City">
+          <mat-option *ngFor="let city of cities" [value]="city.id">
+            {{city.name}}              
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="userForm.get('city_of_residence').hasError('required')">City required</mat-error>
+        <mat-error *ngIf="userForm.get('city_of_residence').hasError('city_of_residence')">{{userForm.get('city_of_residence').errors['city_of_residence']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input type="tel" matInput formControlName="phone" placeholder="Phone Number">
+        <mat-error *ngIf="userForm.get('phone').hasError('required')">Phone number required</mat-error>
+        <mat-error *ngIf="userForm.get('phone').hasError('minlength')">Phone number min 10 digit</mat-error>
+        <mat-error *ngIf="userForm.get('phone').hasError('maxlength')">Phone number max 14 digit</mat-error>
+        <mat-error *ngIf="userForm.get('phone').hasError('phone')">{{userForm.get('phone').errors['phone']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="email" placeholder="Email">
+        <mat-error *ngIf="userForm.get('email').hasError('required')">Email required</mat-error>
+        <mat-error *ngIf="userForm.get('email').hasError('email')">{{userForm.get('email').errors['email']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- <div *ngIf="adminRole === 2">
+      <mat-form-field>
+        <mat-select multiple formControlName="merchants" placeholder="Merchant">
+          <mat-option *ngFor="let merchant of merchants" [value]="merchant.id">
+            {{merchant.user}} - ({{merchant.detail.nama}})              
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="userForm.get('merchants').hasError('required')">Merchant required</mat-error>
+        <mat-error *ngIf="userForm.get('merchants').hasError('merchants')">{{userForm.get('merchants').errors['merchants']}}</mat-error>
+      </mat-form-field>
+    </div> -->
+
+    <div class="btn-container">
+      <ng-container *ngIf="!loader">
+        <button type="button" (click)="onCloseDialog()" mat-raised-button color="warn">
+          Close
+        </button>
+        &nbsp;
+        <button type="submit" [disabled]="userForm.invalid" mat-raised-button color="primary">
+          Save
+        </button>
+      </ng-container>
+      <app-spinner [loader]="loader" [diameter]="20"></app-spinner>
+    </div>
+  </form>
+</div>

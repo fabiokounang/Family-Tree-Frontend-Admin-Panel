@@ -29,6 +29,10 @@
         <mat-icon>notifications</mat-icon>
         <span class="nav-caption">Broadcast</span>
       </a>
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/province" (click)="onToggle(sidenav)">
+        <mat-icon>places</mat-icon>
+        <span class="nav-caption">Province & City</span>
+      </a>
       <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/log" (click)="onToggle(sidenav)">
         <mat-icon>history</mat-icon>
         <span class="nav-caption">Log</span>

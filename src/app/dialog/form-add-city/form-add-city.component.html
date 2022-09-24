@@ -1,0 +1,24 @@
+<div class="form-wrapper">
+  <form [formGroup]="cityForm" (ngSubmit)="onAddCity()">
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="city" placeholder="City name">
+        <mat-error *ngIf="cityForm.get('city').hasError('required')">City name required</mat-error>
+        <mat-error *ngIf="cityForm.get('city').hasError('city')">{{cityForm.get('city').errors['city']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="btn-container">
+      <ng-container *ngIf="!loader">
+        <button type="button" (click)="onCloseDialog()" mat-raised-button color="warn">
+          Close
+        </button>
+        &nbsp;
+        <button type="submit" [disabled]="cityForm.invalid" mat-raised-button color="primary">
+          Save
+        </button>
+      </ng-container>
+      <app-spinner [loader]="loader" [diameter]="20"></app-spinner>
+    </div>
+  </form>
+</div>

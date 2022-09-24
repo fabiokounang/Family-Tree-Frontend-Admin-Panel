@@ -1,0 +1,24 @@
+<div class="form-wrapper">
+  <form [formGroup]="provinceForm" (ngSubmit)="onAddProvince()">
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="province" placeholder="Province name">
+        <mat-error *ngIf="provinceForm.get('province').hasError('required')">Province name required</mat-error>
+        <mat-error *ngIf="provinceForm.get('province').hasError('province')">{{provinceForm.get('province').errors['province']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="btn-container">
+      <ng-container *ngIf="!loader">
+        <button type="button" (click)="onCloseDialog()" mat-raised-button color="warn">
+          Close
+        </button>
+        &nbsp;
+        <button type="submit" [disabled]="provinceForm.invalid" mat-raised-button color="primary">
+          Save
+        </button>
+      </ng-container>
+      <app-spinner [loader]="loader" [diameter]="20"></app-spinner>
+    </div>
+  </form>
+</div>

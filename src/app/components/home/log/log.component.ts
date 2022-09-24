@@ -11,7 +11,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./log.component.css']
 })
 export class LogComponent implements OnInit {
-  displayedColumns: any[] = ['user', 'action', 'created_at'];
+  displayedColumns: String[] = ['user', 'action', 'created_at'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   loader: boolean = false;
@@ -87,7 +87,7 @@ export class LogComponent implements OnInit {
   }
 
   onPageChange (event) {
-    this.tableQueryData.page = event.pageIndex + 1;
+    this.tableQueryData.page = event.pageIndex;
     this.tableQueryData.limit = event.pageSize ? event.pageSize : this.tableQueryData.limit;
     this.getAllData();
   }

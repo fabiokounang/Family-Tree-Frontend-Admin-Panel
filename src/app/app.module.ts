@@ -32,6 +32,11 @@ import { ThemeComponent } from './components/home/theme/theme.component';
 import { FormEditThemeComponent } from './dialog/form-edit-theme/form-edit-theme.component';
 import { FormAddThemeComponent } from './dialog/form-add-theme/form-add-theme.component';
 import { LogComponent } from './components/home/log/log.component';
+import { FormAddUserComponent } from './dialog/form-add-user/form-add-user.component';
+import { FormAddProvinceComponent } from './dialog/form-add-province/form-add-province.component';
+import { FormEditProvinceComponent } from './dialog/form-edit-province/form-edit-province.component';
+import { FormAddCityComponent } from './dialog/form-add-city/form-add-city.component';
+import { FormEditCityComponent } from './dialog/form-edit-city/form-edit-city.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +63,12 @@ import { LogComponent } from './components/home/log/log.component';
     ThemeComponent,
     FormEditThemeComponent,
     FormAddThemeComponent,
-    LogComponent
+    LogComponent,
+    FormAddUserComponent,
+    FormAddProvinceComponent,
+    FormEditProvinceComponent,
+    FormAddCityComponent,
+    FormEditCityComponent
   ],
   imports: [
     BrowserModule,

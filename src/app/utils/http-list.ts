@@ -23,5 +23,11 @@ export default {
   'master-calendar-update-status': 'api/calendar/update_status',
   'master-calendar-delete': 'api/calendar/delete',
   'master-broadcast-push': 'api/broadcast/push',
-  'master-log': 'api/log'
+  'master-log': 'api/log',
+  'master-province': 'api/province_city/province',
+  'master-province-create': 'api/province_city/create_province',
+  'master-province-update': 'api/province_city/update_province',
+  'master-city': 'api/province_city/city',
+  'master-city-create': 'api/province_city/create_city',
+  'master-city-update': 'api/province_city/update_city'
 }

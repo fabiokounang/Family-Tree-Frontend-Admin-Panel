@@ -20,7 +20,7 @@ import { ApiService } from '../../../services/api.service';
 })
 
 export class AdminComponent implements OnInit {
-  displayedColumns: any[] = ['username', 'role', 'status', 'created_at', 'action'];
+  displayedColumns: String[] = ['username', 'role', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   loader: boolean = false;
@@ -172,7 +172,7 @@ export class AdminComponent implements OnInit {
   }
 
   onPageChange (event) {
-    this.tableQueryData.page = event.pageIndex + 1;
+    this.tableQueryData.page = event.pageIndex;
     this.tableQueryData.limit = event.pageSize ? event.pageSize : this.tableQueryData.limit;
     this.getAllData();
   }

@@ -6,6 +6,8 @@ import { CalendarDetailComponent } from './components/home/calendar/calendar-det
 import { CalendarComponent } from './components/home/calendar/calendar.component';
 import { HomeComponent } from './components/home/home.component';
 import { LogComponent } from './components/home/log/log.component';
+import { CityComponent } from './components/home/province/city/city.component';
+import { ProvinceComponent } from './components/home/province/province.component';
 import { ThemeComponent } from './components/home/theme/theme.component';
 import { UserComponent } from './components/home/user/user.component';
 import { LoginComponent } from './components/login/login.component';
@@ -48,6 +50,14 @@ const routes: Routes = [
       {
         path: 'log',
         component: LogComponent
+      },
+      {
+        path: 'province',
+        component: ProvinceComponent
+      },
+      {
+        path: 'province/:id/:name',
+        component: CityComponent
       },
     ]
   },

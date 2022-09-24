@@ -18,7 +18,7 @@ export class CalendarComponent implements OnInit {
 	loader: boolean = false;
   calendar: any = [];
   objectKeys = Object.keys;
-	displayedColumns: any[] = ['name', 'status', 'created_at', 'action'];
+	displayedColumns: String[] = ['name', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   searchText: string = '';
