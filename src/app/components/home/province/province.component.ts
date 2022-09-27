@@ -9,6 +9,7 @@ import { FormEditProvinceComponent } from 'src/app/dialog/form-edit-province/for
 import { FormAddProvinceComponent } from 'src/app/dialog/form-add-province/form-add-province.component';
 import { ProvinceInterface } from 'src/app/interfaces/province.interface';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormConfirmationComponent } from 'src/app/dialog/form-confirmation/form-confirmation.component';
 
 @Component({
   selector: 'app-province',
@@ -98,6 +99,31 @@ export class ProvinceComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((result) => {
       if (result) this.getAllData();
+    });
+  }
+
+  onOpenConfirmation (province: ProvinceInterface, type: String) {
+    const dialog = this.dialog.open(FormConfirmationComponent, {
+      data: {
+        text: 'Are you sure you want to ' + type + ' this province ?'
+      }
+    });
+    dialog.afterClosed().subscribe((result) => {
+      if (result) this.deleteProvince(province);
+    })
+  }
+
+  deleteProvince (province: ProvinceInterface) {
+    this.apiService.connection('POST', 'master-province-delete', {}, '', province._id).subscribe({
+      next: (response: any) => {
+        this.apiService.callSnack('Success delete province', 'Close');
+        this.loader = false;
+        this.getAllData();
+      },
+      error: ({error}: HttpErrorResponse) => {
+        this.loader = false;
+        this.apiService.processErrorHttp(!error.error ? error : error.error);
+      }
     });
   }
 

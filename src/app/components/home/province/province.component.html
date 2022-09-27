@@ -41,9 +41,9 @@
         <button matTooltip="Update Province" *ngIf="userRole == 1" mat-icon-button (click)="onOpenEditForm(element, i)">
           <mat-icon>edit</mat-icon>
         </button>
-        <!-- <button *ngIf="userRole == 1" matTooltip="Delete Province" mat-icon-button (click)="onOpenConfirmation(element, 'delete')">
+        <button *ngIf="userRole == 1" matTooltip="Delete Province" mat-icon-button (click)="onOpenConfirmation(element, 'delete')">
           <mat-icon>delete</mat-icon>
-        </button> -->
+        </button>
         <button *ngIf="userRole == 1" matTooltip="View City" mat-icon-button (click)="onCity(element, i)">
           <mat-icon>info</mat-icon>
         </button>

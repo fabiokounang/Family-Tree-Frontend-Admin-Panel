@@ -27,7 +27,9 @@ export default {
   'master-province': 'api/province_city/province',
   'master-province-create': 'api/province_city/create_province',
   'master-province-update': 'api/province_city/update_province',
+  'master-province-delete': 'api/province_city/delete_province',
   'master-city': 'api/province_city/city',
   'master-city-create': 'api/province_city/create_city',
-  'master-city-update': 'api/province_city/update_city'
+  'master-city-update': 'api/province_city/update_city',
+  'master-city-delete': 'api/province_city/delete_city'
 }

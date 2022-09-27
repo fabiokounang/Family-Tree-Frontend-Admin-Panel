@@ -47,8 +47,11 @@
     <ng-container matColumnDef="action" stickyEnd>
       <th class="imp action" mat-header-cell *matHeaderCellDef> Action </th>
       <td class="imp" mat-cell *matCellDef="let element; let i = index">
-        <button matTooltip="Update Province" *ngIf="userRole == 1" mat-icon-button (click)="onOpenEditForm(element, i)">
+        <button matTooltip="Update City" *ngIf="userRole == 1" mat-icon-button (click)="onOpenEditForm(element, i)">
           <mat-icon>edit</mat-icon>
+        </button>
+        <button *ngIf="userRole == 1" matTooltip="Delete City" mat-icon-button (click)="onOpenConfirmation(element, 'delete')">
+          <mat-icon>delete</mat-icon>
         </button>
       </td>
     </ng-container>

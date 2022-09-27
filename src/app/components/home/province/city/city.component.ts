@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { FormAddCityComponent } from 'src/app/dialog/form-add-city/form-add-city.component';
+import { FormConfirmationComponent } from 'src/app/dialog/form-confirmation/form-confirmation.component';
 import { FormEditCityComponent } from 'src/app/dialog/form-edit-city/form-edit-city.component';
 import { CityInterface } from 'src/app/interfaces/city.interface';
 import { CityPaginationInterface } from 'src/app/interfaces/citypagination.interface';
@@ -86,6 +87,31 @@ export class CityComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((result) => {
       if (result) this.getAllCityByProvince();
+    });
+  }
+
+  onOpenConfirmation (city: CityInterface, type: String) {
+    const dialog = this.dialog.open(FormConfirmationComponent, {
+      data: {
+        text: 'Are you sure you want to ' + type + ' this city ?'
+      }
+    });
+    dialog.afterClosed().subscribe((result) => {
+      if (result) this.deleteCity(city);
+    })
+  }
+
+  deleteCity (city: CityInterface) {
+    this.apiService.connection('POST', 'master-city-delete', {}, '', city._id).subscribe({
+      next: (response: any) => {
+        this.apiService.callSnack('Success delete city', 'Close');
+        this.loader = false;
+        this.getAllCityByProvince();
+      },
+      error: ({error}: HttpErrorResponse) => {
+        this.loader = false;
+        this.apiService.processErrorHttp(!error.error ? error : error.error);
+      }
     });
   }
 
