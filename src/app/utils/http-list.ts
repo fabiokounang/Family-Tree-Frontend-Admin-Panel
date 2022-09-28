@@ -31,5 +31,11 @@ export default {
   'master-city': 'api/province_city/city',
   'master-city-create': 'api/province_city/create_city',
   'master-city-update': 'api/province_city/update_city',
-  'master-city-delete': 'api/province_city/delete_city'
+  'master-city-delete': 'api/province_city/delete_city',
+  'master-occasion': 'api/occasion',
+  'master-occasion-present': 'api/occasion/present',
+  'master-occasion-create': 'api/occasion/create',
+  'master-occasion-update': 'api/occasion/update',
+  'master-occasion-delete': 'api/occasion/delete',
+  'master-point': 'api/point/user/all/history'
 }

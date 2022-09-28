@@ -1,30 +1,23 @@
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-
-import { elementAt, Subscription } from 'rxjs';
-import { FormAddAdminComponent } from 'src/app/dialog/form-add-admin/form-add-admin.component';
-import { FormChangePasswordAdminComponent } from 'src/app/dialog/form-change-password-admin/form-change-password-admin.component';
+import { Subscription } from 'rxjs';
+import { FormAddEventComponent } from 'src/app/dialog/form-add-event/form-add-event.component';
 import { FormConfirmationComponent } from 'src/app/dialog/form-confirmation/form-confirmation.component';
-import { FormEditAdminComponent } from 'src/app/dialog/form-edit-admin/form-edit-admin.component';
-import { AdminInterface } from 'src/app/interfaces/admin.interface';
-import { AdminPaginationInterface } from 'src/app/interfaces/adminpagination.interface';
-import { ProvinceInterface } from 'src/app/interfaces/province.interface';
-
-import { ApiService } from '../../../services/api.service';
+import { FormEditEventComponent } from 'src/app/dialog/form-edit-event/form-edit-event.component';
+import { EventInterface } from 'src/app/interfaces/event.interface';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: 'app-point',
+  templateUrl: './point.component.html',
+  styleUrls: ['./point.component.css']
 })
-
-export class AdminComponent implements OnInit {
-  displayedColumns: String[] = ['username', 'role', 'status', 'created_at', 'action'];
+export class PointComponent implements OnInit {
+  displayedColumns: String[] = ['username', 'point', 'occasion', 'created_at'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
-  provinces: ProvinceInterface[] = [];
   loader: boolean = false;
   objectKeys = Object.keys;
   searchText: string = '';
@@ -42,6 +35,7 @@ export class AdminComponent implements OnInit {
   isFilter: any = false;
   userRole: any = null;
   userId: any = null;
+  qr: string = '';
 
   constructor (private apiService: ApiService, private dialog: MatDialog) {}
 
@@ -61,14 +55,13 @@ export class AdminComponent implements OnInit {
 
   getAllData () {
     this.loader = true;
-    this.apiService.connection('POST', 'master-admin', this.tableQueryData).subscribe({
-      next: (response: AdminPaginationInterface) => {
+    this.apiService.connection('POST', 'master-point', this.tableQueryData).subscribe({
+      next: (response: any) => {
         this.tableQueryData.page = response.page;
         this.tableQueryData.limit = response.limit;
         this.tableQueryData.max = response.max;
         this.totalAll = response.total;
         this.dataSource = new MatTableDataSource(response.values);
-        this.provinces = response.province;
       }, 
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
@@ -80,21 +73,33 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  onOpenConfirmation (admin: AdminInterface, type: String) {
+  onDownload (event) {
+    const qr = "https://chart.googleapis.com/chart?chs=300x300&chld=Q|0&cht=qr&chl=" + 'http://localhost:4200/#/home/event/' + event._id;
+    this.qr = qr;
+    window.open(this.qr, 'download');
+  }
+
+  fixedEncodeURIComponent(str) {
+    return encodeURIComponent(str).replace(/[!'()*&]/g, function (c) {
+      return "%" + c.charCodeAt(0).toString(16);
+    });
+  }
+
+  onOpenConfirmation (occasion: EventInterface, type: String) {
     const dialog = this.dialog.open(FormConfirmationComponent, {
       data: {
-        text: 'Are you sure you want to ' + type + ' this admin ?'
+        text: 'Are you sure you want to ' + type + ' this event ?'
       }
     });
     dialog.afterClosed().subscribe((result) => {
-      if (result) this.deleteAdmin(admin);
+      if (result) this.deleteEvent(occasion);
     })
   }
 
-  deleteAdmin (admin: AdminInterface) {
-    this.apiService.connection('POST', 'master-admin-delete', {}, '', admin._id).subscribe({
+  deleteEvent (occasion: EventInterface) {
+    this.apiService.connection('POST', 'master-occasion-delete', {}, '', occasion._id).subscribe({
       next: (response: any) => {
-        this.apiService.callSnack('Success delete admin', 'Close');
+        this.apiService.callSnack('Success delete event', 'Close');
         this.loader = false;
         this.getAllData();
       },
@@ -103,39 +108,12 @@ export class AdminComponent implements OnInit {
         this.apiService.processErrorHttp(!error.error ? error : error.error);
       }
     });
-  }
-
-  updateStatusAdmin (admin: AdminInterface, event) {
-    this.apiService.connection('POST', 'master-admin-status', { status: event.checked ? 1 : 2 }, '', admin._id).subscribe({
-      next: (response: any) => {
-        this.apiService.callSnack('Success update status admin', 'Close');
-        this.loader = false;
-        this.getAllData();
-      },
-      error: ({error}: HttpErrorResponse) => {
-        this.loader = false;
-        this.apiService.processErrorHttp(!error.error ? error : error.error);
-      }
-    });
-  }
-
-  onOpenChangePassword (admin: AdminInterface, index) {
-    const dialog = this.dialog.open(FormChangePasswordAdminComponent, {
-      width: '500px',
-      data: {
-        rowData: admin,
-        index: index
-      }
-    });
-    dialog.afterClosed().subscribe((result) => {});
   }
 
   onOpenAddForm () {
-    const dialog = this.dialog.open(FormAddAdminComponent, {
+    const dialog = this.dialog.open(FormAddEventComponent, {
       width: '500px',
-      data: {
-        province: this.provinces
-      }
+      data: {}
     });
 
     dialog.afterClosed().subscribe((result) => {
@@ -146,16 +124,19 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  onOpenEditForm (data, index) {
-    const dialog = this.dialog.open(FormEditAdminComponent, {
+  onOpenEditForm (element) {
+    const dialog = this.dialog.open(FormEditEventComponent, {
       width: '500px',
       data: {
-        rowData: data,
-        index: index
+        rowData: element
       }
     });
+
     dialog.afterClosed().subscribe((result) => {
-      if (result) this.getAllData();
+      if (result) {
+        this.resetData();
+        this.getAllData();
+      }
     });
   }
 

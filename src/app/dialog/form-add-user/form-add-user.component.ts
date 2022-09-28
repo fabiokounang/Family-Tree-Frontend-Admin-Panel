@@ -85,8 +85,9 @@ export class FormAddUserComponent implements OnInit {
   makeForm () {
     this.userForm = new FormGroup({
       username: new FormControl(null, [Validators.required, Validators.maxLength(30)]),
+      email: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(16)]),
-      confirmation_password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
+      confirmation_password: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(16)]),
       status: new FormControl(null, [Validators.required]),
       gender: new FormControl(null, [Validators.required]),
       first_name_latin: new FormControl(null, [Validators.required, Validators.maxLength(200)]),
@@ -98,10 +99,9 @@ export class FormAddUserComponent implements OnInit {
       place_of_birth: new FormControl(null, [Validators.required]),
       city_of_residence: new FormControl({ value: null, disabled: true }, [Validators.required]),
       phone: new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(14)]),
-      email: new FormControl(null, [Validators.required]),
-      wechat: new FormControl(null, [Validators.required]),
-      postal_address: new FormControl(null, [Validators.required]),
-      remark: new FormControl(null, [Validators.required])
+      wechat: new FormControl(null, [Validators.minLength(10), Validators.maxLength(14)]),
+      postal_address: new FormControl(null, [Validators.required, Validators.maxLength(6)]),
+      remark: new FormControl(null)
     });
   }
 
@@ -114,6 +114,7 @@ export class FormAddUserComponent implements OnInit {
       this.loader = true;
       this.dialogRef.disableClose = true;
       this.userForm.disable();
+      this.userForm.value.date_of_birth = new Date(this.userForm.value.date_of_birth).getTime();
       this.apiService.connection('POST', 'master-user-create', this.userForm.value).subscribe({
         next: (response: any) => {
           this.dialogRef.close(true);

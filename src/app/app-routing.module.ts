@@ -4,10 +4,13 @@ import { AdminComponent } from './components/home/admin/admin.component';
 import { BroadcastComponent } from './components/home/broadcast/broadcast.component';
 import { CalendarDetailComponent } from './components/home/calendar/calendar-detail/calendar-detail.component';
 import { CalendarComponent } from './components/home/calendar/calendar.component';
+import { EventComponent } from './components/home/event/event.component';
 import { HomeComponent } from './components/home/home.component';
 import { LogComponent } from './components/home/log/log.component';
+import { PointComponent } from './components/home/point/point.component';
 import { CityComponent } from './components/home/province/city/city.component';
 import { ProvinceComponent } from './components/home/province/province.component';
+import { TestComponent } from './components/home/test/test.component';
 import { ThemeComponent } from './components/home/theme/theme.component';
 import { UserComponent } from './components/home/user/user.component';
 import { LoginComponent } from './components/login/login.component';
@@ -34,6 +37,18 @@ const routes: Routes = [
       {
         path: 'theme',
         component: ThemeComponent
+      },
+      {
+        path: 'event',
+        component: EventComponent
+      },
+      {
+        path: 'point',
+        component: PointComponent
+      },
+      {
+        path: 'event/:id',
+        component: TestComponent
       },
       {
         path: 'broadcast',

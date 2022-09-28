@@ -93,3 +93,12 @@ p.sub-text {
   border-radius: 50%;
   background-color: #18978F;
 }
+
+
+small {
+  position: absolute;
+  top: -14px;
+  font-size: 10px;
+  width: 100%;
+  left: 80px;
+}

@@ -34,6 +34,11 @@ export class SharedService {
     { id: 2, name: 'Alive' }
   ];
 
+  private eventType: any[] = [
+    { id: 1, name: 'Add' },
+    { id: 2, name: 'Decrease' }
+  ]
+
   errGeneral: string = 'Something went wrong, please try again';
 
   constructor (private httpClient: HttpClient, private snack: MatSnackBar, private meta: Meta) {}
@@ -56,6 +61,10 @@ export class SharedService {
 
   getGender () {
     return this.gender;
+  }
+
+  getEventType () {
+    return this.eventType;
   }
 
   async callSnack (text: string, action: string) {

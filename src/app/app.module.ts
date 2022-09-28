@@ -37,6 +37,11 @@ import { FormAddProvinceComponent } from './dialog/form-add-province/form-add-pr
 import { FormEditProvinceComponent } from './dialog/form-edit-province/form-edit-province.component';
 import { FormAddCityComponent } from './dialog/form-add-city/form-add-city.component';
 import { FormEditCityComponent } from './dialog/form-edit-city/form-edit-city.component';
+import { EventComponent } from './components/home/event/event.component';
+import { TestComponent } from './components/home/test/test.component';
+import { FormAddEventComponent } from './dialog/form-add-event/form-add-event.component';
+import { FormEditEventComponent } from './dialog/form-edit-event/form-edit-event.component';
+import { PointComponent } from './components/home/point/point.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +73,12 @@ import { FormEditCityComponent } from './dialog/form-edit-city/form-edit-city.co
     FormAddProvinceComponent,
     FormEditProvinceComponent,
     FormAddCityComponent,
-    FormEditCityComponent
+    FormEditCityComponent,
+    EventComponent,
+    TestComponent,
+    FormAddEventComponent,
+    FormEditEventComponent,
+    PointComponent
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,9 @@
 <div class="filter-wrapper">
-  <div>
+  <!-- <div>
     <button type="button" color="primary" mat-raised-button (click)="onOpenAddForm()">
-      <span style="font-size: 12px">Add Theme</span>
+      <span style="font-size: 12px">Add Point</span>
     </button>
-  </div>
+  </div> -->
   <span class="example-spacer"></span>
   <div>
     <mat-form-field>
@@ -17,30 +17,29 @@
 
 <div class="table-wrapper" *ngIf="dataSource.data.length > 0">
   <table #table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="dataSource" [trackBy]="identify" class="table table-data mat-elevation-z8">
-    <ng-container matColumnDef="theme" sticky>
-      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Theme </th>
-      <td class="imp" mat-cell *matCellDef="let element"> {{element.theme | titlecase}} </td>
+    <ng-container matColumnDef="username" sticky>
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> User </th>
+      <td class="imp" mat-cell *matCellDef="let element"> {{element.user.username}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="color">
-      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Color</th>
-      <td class="imp" mat-cell *matCellDef="let element">
-        <input type="color" (change)="onChangecolor(element, $event)" [value]="element.color">
-      </td>
+    <ng-container matColumnDef="point">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Point</th>
+      <td class="imp" mat-cell *matCellDef="let element">{{element.occasion.type == 1 ? (element.point) : (element.point * -1 | number) }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="text">
-      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Text Color</th>
-      <td class="imp" mat-cell *matCellDef="let element">
-        <input type="color" (change)="onChangetext(element, $event)" [value]="element.text">
-      </td>
+    <ng-container matColumnDef="occasion">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Occasion</th>
+      <td class="imp" mat-cell *matCellDef="let element">{{element.occasion.title }}</td>
     </ng-container>
 
     <ng-container matColumnDef="status">
       <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Status</th>
       <td class="imp" mat-cell *matCellDef="let element">
         <mat-chip-list>
-          <mat-slide-toggle [disabled]="userRole == 2" matTooltip="Update Status Theme" (change)="updateStatusTheme(element, $event)" color="primary" [checked]="element.status == 1"></mat-slide-toggle>
+          <mat-chip [ngClass]="{
+            'active': element.status == 1,
+            'suspend': element.status == 2
+          }">{{(element.status == 1 ? 'Active' : element.status == 2 ? 'Not Active' : '-')}}</mat-chip>
         </mat-chip-list>
       </td>
     </ng-container>
@@ -53,17 +52,20 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="action" stickyEnd>
+    <!-- <ng-container matColumnDef="action" stickyEnd>
       <th class="imp action" mat-header-cell *matHeaderCellDef> Action </th>
       <td class="imp" mat-cell *matCellDef="let element; let i = index">
-        <button *ngIf="userRole == 1" matTooltip="Update Theme" mat-icon-button (click)="onOpenEditForm(element)">
+        <button matTooltip="Update Event" mat-icon-button (click)="onOpenEditForm(element, i)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button *ngIf="userRole == 1" matTooltip="Delete Theme" mat-icon-button (click)="onOpenConfirmation(element, 'delete')">
+        <button matTooltip="Deete Event" mat-icon-button (click)="onOpenConfirmation(element, 'delete')">
           <mat-icon>delete</mat-icon>
         </button>
+        <button matTooltip="Download QR" mat-icon-button (click)="onDownload(element)">
+          <mat-icon>download</mat-icon>
+        </button>
       </td>
-    </ng-container>
+    </ng-container> -->
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr class="rows" mat-row

@@ -1,7 +1,7 @@
 <div class="filter-wrapper">
   <div>
     <button type="button" color="primary" mat-raised-button (click)="onOpenAddForm()">
-      <span style="font-size: 12px">Add Theme</span>
+      <span style="font-size: 12px">Add Event</span>
     </button>
   </div>
   <span class="example-spacer"></span>
@@ -17,22 +17,21 @@
 
 <div class="table-wrapper" *ngIf="dataSource.data.length > 0">
   <table #table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="dataSource" [trackBy]="identify" class="table table-data mat-elevation-z8">
-    <ng-container matColumnDef="theme" sticky>
-      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Theme </th>
-      <td class="imp" mat-cell *matCellDef="let element"> {{element.theme | titlecase}} </td>
+    <ng-container matColumnDef="title" sticky>
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Title </th>
+      <td class="imp" mat-cell *matCellDef="let element"> {{element.title | titlecase}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="color">
-      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Color</th>
-      <td class="imp" mat-cell *matCellDef="let element">
-        <input type="color" (change)="onChangecolor(element, $event)" [value]="element.color">
-      </td>
+    <ng-container matColumnDef="point">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Point</th>
+      <td class="imp" mat-cell *matCellDef="let element">{{element.type == 1 ? element.point : element.point * -1}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="text">
-      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Text Color</th>
+    <ng-container matColumnDef="expired_date">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Expired Date</th>
       <td class="imp" mat-cell *matCellDef="let element">
-        <input type="color" (change)="onChangetext(element, $event)" [value]="element.text">
+        <p style="margin: 0">{{element.expired_date | date: 'dd MMM yyyy'}}</p>
+        <p style="margin: 0">{{element.expired_date | date: 'HH:mm:ss a'}}</p>
       </td>
     </ng-container>
 
@@ -40,7 +39,10 @@
       <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Status</th>
       <td class="imp" mat-cell *matCellDef="let element">
         <mat-chip-list>
-          <mat-slide-toggle [disabled]="userRole == 2" matTooltip="Update Status Theme" (change)="updateStatusTheme(element, $event)" color="primary" [checked]="element.status == 1"></mat-slide-toggle>
+          <mat-chip [ngClass]="{
+            'active': element.status == 1,
+            'suspend': element.status == 2
+          }">{{(element.status == 1 ? 'Active' : element.status == 2 ? 'Not Active' : '-')}}</mat-chip>
         </mat-chip-list>
       </td>
     </ng-container>
@@ -56,11 +58,14 @@
     <ng-container matColumnDef="action" stickyEnd>
       <th class="imp action" mat-header-cell *matHeaderCellDef> Action </th>
       <td class="imp" mat-cell *matCellDef="let element; let i = index">
-        <button *ngIf="userRole == 1" matTooltip="Update Theme" mat-icon-button (click)="onOpenEditForm(element)">
+        <button matTooltip="Update Event" mat-icon-button (click)="onOpenEditForm(element, i)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button *ngIf="userRole == 1" matTooltip="Delete Theme" mat-icon-button (click)="onOpenConfirmation(element, 'delete')">
+        <button matTooltip="Deete Event" mat-icon-button (click)="onOpenConfirmation(element, 'delete')">
           <mat-icon>delete</mat-icon>
+        </button>
+        <button matTooltip="Download QR" mat-icon-button (click)="onDownload(element)">
+          <mat-icon>download</mat-icon>
         </button>
       </td>
     </ng-container>

@@ -33,6 +33,14 @@
 
     <div>
       <mat-form-field>
+        <input type="text" matInput formControlName="email" placeholder="Email">
+        <mat-error *ngIf="userForm.get('email').hasError('required')">Email required</mat-error>
+        <mat-error *ngIf="userForm.get('email').hasError('email')">{{userForm.get('email').errors['email']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
         <mat-select formControlName="status" placeholder="Status">
           <mat-option *ngFor="let status of statuses" [value]="status.id">
             {{status.name}}              
@@ -82,17 +90,6 @@
       </mat-form-field>
     </div>
 
-    <div>
-      <mat-form-field>
-        <mat-select formControlName="life_status" placeholder="Life Status">
-          <mat-option *ngFor="let life of lifeStatus" [value]="life.id">
-            {{life.name}}              
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="userForm.get('life_status').hasError('required')">Life Status required</mat-error>
-        <mat-error *ngIf="userForm.get('life_status').hasError('life_status')">{{userForm.get('life_status').errors['life_status']}}</mat-error>
-      </mat-form-field>
-    </div>
 
     <div class="full">
       <mat-form-field class="full">
@@ -105,8 +102,20 @@
 
     <div>
       <mat-form-field>
+        <mat-select formControlName="life_status" placeholder="Life Status">
+          <mat-option *ngFor="let life of lifeStatus" [value]="life.id">
+            {{life.name}}              
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="userForm.get('life_status').hasError('required')">Life Status required</mat-error>
+        <mat-error *ngIf="userForm.get('life_status').hasError('life_status')">{{userForm.get('life_status').errors['life_status']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
         <mat-label>Choose a date</mat-label>
-        <input matInput [matDatepicker]="picker">
+        <input formControlName="date_of_birth" matInput [matDatepicker]="picker">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -117,7 +126,7 @@
       <mat-form-field>
         <mat-select (selectionChange)="onSelectProvince($event)" formControlName="place_of_birth" placeholder="Birthplace">
           <mat-option *ngFor="let prov of province" [value]="prov">
-            {{prov.name}}              
+            {{prov.name | titlecase}}              
           </mat-option>
         </mat-select>
         <mat-error *ngIf="userForm.get('place_of_birth').hasError('required')">Birthplace required</mat-error>
@@ -129,7 +138,7 @@
       <mat-form-field>
         <mat-select formControlName="city_of_residence" placeholder="City">
           <mat-option *ngFor="let city of cities" [value]="city.id">
-            {{city.name}}              
+            {{city.name | titlecase}}              
           </mat-option>
         </mat-select>
         <mat-error *ngIf="userForm.get('city_of_residence').hasError('required')">City required</mat-error>
@@ -149,9 +158,25 @@
 
     <div>
       <mat-form-field>
-        <input type="text" matInput formControlName="email" placeholder="Email">
-        <mat-error *ngIf="userForm.get('email').hasError('required')">Email required</mat-error>
-        <mat-error *ngIf="userForm.get('email').hasError('email')">{{userForm.get('email').errors['email']}}</mat-error>
+        <input type="tel" matInput formControlName="wechat" placeholder="Wechat Number">
+        <mat-error *ngIf="userForm.get('wechat').hasError('minlength')">Wechat number min 10 digit</mat-error>
+        <mat-error *ngIf="userForm.get('wechat').hasError('maxlength')">Wechat number max 14 digit</mat-error>
+        <mat-error *ngIf="userForm.get('wechat').hasError('wechat')">{{userForm.get('wechat').errors['wechat']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input type="tel" matInput formControlName="postal_address" placeholder="Postal Code">
+        <mat-error *ngIf="userForm.get('postal_address').hasError('required')">Postal code required</mat-error>
+        <mat-error *ngIf="userForm.get('postal_address').hasError('maxlength')">Postal code max 6 digit</mat-error>
+        <mat-error *ngIf="userForm.get('postal_address').hasError('postal_address')">{{userForm.get('postal_address').errors['postal_address']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="remark" placeholder="Remark">
       </mat-form-field>
     </div>
 

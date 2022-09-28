@@ -18,7 +18,7 @@
 
     <div>
       <mat-form-field>
-        <input type="text" matInput formControlName="text" placeholder="Text Color">
+        <input type="color" matInput formControlName="text" placeholder="Text Color">
         <mat-error *ngIf="themeForm.get('text').hasError('required')">Text color required</mat-error>
         <mat-error *ngIf="themeForm.get('text').hasError('text')">{{themeForm.get('text').errors['text']}}</mat-error>
       </mat-form-field>

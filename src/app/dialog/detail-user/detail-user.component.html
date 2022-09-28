@@ -1,8 +1,20 @@
 <div *ngIf="user" class="wrapper">
   <div class="div-wrap" *ngFor="let key of objectKeys(user); let i = index">
-    <span class="left">{{key.split('_').join(' ') | titlecase}}</span>
-    <span class="right" *ngIf="key != 'date_of_birth' && key != 'username' && key != 'remark' && key != 'email'">: {{user[key] | titlecase}}</span>
+    <span class="left">
+      {{key.split('_').join(' ') | titlecase}}
+    </span>
+    
+    <ng-container *ngIf="
+      key != 'point' && 
+      key != 'date_of_birth' && 
+      key != 'username' && 
+      key != 'remark' && 
+      key != 'email'
+    ">
+      <span class="right">: {{user[key] | titlecase}}</span>
+    </ng-container>
     <span class="right" *ngIf="key == 'username' || key == 'remark' || key == 'email'">: {{user[key]}}</span>
     <span class="right" *ngIf="key == 'date_of_birth'">: {{ user[key] | date }}</span>
+    <span class="right" *ngIf="key == 'point'">: {{ user[key] | number }}</span>
   </div>
 </div>

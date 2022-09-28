@@ -39,17 +39,14 @@
       </mat-form-field>
     </div>
 
-    <div *ngIf="adminRole === 2">
-      <mat-form-field>
-        <mat-select multiple formControlName="merchants" placeholder="Merchant">
-          <mat-option *ngFor="let merchant of merchants" [value]="merchant.id">
-            {{merchant.user}} - ({{merchant.detail.nama}})              
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="adminForm.get('merchants').hasError('required')">Merchant required</mat-error>
-        <mat-error *ngIf="adminForm.get('merchants').hasError('merchants')">{{adminForm.get('merchants').errors['merchants']}}</mat-error>
-      </mat-form-field>
-    </div>
+    <mat-form-field *ngIf="adminRole == 2">
+      <mat-select formControlName="province" placeholder="Province" multiple>
+        <mat-option *ngFor="let prov of provinces" [value]="prov.id">
+          {{prov.name | titlecase}}
+        </mat-option>
+      </mat-select>
+      <mat-error>User required at least one</mat-error>
+    </mat-form-field>
 
     <div class="btn-container">
       <ng-container *ngIf="!loader">

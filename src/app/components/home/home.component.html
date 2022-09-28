@@ -25,10 +25,18 @@
         <mat-icon>money</mat-icon>
         <span class="nav-caption">Calendar</span>
       </a>
-      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/broadcast" (click)="onToggle(sidenav)">
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/event" (click)="onToggle(sidenav)">
+        <mat-icon>event</mat-icon>
+        <span class="nav-caption">Events</span>
+      </a>
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/point" (click)="onToggle(sidenav)">
+        <mat-icon>money</mat-icon>
+        <span class="nav-caption">Point History</span>
+      </a>
+      <!-- <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/broadcast" (click)="onToggle(sidenav)">
         <mat-icon>notifications</mat-icon>
         <span class="nav-caption">Broadcast</span>
-      </a>
+      </a> -->
       <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/province" (click)="onToggle(sidenav)">
         <mat-icon>places</mat-icon>
         <span class="nav-caption">Province & City</span>

@@ -1,0 +1,54 @@
+<div class="form-wrapper">
+  <form [formGroup]="eventForm" (ngSubmit)="onAddEvent()">
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="title" placeholder="Title">
+        <mat-error *ngIf="eventForm.get('title').hasError('required')">Title required</mat-error>
+        <mat-error *ngIf="eventForm.get('title').hasError('title')">{{eventForm.get('title').errors['title']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <mat-select formControlName="type" placeholder="Type">
+          <mat-option *ngFor="let type of types" [value]="type.id">
+            {{type.name}}              
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="eventForm.get('type').hasError('required')">Type required</mat-error>
+        <mat-error *ngIf="eventForm.get('type').hasError('type')">{{eventForm.get('type').errors['type']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input type="number" matInput formControlName="point" placeholder="Point">
+        <mat-error *ngIf="eventForm.get('point').hasError('required')">Point required</mat-error>
+        <mat-error *ngIf="eventForm.get('point').hasError('point')">{{eventForm.get('point').errors['point']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <mat-label>Expired date</mat-label>
+        <input formControlName="expired_date" matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="btn-container">
+      <ng-container *ngIf="!loader">
+        <button type="button" (click)="onCloseDialog()" mat-raised-button color="warn">
+          Close
+        </button>
+        &nbsp;
+        <button type="submit" [disabled]="eventForm.invalid" mat-raised-button color="primary">
+          Save
+        </button>
+      </ng-container>
+      <app-spinner [loader]="loader" [diameter]="20"></app-spinner>
+    </div>
+  </form>
+</div>
