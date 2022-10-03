@@ -10,7 +10,9 @@
         <mat-label>Event Description (Optional)</mat-label>
         <textarea formControlName="description" matInput></textarea>
       </mat-form-field>
-      <mat-icon *ngIf="eventForm.get('events')['controls'].length > 1" matTooltip="Delete Event" (click)="removeFormArray(i)" class="trash">close</mat-icon>
+
+      <!-- <mat-icon *ngIf="eventForm.get('events')['controls'].length > 1" matTooltip="Delete Event" (click)="removeFormArray(i)" class="trash">close</mat-icon> -->
+      <mat-icon matTooltip="Delete Event" (click)="removeFormArray(i)" class="trash">close</mat-icon>
     </div>
     <div *ngIf="!loader" style="text-align: center">
       <button type="button" (click)="onAddNewEvent()" color="warn" mat-raised-button>

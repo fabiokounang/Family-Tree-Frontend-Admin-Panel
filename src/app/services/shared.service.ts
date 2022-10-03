@@ -34,7 +34,7 @@ export class SharedService {
     { id: 2, name: 'Alive' }
   ];
 
-  private eventType: any[] = [
+  private occasionType: any[] = [
     { id: 1, name: 'Add' },
     { id: 2, name: 'Decrease' }
   ]
@@ -63,8 +63,8 @@ export class SharedService {
     return this.gender;
   }
 
-  getEventType () {
-    return this.eventType;
+  getOccasionType () {
+    return this.occasionType;
   }
 
   async callSnack (text: string, action: string) {

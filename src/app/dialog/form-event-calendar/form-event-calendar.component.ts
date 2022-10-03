@@ -70,7 +70,7 @@ export class FormEventCalendarComponent implements OnInit {
 
   onSubmitEvent () {
     this.loader = true;
-    const objData = {   
+    const objData = {
       "month": this.month,
       "day": this.day,
       "events": this.eventForm.value.events

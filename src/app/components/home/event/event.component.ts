@@ -2,6 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { Meta } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormAddEventComponent } from 'src/app/dialog/form-add-event/form-add-event.component';
 import { FormConfirmationComponent } from 'src/app/dialog/form-confirmation/form-confirmation.component';
@@ -36,8 +38,9 @@ export class EventComponent implements OnInit {
   userRole: any = null;
   userId: any = null;
   qr: string = '';
+  urlUser: string = '';
 
-  constructor (private apiService: ApiService, private dialog: MatDialog) {}
+  constructor (private apiService: ApiService, private dialog: MatDialog, private meta: Meta) {}
 
   ngOnInit() {
     this.fillData();
@@ -51,6 +54,7 @@ export class EventComponent implements OnInit {
   fillData () {
     this.userRole = this.apiService.getLocalStorageRole();
     this.userId = this.apiService.getLocalStorageId();
+    this.urlUser = this.meta.getTag('name=user').content;
   }
 
   getAllData () {
@@ -62,7 +66,7 @@ export class EventComponent implements OnInit {
         this.tableQueryData.max = response.max;
         this.totalAll = response.total;
         this.dataSource = new MatTableDataSource(response.values);
-      }, 
+      },
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
         this.apiService.processErrorHttp(!error.error ? error : error.error);
@@ -74,7 +78,7 @@ export class EventComponent implements OnInit {
   }
 
   onDownload (event) {
-    const qr = "https://chart.googleapis.com/chart?chs=300x300&chld=Q|0&cht=qr&chl=" + 'http://localhost:4200/#/home/event/' + event._id;
+    const qr = "https://chart.googleapis.com/chart?chs=300x300&chld=Q|0&cht=qr&chl=" + this.urlUser + event._id;
     this.qr = qr;
     window.open(this.qr, 'download');
   }

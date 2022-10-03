@@ -24,7 +24,7 @@ export class FormAddEventComponent implements OnInit {
   }
 
   fillData () {
-    this.types = this.sharedService.getEventType();
+    this.types = this.sharedService.getOccasionType();
   }
 
   makeForm () {
@@ -40,7 +40,7 @@ export class FormAddEventComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  onAddEvent () {    
+  onAddEvent () {
     if (this.eventForm.valid) {
       this.loader = true;
       this.dialogRef.disableClose = true;
