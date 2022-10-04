@@ -55,6 +55,7 @@ export class EventComponent implements OnInit {
     this.userRole = this.apiService.getLocalStorageRole();
     this.userId = this.apiService.getLocalStorageId();
     this.urlUser = this.meta.getTag('name=user').content;
+    console.log(this.urlUser)
   }
 
   getAllData () {
@@ -78,7 +79,7 @@ export class EventComponent implements OnInit {
   }
 
   onDownload (event) {
-    const qr = "https://chart.googleapis.com/chart?chs=300x300&chld=Q|0&cht=qr&chl=" + this.urlUser + event._id;
+    const qr = "https://chart.googleapis.com/chart?chs=300x300&chld=Q|0&cht=qr&chl=" + event._id;
     this.qr = qr;
     window.open(this.qr, 'download');
   }
