@@ -69,7 +69,7 @@ export class AdminComponent implements OnInit {
         this.totalAll = response.total;
         this.dataSource = new MatTableDataSource(response.values);
         this.provinces = response.province;
-      }, 
+      },
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
         this.apiService.processErrorHttp(!error.error ? error : error.error);
@@ -151,7 +151,8 @@ export class AdminComponent implements OnInit {
       width: '500px',
       data: {
         rowData: data,
-        index: index
+        index: index,
+        province: this.provinces
       }
     });
     dialog.afterClosed().subscribe((result) => {

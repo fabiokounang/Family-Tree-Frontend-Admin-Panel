@@ -1,12 +1,34 @@
 .div-wrap {
-  padding-bottom: .5rem;
+  /* padding-bottom: .5rem; */
 }
 
 span {
   display: inline-block;
+  padding-bottom: .5rem;
 }
 
 span.left {
   min-width: 170px;
   font-weight: bold;
+}
+
+.remark-wrapper {
+  padding: 1rem 0;
+}
+
+.remark {
+  padding-top: 1rem 0;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+}
+
+.center {
+  text-align: center;
+}
+
+.btn-wrapper {
+  margin: 0 auto;
+  text-align: center;
 }

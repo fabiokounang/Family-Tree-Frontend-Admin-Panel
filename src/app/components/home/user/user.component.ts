@@ -64,7 +64,7 @@ export class UserComponent implements OnInit {
         this.tableQueryData.max = response.max;
         this.totalAll = response.total;
         this.dataSource = new MatTableDataSource(response.values);
-      }, 
+      },
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
         this.apiService.processErrorHttp(!error.error ? error : error.error);
@@ -139,6 +139,7 @@ export class UserComponent implements OnInit {
   onDetailUser (user: UserInterface) {
     this.dialog.open(DetailUserComponent, {
       width: '500px',
+      height: '580px',
       data: user
     });
   }

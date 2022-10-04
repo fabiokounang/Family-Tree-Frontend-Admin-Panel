@@ -1,5 +1,5 @@
 <div class="filter-wrapper">
-  <div>
+  <div *ngIf="userRole == 1">
     <button type="button" color="primary" mat-raised-button (click)="onOpenAddForm()">
       <span style="font-size: 12px">Add Admin</span>
     </button>

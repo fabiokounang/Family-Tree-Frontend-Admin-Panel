@@ -17,12 +17,12 @@ import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
-  { 
-    path: 'login', 
+  {
+    path: 'login',
     component: LoginComponent
   },
-  { 
-    path: 'home', 
+  {
+    path: 'home',
     component: HomeComponent,
     // canActivateChild: [GuardService],
     children: [
@@ -71,7 +71,7 @@ const routes: Routes = [
         component: ProvinceComponent
       },
       {
-        path: 'province/:id/:name',
+        path: 'province/:id/:name/:code',
         component: CityComponent
       },
     ]

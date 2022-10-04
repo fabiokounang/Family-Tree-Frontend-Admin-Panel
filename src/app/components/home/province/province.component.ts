@@ -64,7 +64,7 @@ export class ProvinceComponent implements OnInit {
         this.tableQueryData.max = response.max;
         this.tableQueryData.total = response.total;
         this.dataSource = new MatTableDataSource(response.values);
-      }, 
+      },
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
         this.apiService.processErrorHttp(!error.error ? error : error.error);
@@ -163,8 +163,7 @@ export class ProvinceComponent implements OnInit {
   }
 
   onCity (province: ProvinceInterface) {
-    console.log(province);
-    this.router.navigate([province._id, province.province], {
+    this.router.navigate([province._id, province.province, province.code], {
       relativeTo: this.route
     });
   }

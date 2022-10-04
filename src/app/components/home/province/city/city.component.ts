@@ -34,16 +34,18 @@ export class CityComponent implements OnInit {
   searchText: string = '';
   userRole: any = null;
   userId: any = null;
-  
+  code: string = '';
+
   constructor (private route: ActivatedRoute, private apiService: ApiService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.fillData();
     this.getAllCityByProvince();
   }
-  
+
   fillData () {
     this.id = this.route.snapshot.params['id'];
+    this.code = this.route.snapshot.params['code'];
     this.province = this.route.snapshot.params['name'];
     this.userRole = this.apiService.getLocalStorageRole();
     this.userId = this.apiService.getLocalStorageId();
@@ -58,7 +60,7 @@ export class CityComponent implements OnInit {
         this.tableQueryData.max = response.max;
         this.tableQueryData.total = response.total;
         this.dataSource = new MatTableDataSource(response.values);
-      }, 
+      },
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
         this.apiService.processErrorHttp(!error.error ? error : error.error);

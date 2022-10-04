@@ -1,20 +1,33 @@
 <div *ngIf="user" class="wrapper">
   <div class="div-wrap" *ngFor="let key of objectKeys(user); let i = index">
-    <span class="left">
+    <span *ngIf="key != 'remark' && key != 'token_forget_password' && key != 'expired_forget_password'" class="left">
       {{key.split('_').join(' ') | titlecase}}
     </span>
-    
+
     <ng-container *ngIf="
-      key != 'point' && 
-      key != 'date_of_birth' && 
-      key != 'username' && 
-      key != 'remark' && 
-      key != 'email'
+      key != 'point' &&
+      key != 'date_of_birth' &&
+      key != 'username' &&
+      key != 'remark' &&
+      key != 'email'&&
+      key != 'remark' && key != 'token_forget_password' && key != 'expired_forget_password'
     ">
       <span class="right">: {{user[key] | titlecase}}</span>
     </ng-container>
-    <span class="right" *ngIf="key == 'username' || key == 'remark' || key == 'email'">: {{user[key]}}</span>
+    <span class="right" *ngIf="key == 'username' || key == 'email'">: {{user[key]}}</span>
     <span class="right" *ngIf="key == 'date_of_birth'">: {{ user[key] | date }}</span>
     <span class="right" *ngIf="key == 'point'">: {{ user[key] | number }}</span>
+  </div>
+
+  <ng-container *ngIf="user.remark">
+    <hr>
+    <div class="div-wrap remark-wrapper">
+      <span class="left remark">Remark</span>
+      <p class="center">{{user.remark}}</p>
+    </div>
+  </ng-container>
+
+  <div class="btn-wrapper">
+    <button color="warn" mat-raised-button [mat-dialog-close]="true">Close</button>
   </div>
 </div>

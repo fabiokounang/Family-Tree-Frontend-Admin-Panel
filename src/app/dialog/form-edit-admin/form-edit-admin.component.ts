@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DropdownInterface } from 'src/app/interfaces/dropdown.interface';
 import { ApiService } from 'src/app/services/api.service';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -19,7 +20,7 @@ export class FormEditAdminComponent implements OnInit {
   merchants: any[] = [];
   merchantAdmin: any = [];
   formDone: boolean = false;
-
+  provinces: DropdownInterface;
   constructor (@Inject(MAT_DIALOG_DATA) private data: any, private sharedService: SharedService, private apiService: ApiService, private dialog: MatDialog, private dialogRef: MatDialogRef<any>) {}
 
   ngOnInit() {
@@ -28,6 +29,9 @@ export class FormEditAdminComponent implements OnInit {
   }
 
   fillData () {
+    this.adminRole = this.data.rowData.role;
+    this.provinces = this.data.province;
+    console.log(this.provinces)
     this.roles = this.sharedService.getRoleAdmin();
     this.status = this.sharedService.getStatusAdmin();
   }
@@ -35,8 +39,17 @@ export class FormEditAdminComponent implements OnInit {
   makeForm () {
     this.adminForm = new FormGroup({
       username: new FormControl(this.data.rowData.username, [Validators.required]),
-      role: new FormControl(this.data.rowData.role, [Validators.required])
+      role: new FormControl(this.data.rowData.role, [Validators.required]),
     });
+
+    if (this.adminRole == 2) this.adminForm.addControl('province', new FormControl(this.data.rowData.province.map(val => val._id), [Validators.required]));
+    else this.adminForm.removeControl('province');
+  }
+
+  onChangeRole (event) {
+    this.adminRole = event.value;
+    if (this.adminRole == 2) this.adminForm.addControl('province', new FormControl(null, [Validators.required]));
+    else this.adminForm.removeControl('province');
   }
 
   onCloseDialog () {
