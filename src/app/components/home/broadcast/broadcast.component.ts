@@ -25,12 +25,12 @@ export class BroadcastComponent implements OnInit {
   getAllUser () {
     this.loader = true;
     const objGet = {
-      filter: { status: 1 }
+      filter: { status: 1, token_fcm: true }
     }
     this.apiService.connection('POST', 'master-user', objGet).subscribe({
       next: (response: UserPaginationInterface) => {
         this.users = response.values;
-      }, 
+      },
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
         this.apiService.processErrorHttp(!error.error ? error : error.error);
@@ -51,12 +51,12 @@ export class BroadcastComponent implements OnInit {
 
   onBroadcast () {
     this.loader = true;
-    this.apiService.connection('POST', 'master-broadcast-push', this.broadcastForm.value).subscribe({
+    this.apiService.connection('POST', 'master-broadcast-fcm', this.broadcastForm.value).subscribe({
       next: (response: UserPaginationInterface) => {
-        this.apiService.callSnack('Success broadcast notification', 'Close');
+        this.apiService.callSnack('Success send notification', 'Close');
         this.broadcastForm.reset();
         this.loader = false;
-      }, 
+      },
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
         this.apiService.processErrorHttp(!error.error ? error : error.error);

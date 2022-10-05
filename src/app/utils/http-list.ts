@@ -22,7 +22,7 @@ export default {
   'master-calendar-update': 'api/calendar/update',
   'master-calendar-update-status': 'api/calendar/update_status',
   'master-calendar-delete': 'api/calendar/delete',
-  'master-broadcast-push': 'api/broadcast/push',
+  'master-broadcast-fcm': 'api/broadcast/sendfcm',
   'master-log': 'api/log',
   'master-province': 'api/province_city/province',
   'master-province-create': 'api/province_city/create_province',
