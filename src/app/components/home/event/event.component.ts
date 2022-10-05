@@ -1,9 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Meta } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormAddEventComponent } from 'src/app/dialog/form-add-event/form-add-event.component';
 import { FormConfirmationComponent } from 'src/app/dialog/form-confirmation/form-confirmation.component';
@@ -17,6 +16,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
+  @ViewChild('link') link: ElementRef;
   displayedColumns: String[] = ['title', 'point', 'status', 'expired_date', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
@@ -37,7 +37,7 @@ export class EventComponent implements OnInit {
   isFilter: any = false;
   userRole: any = null;
   userId: any = null;
-  qr: string = '';
+  qr: any = '';
   urlUser: string = '';
 
   constructor (private apiService: ApiService, private dialog: MatDialog, private meta: Meta) {}
@@ -55,7 +55,6 @@ export class EventComponent implements OnInit {
     this.userRole = this.apiService.getLocalStorageRole();
     this.userId = this.apiService.getLocalStorageId();
     this.urlUser = this.meta.getTag('name=user').content;
-    console.log(this.urlUser)
   }
 
   getAllData () {
@@ -78,10 +77,32 @@ export class EventComponent implements OnInit {
     });
   }
 
-  onDownload (event) {
-    const qr = "https://chart.googleapis.com/chart?chs=300x300&chld=Q|0&cht=qr&chl=" + event._id;
-    this.qr = qr;
-    window.open(this.qr, 'download');
+  async getBase64ImageFromUrl(imageUrl) {
+    var res = await fetch(imageUrl);
+    var blob = await res.blob();
+
+    return new Promise((resolve, reject) => {
+      var reader  = new FileReader();
+      reader.addEventListener("load", function () {
+          resolve(reader.result);
+      }, false);
+
+      reader.onerror = () => {
+        return reject(this);
+      };
+      reader.readAsDataURL(blob);
+    })
+  }
+
+
+  async onDownload (element) {
+    const qr = "https://chart.googleapis.com/chart?chs=300x300&chld=Q|0&cht=qr&chl=" + element._id;
+    const result: any = await this.getBase64ImageFromUrl(qr);
+    this.qr = result;
+    this.link.nativeElement.href = this.qr;
+    this.link.nativeElement.download = element.title;
+    this.link.nativeElement.target = '_blank';
+    this.link.nativeElement.click();
   }
 
   fixedEncodeURIComponent(str) {

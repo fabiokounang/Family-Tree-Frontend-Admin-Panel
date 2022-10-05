@@ -61,12 +61,13 @@
         <button matTooltip="Update Event" mat-icon-button (click)="onOpenEditForm(element, i)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button matTooltip="Deete Event" mat-icon-button (click)="onOpenConfirmation(element, 'delete')">
+        <button matTooltip="Delete Event" mat-icon-button (click)="onOpenConfirmation(element, 'delete')">
           <mat-icon>delete</mat-icon>
         </button>
         <button matTooltip="Download QR" mat-icon-button (click)="onDownload(element)">
           <mat-icon>download</mat-icon>
         </button>
+        <a #link></a>
       </td>
     </ng-container>
 
