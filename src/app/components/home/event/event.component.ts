@@ -40,7 +40,7 @@ export class EventComponent implements OnInit {
   qr: any = '';
   urlUser: string = '';
 
-  constructor (private apiService: ApiService, private dialog: MatDialog, private meta: Meta) {}
+  constructor (private apiService: ApiService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.fillData();
@@ -54,7 +54,6 @@ export class EventComponent implements OnInit {
   fillData () {
     this.userRole = this.apiService.getLocalStorageRole();
     this.userId = this.apiService.getLocalStorageId();
-    this.urlUser = this.meta.getTag('name=user').content;
   }
 
   getAllData () {
