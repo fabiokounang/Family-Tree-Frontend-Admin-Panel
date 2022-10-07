@@ -38,13 +38,13 @@ export class FormEventCalendarComponent implements OnInit {
 
   populateEvent () {
     const { calendar } = this.calendar;
-    if (calendar[this.month][this.day].length <= 0) {
+    if (calendar[this.month][this.day].events.length <= 0) {
       return [new FormGroup({
         name: new FormControl(null, [Validators.required]),
         description: new FormControl(null)
       })];
     }
-    const result = calendar[this.month][this.day].map((value) => {
+    const result = calendar[this.month][this.day].events.map((value) => {
       return new FormGroup({
         name: new FormControl(value.name, [Validators.required]),
         description: new FormControl(value.description)

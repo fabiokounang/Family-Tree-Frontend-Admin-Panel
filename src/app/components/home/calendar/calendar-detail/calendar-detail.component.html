@@ -20,12 +20,12 @@
     </span>
   </div>
   <div class="calendar">
-    <div 
-      fxFlex.xs="100" 
-      fxFlex.sm="48" 
-      fxFlex.md="45" 
-      fxFlex.lg="30" 
-      class="month" 
+    <div
+      fxFlex.xs="100"
+      fxFlex.sm="48"
+      fxFlex.md="45"
+      fxFlex.lg="30"
+      class="month"
       *ngFor="let month of objectKeys(calendar.calendar)"
     >
       <p class="bold">
@@ -36,14 +36,14 @@
       </span>
       <span
         class="day"
-        (click)="onOpenFormEvent(calendar, month, day)" 
-        [matTooltip]="calendar.calendar[month][day].length <= 1 ? calendar.calendar[month][day].length + ' event' : calendar.calendar[month][day].length + ' events'" 
-        [ngClass]="{ isEvent: calendar.calendar[month][day].length > 0 }" 
-        appWeekend 
-        [year]="calendar.year" 
-        [month]="month" 
-        [day]="day" 
-        [event]="calendar.calendar[month][day].length"
+        (click)="onOpenFormEvent(calendar, month, day)"
+        [matTooltip]="calendar.calendar[month][day].events.length <= 1 ? calendar.calendar[month][day].events.length + ' event' : calendar.calendar[month][day].events.length + ' events'"
+        [ngClass]="{ isEvent: calendar.calendar[month][day].events.length > 0 }"
+        appWeekend
+        [year]="calendar.year"
+        [month]="month"
+        [day]="day"
+        [event]="calendar.calendar[month][day].events.length"
         *ngFor="let day of objectKeys(calendar.calendar[month])"
       >
         {{day}}

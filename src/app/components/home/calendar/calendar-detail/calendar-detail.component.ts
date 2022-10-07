@@ -49,7 +49,7 @@ export class CalendarDetailComponent implements OnInit {
       }
     }
 
-    if (calendar.calendar[month][day].length > 3) objDialog.height = '660px';
+    if (calendar.calendar[month][day].events.length > 3) objDialog.height = '660px';
     const dialog = this.dialog.open(FormEventCalendarComponent, objDialog);
 
     dialog.afterClosed().subscribe((result) => {
