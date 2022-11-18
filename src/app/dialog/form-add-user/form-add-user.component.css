@@ -1,12 +1,10 @@
 form {
-  display: flex;
-  flex-wrap: wrap;
 }
 
 mat-form-field {
   width: 310px;
   margin-bottom: .7rem;
-  padding: 0 1rem;
+  /* padding: 0 1rem; */
 }
 
 .full {

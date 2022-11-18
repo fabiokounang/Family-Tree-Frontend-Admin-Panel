@@ -20,7 +20,7 @@ import { ApiService } from '../../../services/api.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  displayedColumns: String[] = ['username', 'status', 'created_at', 'action'];
+  displayedColumns: String[] = ['fullname', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   loader: boolean = false;
@@ -102,10 +102,7 @@ export class UserComponent implements OnInit {
   }
 
   onOpenAddForm () {
-    const dialog = this.dialog.open(FormAddUserComponent, {
-      width: '1000px',
-      height: '600px'
-    });
+    const dialog = this.dialog.open(FormAddUserComponent);
 
     dialog.afterClosed().subscribe((result) => {
       if (result) {
@@ -139,7 +136,7 @@ export class UserComponent implements OnInit {
   onDetailUser (user: UserInterface) {
     this.dialog.open(DetailUserComponent, {
       width: '500px',
-      height: '580px',
+      // height: '580px',
       data: user
     });
   }

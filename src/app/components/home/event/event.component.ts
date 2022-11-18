@@ -8,6 +8,7 @@ import { FormAddEventComponent } from 'src/app/dialog/form-add-event/form-add-ev
 import { FormConfirmationComponent } from 'src/app/dialog/form-confirmation/form-confirmation.component';
 import { FormEditEventComponent } from 'src/app/dialog/form-edit-event/form-edit-event.component';
 import { EventInterface } from 'src/app/interfaces/event.interface';
+import { ProvinceInterface } from 'src/app/interfaces/province.interface';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -39,6 +40,7 @@ export class EventComponent implements OnInit {
   userId: any = null;
   qr: any = '';
   urlUser: string = '';
+  province: ProvinceInterface[] = [];
 
   constructor (private apiService: ApiService, private dialog: MatDialog) {}
 
@@ -65,6 +67,7 @@ export class EventComponent implements OnInit {
         this.tableQueryData.max = response.max;
         this.totalAll = response.total;
         this.dataSource = new MatTableDataSource(response.values);
+        this.province = response.province;
       },
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
@@ -138,7 +141,9 @@ export class EventComponent implements OnInit {
   onOpenAddForm () {
     const dialog = this.dialog.open(FormAddEventComponent, {
       width: '500px',
-      data: {}
+      data: {
+        province: this.province
+      }
     });
 
     dialog.afterClosed().subscribe((result) => {

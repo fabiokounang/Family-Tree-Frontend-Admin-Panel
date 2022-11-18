@@ -8,6 +8,7 @@ export default {
   'master-admin-delete': 'api/admin/delete',
   'master-admin-signout': 'api/admin/signout',
   'master-user': 'api/user',
+  'master-user-create': 'api/user/signup',
   'master-user-detail': 'api/user/admin',
   'master-theme': 'api/theme/admin',
   'master-theme-create': 'api/theme/create',

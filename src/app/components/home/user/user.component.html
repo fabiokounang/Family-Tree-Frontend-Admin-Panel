@@ -1,6 +1,6 @@
 <div class="filter-wrapper">
   <div>
-    <button type="button" color="primary" mat-raised-button (click)="onOpenAddForm()">
+    <button *ngIf="userRole == 1" type="button" color="primary" mat-raised-button (click)="onOpenAddForm()">
       <span style="font-size: 12px">Add User</span>
     </button>
   </div>
@@ -17,9 +17,9 @@
 
 <div class="table-wrapper" *ngIf="dataSource.data.length > 0">
   <table #table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="dataSource" [trackBy]="identify" class="table table-data mat-elevation-z8">
-    <ng-container matColumnDef="username" sticky>
-      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Username </th>
-      <td class="imp" mat-cell *matCellDef="let element"> {{element.username}} </td>
+    <ng-container matColumnDef="fullname" sticky>
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Fullname </th>
+      <td class="imp" mat-cell *matCellDef="let element"> {{element.fullname}} </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
@@ -30,7 +30,7 @@
             'active': element.status == 1,
             'suspend': element.status == 2
           }">{{(element.status == 1 ? 'Active' : element.status == 2 ? 'Not Active' : '-')}}</mat-chip>
-        
+
           <!-- <mat-chip [status]="element.status" status-directive>
             {{(element.status == 1 ? 'Active' : element.status == 2 ? 'Not Active' : '-')}}
           </mat-chip> -->

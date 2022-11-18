@@ -65,7 +65,7 @@ export class FormEventCalendarComponent implements OnInit {
 
   removeFormArray(i) {
     const control: FormArray = ( < FormArray > this.eventForm.get('events'));
-    control.removeAt(i - 1);
+    if (control.controls.length > 1) control.removeAt(i - 1);
   }
 
   onSubmitEvent () {

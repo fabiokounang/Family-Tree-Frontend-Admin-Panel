@@ -17,7 +17,9 @@
 }
 
 .form-wrapper {
-  width: 100%;
+  border: 1px solid black;
+  padding: 2rem;
+  box-shadow: 2px 2px 2px grey;
 }
 
 .form-wrapper h3 {

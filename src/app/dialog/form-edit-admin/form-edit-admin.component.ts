@@ -48,7 +48,10 @@ export class FormEditAdminComponent implements OnInit {
 
   onChangeRole (event) {
     this.adminRole = event.value;
-    if (this.adminRole == 2) this.adminForm.addControl('province', new FormControl(null, [Validators.required]));
+    if (this.adminRole == 2) {
+      const provincies = this.data.rowData ? this.data.rowData.province.map(val => val._id) : null;
+      this.adminForm.addControl('province', new FormControl(provincies, [Validators.required]));
+    }
     else this.adminForm.removeControl('province');
   }
 

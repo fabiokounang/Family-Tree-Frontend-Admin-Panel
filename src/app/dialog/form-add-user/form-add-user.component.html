@@ -2,10 +2,18 @@
   <form [formGroup]="userForm" (ngSubmit)="onAddUser()">
     <div>
       <mat-form-field>
-        <input type="text" matInput formControlName="username" placeholder="Username">
-        <mat-error *ngIf="userForm.get('username').hasError('required')">Username required</mat-error>
-        <mat-error *ngIf="userForm.get('username').hasError('maxlength')">Username max 30 characters</mat-error>
-        <mat-error *ngIf="userForm.get('username').hasError('username')">{{userForm.get('username').errors['username']}}</mat-error>
+        <input type="text" matInput formControlName="fullname" placeholder="Fullname">
+        <mat-error *ngIf="userForm.get('fullname').hasError('required')">Fullname required</mat-error>
+        <mat-error *ngIf="userForm.get('fullname').hasError('fullname')">{{userForm.get('fullname').errors['fullname']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input maxlength="16" type="text" matInput formControlName="nik" placeholder="NIK">
+        <mat-error *ngIf="userForm.get('nik').hasError('required')">NIK required</mat-error>
+        <mat-error *ngIf="userForm.get('nik').hasError('maxlength')">NIK 16 digit fix</mat-error>
+        <mat-error *ngIf="userForm.get('nik').hasError('nik')">{{userForm.get('nik').errors['nik']}}</mat-error>
       </mat-form-field>
     </div>
 
@@ -43,7 +51,7 @@
       <mat-form-field>
         <mat-select formControlName="status" placeholder="Status">
           <mat-option *ngFor="let status of statuses" [value]="status.id">
-            {{status.name}}              
+            {{status.name}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="userForm.get('status').hasError('required')">Status required</mat-error>
@@ -55,7 +63,7 @@
       <mat-form-field>
         <mat-select formControlName="gender" placeholder="Gender">
           <mat-option *ngFor="let gender of genders" [value]="gender.id">
-            {{gender.name}}              
+            {{gender.name}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="userForm.get('gender').hasError('required')">Gender required</mat-error>
@@ -63,7 +71,7 @@
       </mat-form-field>
     </div>
 
-    <div>
+    <!-- <div>
       <mat-form-field>
         <input type="text" matInput formControlName="first_name_latin" placeholder="Latin first name">
         <mat-error *ngIf="userForm.get('first_name_latin').hasError('required')">Latin first name required</mat-error>
@@ -104,7 +112,7 @@
       <mat-form-field>
         <mat-select formControlName="life_status" placeholder="Life Status">
           <mat-option *ngFor="let life of lifeStatus" [value]="life.id">
-            {{life.name}}              
+            {{life.name}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="userForm.get('life_status').hasError('required')">Life Status required</mat-error>
@@ -120,13 +128,13 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-    </div>
+    </div> -->
 
     <div>
       <mat-form-field>
         <mat-select (selectionChange)="onSelectProvince($event)" formControlName="place_of_birth" placeholder="Birthplace">
           <mat-option *ngFor="let prov of province" [value]="prov">
-            {{prov.name | titlecase}}              
+            {{prov.name | titlecase}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="userForm.get('place_of_birth').hasError('required')">Birthplace required</mat-error>
@@ -138,7 +146,7 @@
       <mat-form-field>
         <mat-select formControlName="city_of_residence" placeholder="City">
           <mat-option *ngFor="let city of cities" [value]="city.id">
-            {{city.name | titlecase}}              
+            {{city.name | titlecase}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="userForm.get('city_of_residence').hasError('required')">City required</mat-error>
@@ -146,7 +154,7 @@
       </mat-form-field>
     </div>
 
-    <div>
+    <!-- <div>
       <mat-form-field>
         <input type="tel" matInput formControlName="phone" placeholder="Phone Number">
         <mat-error *ngIf="userForm.get('phone').hasError('required')">Phone number required</mat-error>
@@ -163,9 +171,9 @@
         <mat-error *ngIf="userForm.get('wechat').hasError('maxlength')">Wechat number max 14 digit</mat-error>
         <mat-error *ngIf="userForm.get('wechat').hasError('wechat')">{{userForm.get('wechat').errors['wechat']}}</mat-error>
       </mat-form-field>
-    </div>
+    </div> -->
 
-    <div>
+    <!-- <div>
       <mat-form-field>
         <input type="tel" matInput formControlName="postal_address" placeholder="Postal Code">
         <mat-error *ngIf="userForm.get('postal_address').hasError('required')">Postal code required</mat-error>
@@ -178,13 +186,13 @@
       <mat-form-field>
         <input type="text" matInput formControlName="remark" placeholder="Remark">
       </mat-form-field>
-    </div>
+    </div> -->
 
     <!-- <div *ngIf="adminRole === 2">
       <mat-form-field>
         <mat-select multiple formControlName="merchants" placeholder="Merchant">
           <mat-option *ngFor="let merchant of merchants" [value]="merchant.id">
-            {{merchant.user}} - ({{merchant.detail.nama}})              
+            {{merchant.user}} - ({{merchant.detail.nama}})
           </mat-option>
         </mat-select>
         <mat-error *ngIf="userForm.get('merchants').hasError('required')">Merchant required</mat-error>

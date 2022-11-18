@@ -10,7 +10,7 @@
 
     <div>
       <mat-form-field>
-        <mat-select formControlName="role" placeholder="Role">
+        <mat-select (selectionChange)="onChangeRole($event)" formControlName="role" placeholder="Role">
           <mat-option *ngFor="let role of roles" [value]="role.id">
             {{role.name}}
           </mat-option>

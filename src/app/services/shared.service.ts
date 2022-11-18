@@ -39,6 +39,12 @@ export class SharedService {
     { id: 2, name: 'Decrease' }
   ]
 
+  private scopes: any[] = [
+    { id: 1, name: 'Local Add Point' },
+    { id: 2, name: 'Local Redeem Point' },
+    { id: 3, name: 'National Redeem Point' }
+  ]
+
   errGeneral: string = 'Something went wrong, please try again';
 
   constructor (private httpClient: HttpClient, private snack: MatSnackBar, private meta: Meta) {}
@@ -65,6 +71,10 @@ export class SharedService {
 
   getOccasionType () {
     return this.occasionType;
+  }
+
+  getScopes () {
+    return this.scopes;
   }
 
   async callSnack (text: string, action: string) {
