@@ -42,6 +42,12 @@ import { TestComponent } from './components/home/test/test.component';
 import { FormAddEventComponent } from './dialog/form-add-event/form-add-event.component';
 import { FormEditEventComponent } from './dialog/form-edit-event/form-edit-event.component';
 import { PointComponent } from './components/home/point/point.component';
+import { BannerComponent } from './components/home/banner/banner.component';
+import { BulletinComponent } from './components/home/bulletin/bulletin.component';
+import { FormAddBannerComponent } from './dialog/form-add-banner/form-add-banner.component';
+import { FormEditBannerComponent } from './dialog/form-edit-banner/form-edit-banner.component';
+import { FormEditBulletinComponent } from './dialog/form-edit-bulletin/form-edit-bulletin.component';
+import { FormAddBulletinComponent } from './dialog/form-add-bulletin/form-add-bulletin.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +84,13 @@ import { PointComponent } from './components/home/point/point.component';
     TestComponent,
     FormAddEventComponent,
     FormEditEventComponent,
-    PointComponent
+    PointComponent,
+    BannerComponent,
+    BulletinComponent,
+    FormAddBannerComponent,
+    FormEditBannerComponent,
+    FormEditBulletinComponent,
+    FormAddBulletinComponent
   ],
   imports: [
     BrowserModule,

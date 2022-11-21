@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { SharedService } from 'src/app/services/shared.service';
 // import { SharedService } from '../../shared/shared.service';
 
 @Component({
@@ -16,12 +17,12 @@ export class HomeComponent implements OnInit {
   open: boolean = true;
   userRole: any = null;
   username: string = '';
-  
-  constructor (private router: Router, private apiService: ApiService) {}
+
+  constructor (private router: Router, private apiService: ApiService, private sharedService: SharedService) {}
 
   ngOnInit() {
     this.onResize();
-    // this.userRole = this.sharedService.getLocalStorageRole();
+    this.userRole = this.apiService.getLocalStorageRole();
     this.username = localStorage.getItem('username') || '';
   }
 

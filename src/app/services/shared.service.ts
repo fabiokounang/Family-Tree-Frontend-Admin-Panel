@@ -24,6 +24,11 @@ export class SharedService {
     {id: 2, name: 'Not Active'}
   ];
 
+  private statusBanner: any[] = [
+    {id: 1, name: 'Active'},
+    {id: 2, name: 'Not Active'}
+  ];
+
   private gender: any[] = [
     { id: 1, name: 'Male' },
     { id: 2, name: 'Female' }
@@ -67,6 +72,10 @@ export class SharedService {
 
   getGender () {
     return this.gender;
+  }
+
+  getBannerStatus () {
+    return this.statusBanner;
   }
 
   getOccasionType () {

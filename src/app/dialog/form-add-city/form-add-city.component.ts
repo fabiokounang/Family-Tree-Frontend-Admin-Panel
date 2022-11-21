@@ -29,7 +29,7 @@ export class FormAddCityComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  onAddCity () {    
+  onAddCity () {
     if (this.cityForm.valid) {
       this.loader = true;
       this.dialogRef.disableClose = true;
@@ -38,7 +38,7 @@ export class FormAddCityComponent implements OnInit {
         province: this.data,
         city: this.cityForm.value.city
       }
-      console.log(objCity)
+
       this.apiService.connection('POST', 'master-city-create', objCity).subscribe({
         next: (response: any) => {
           this.dialogRef.close(true);

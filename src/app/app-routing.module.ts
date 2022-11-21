@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { BannerComponent } from './components/home/banner/banner.component';
+import { BulletinComponent } from './components/home/bulletin/bulletin.component';
 import { AdminComponent } from './components/home/admin/admin.component';
 import { BroadcastComponent } from './components/home/broadcast/broadcast.component';
 import { CalendarDetailComponent } from './components/home/calendar/calendar-detail/calendar-detail.component';
@@ -37,6 +39,14 @@ const routes: Routes = [
       {
         path: 'theme',
         component: ThemeComponent
+      },
+      {
+        path: 'banner',
+        component: BannerComponent
+      },
+      {
+        path: 'bulletin',
+        component: BulletinComponent
       },
       {
         path: 'event',

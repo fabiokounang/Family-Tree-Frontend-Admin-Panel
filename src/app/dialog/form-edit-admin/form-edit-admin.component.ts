@@ -31,7 +31,6 @@ export class FormEditAdminComponent implements OnInit {
   fillData () {
     this.adminRole = this.data.rowData.role;
     this.provinces = this.data.province;
-    console.log(this.provinces)
     this.roles = this.sharedService.getRoleAdmin();
     this.status = this.sharedService.getStatusAdmin();
   }

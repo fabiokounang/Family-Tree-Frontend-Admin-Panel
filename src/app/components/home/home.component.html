@@ -9,13 +9,21 @@
     </div>
 
     <mat-nav-list>
-      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/admin" (click)="onToggle(sidenav)">
+      <a routerLinkActive="active" *ngIf="userRole == 1" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/admin" (click)="onToggle(sidenav)">
         <mat-icon>person</mat-icon>
         <span class="nav-caption">Admin</span>
       </a>
       <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/user" (click)="onToggle(sidenav)">
         <mat-icon>store</mat-icon>
         <span class="nav-caption">User</span>
+      </a>
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/banner" (click)="onToggle(sidenav)">
+        <mat-icon>dashboard</mat-icon>
+        <span class="nav-caption">Banner</span>
+      </a>
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/bulletin" (click)="onToggle(sidenav)">
+        <mat-icon>library_books</mat-icon>
+        <span class="nav-caption">Bulletin</span>
       </a>
       <!-- <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/theme" (click)="onToggle(sidenav)">
         <mat-icon>palette</mat-icon>

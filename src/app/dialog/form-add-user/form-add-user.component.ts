@@ -58,7 +58,6 @@ export class FormAddUserComponent implements OnInit {
   onSelectProvince (province) {
     this.loader = true;
     this.selectedProvince = province.value.id;
-    console.log(this.selectedProvince);
     this.apiService.connection('POST', 'master-city', {}, '', this.selectedProvince).pipe(map((value: any) => {
       return this.helperMapDropdown(value);
     })).subscribe({

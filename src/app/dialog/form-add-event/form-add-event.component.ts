@@ -40,12 +40,10 @@ export class FormAddEventComponent implements OnInit {
       point: new FormControl(null, [Validators.required]),
       expired_date: new FormControl(null, [Validators.required]),
     });
-    console.log(this.eventForm.get('scope').value)
   }
 
 
   onChangeScope (event) {
-    console.log(event);
     if (event.value <= 2) this.eventForm.addControl('province', new FormControl(null, [Validators.required]));
     else this.eventForm.removeControl('province');
   }

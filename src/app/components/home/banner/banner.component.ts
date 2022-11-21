@@ -2,29 +2,25 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { Meta } from '@angular/platform-browser';
 
 import { Subscription } from 'rxjs';
-import { FormAddAdminComponent } from 'src/app/dialog/form-add-admin/form-add-admin.component';
-import { FormChangePasswordAdminComponent } from 'src/app/dialog/form-change-password-admin/form-change-password-admin.component';
+import { FormAddBannerComponent } from 'src/app/dialog/form-add-banner/form-add-banner.component';
 import { FormConfirmationComponent } from 'src/app/dialog/form-confirmation/form-confirmation.component';
-import { FormEditAdminComponent } from 'src/app/dialog/form-edit-admin/form-edit-admin.component';
-import { AdminInterface } from 'src/app/interfaces/admin.interface';
-import { AdminPaginationInterface } from 'src/app/interfaces/adminpagination.interface';
-import { ProvinceInterface } from 'src/app/interfaces/province.interface';
-
-import { ApiService } from '../../../services/api.service';
+import { FormEditBannerComponent } from 'src/app/dialog/form-edit-banner/form-edit-banner.component';
+import { BannerInterface } from 'src/app/interfaces/banner.interface';
+import { BannerPaginationInterface } from 'src/app/interfaces/bannerpagination.interface';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: 'app-banner',
+  templateUrl: './banner.component.html',
+  styleUrls: ['./banner.component.css']
 })
-
-export class AdminComponent implements OnInit {
-  displayedColumns: String[] = ['username', 'role', 'status', 'created_at', 'action'];
+export class BannerComponent implements OnInit {
+  displayedColumns: String[] = ['image', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
-  provinces: ProvinceInterface[] = [];
   loader: boolean = false;
   objectKeys = Object.keys;
   searchText: string = '';
@@ -43,7 +39,7 @@ export class AdminComponent implements OnInit {
   userRole: any = null;
   userId: any = null;
 
-  constructor (private apiService: ApiService, private dialog: MatDialog) {}
+  constructor (private apiService: ApiService, private dialog: MatDialog, private meta: Meta) {}
 
   ngOnInit() {
     this.fillData();
@@ -61,14 +57,13 @@ export class AdminComponent implements OnInit {
 
   getAllData () {
     this.loader = true;
-    this.apiService.connection('POST', 'master-admin', this.tableQueryData).subscribe({
-      next: (response: AdminPaginationInterface) => {
+    this.apiService.connection('POST', 'master-banner', this.tableQueryData).subscribe({
+      next: (response: BannerPaginationInterface) => {
         this.tableQueryData.page = response.page;
         this.tableQueryData.limit = response.limit;
         this.tableQueryData.max = response.max;
         this.totalAll = response.total;
         this.dataSource = new MatTableDataSource(response.values);
-        this.provinces = response.province;
       },
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
@@ -80,10 +75,10 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  onOpenConfirmation (admin: AdminInterface, type: String) {
+  onOpenConfirmation (admin: BannerInterface, type: String) {
     const dialog = this.dialog.open(FormConfirmationComponent, {
       data: {
-        text: 'Are you sure you want to ' + type + ' this admin ?'
+        text: 'Are you sure you want to ' + type + ' this banner ?'
       }
     });
     dialog.afterClosed().subscribe((result) => {
@@ -91,10 +86,10 @@ export class AdminComponent implements OnInit {
     })
   }
 
-  deleteAdmin (admin: AdminInterface) {
-    this.apiService.connection('POST', 'master-admin-delete', {}, '', admin._id).subscribe({
+  deleteAdmin (admin: BannerInterface) {
+    this.apiService.connection('POST', 'master-banner-delete', {}, '', admin._id).subscribe({
       next: (response: any) => {
-        this.apiService.callSnack('Success delete admin', 'Close');
+        this.apiService.callSnack('Success delete banner', 'Close');
         this.loader = false;
         this.getAllData();
       },
@@ -105,10 +100,10 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  updateStatusAdmin (admin: AdminInterface, event) {
-    this.apiService.connection('POST', 'master-admin-status', { status: event.checked ? 1 : 2 }, '', admin._id).subscribe({
+  updateStatusAdmin (admin: BannerInterface, event) {
+    this.apiService.connection('POST', 'master-banner-status', { status: event.checked ? 1 : 2 }, '', admin._id).subscribe({
       next: (response: any) => {
-        this.apiService.callSnack('Success update status admin', 'Close');
+        this.apiService.callSnack('Success update status banner', 'Close');
         this.loader = false;
         this.getAllData();
       },
@@ -117,25 +112,12 @@ export class AdminComponent implements OnInit {
         this.apiService.processErrorHttp(!error.error ? error : error.error);
       }
     });
-  }
-
-  onOpenChangePassword (admin: AdminInterface, index) {
-    const dialog = this.dialog.open(FormChangePasswordAdminComponent, {
-      width: '500px',
-      data: {
-        rowData: admin,
-        index: index
-      }
-    });
-    dialog.afterClosed().subscribe((result) => {});
   }
 
   onOpenAddForm () {
-    const dialog = this.dialog.open(FormAddAdminComponent, {
+    const dialog = this.dialog.open(FormAddBannerComponent, {
       width: '500px',
-      data: {
-        province: this.provinces
-      }
+      data: {}
     });
 
     dialog.afterClosed().subscribe((result) => {
@@ -147,12 +129,11 @@ export class AdminComponent implements OnInit {
   }
 
   onOpenEditForm (data, index) {
-    const dialog = this.dialog.open(FormEditAdminComponent, {
+    const dialog = this.dialog.open(FormEditBannerComponent, {
       width: '500px',
       data: {
-        rowData: data,
-        index: index,
-        province: this.provinces
+        banner: data,
+        index: index
       }
     });
     dialog.afterClosed().subscribe((result) => {
@@ -208,4 +189,5 @@ export class AdminComponent implements OnInit {
   identify (item, i) {
     return item.id;
   }
+
 }
