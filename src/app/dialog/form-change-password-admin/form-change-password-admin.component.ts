@@ -32,12 +32,13 @@ export class FormChangePasswordAdminComponent implements OnInit {
 
   onToggle (eye, type) {
     this[eye] = this[eye] == 'visibility' ? 'visibility_off' : 'visibility';
-    this[type] = this[type] == 'password' ? 'text' : 'password'; 
+    this[type] = this[type] == 'password' ? 'text' : 'password';
   }
 
   onChangePassword () {
     this.loader = true;
     this.dialogRef.disableClose = true;
+    this.changePasswordForm.disable();
     if (this.changePasswordForm.valid) {
       this.changePasswordForm.disable();
       this.apiService.connection('POST', 'master-admin-password', this.changePasswordForm.value, '', this.data.rowData._id).subscribe({
@@ -48,7 +49,8 @@ export class FormChangePasswordAdminComponent implements OnInit {
         },
         error: ({error}: HttpErrorResponse) => {
           this.loader = false;
-          this.dialogRef.close(true);
+          this.dialogRef.disableClose = false;
+          this.changePasswordForm.enable();
           this.apiService.processErrorHttp(!error.error ? error : error.error);
         }
       });

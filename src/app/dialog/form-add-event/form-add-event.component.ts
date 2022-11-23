@@ -66,7 +66,8 @@ export class FormAddEventComponent implements OnInit {
         },
         error: ({error}: HttpErrorResponse) => {
           this.loader = false;
-          this.dialogRef.close(true);
+          this.dialogRef.disableClose = false;
+          this.eventForm.enable();
           this.apiService.processErrorHttp(!error.error ? error : error.error);
         }
       })

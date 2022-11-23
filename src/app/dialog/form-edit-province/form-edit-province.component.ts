@@ -30,7 +30,7 @@ export class FormEditProvinceComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  onUpdateProvince () {    
+  onUpdateProvince () {
     if (this.provinceForm.valid) {
       this.loader = true;
       this.dialogRef.disableClose = true;
@@ -44,6 +44,7 @@ export class FormEditProvinceComponent implements OnInit {
         error: ({error}: HttpErrorResponse) => {
           this.loader = false;
           this.dialogRef.close(true);
+          this.provinceForm.enable();
           this.apiService.processErrorHttp(!error.error ? error : error.error);
         }
       })

@@ -125,6 +125,8 @@ export class FormAddUserComponent implements OnInit {
         },
         error: ({error}: HttpErrorResponse) => {
           this.loader = false;
+          this.dialogRef.disableClose = false;
+          this.userForm.enable();
           this.apiService.processErrorHttp(!error.error ? error : error.error);
         }
       })

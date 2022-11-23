@@ -82,11 +82,11 @@ export class BannerComponent implements OnInit {
       }
     });
     dialog.afterClosed().subscribe((result) => {
-      if (result) this.deleteAdmin(admin);
+      if (result) this.deleteBanner(admin);
     })
   }
 
-  deleteAdmin (admin: BannerInterface) {
+  deleteBanner (admin: BannerInterface) {
     this.apiService.connection('POST', 'master-banner-delete', {}, '', admin._id).subscribe({
       next: (response: any) => {
         this.apiService.callSnack('Success delete banner', 'Close');
@@ -100,23 +100,10 @@ export class BannerComponent implements OnInit {
     });
   }
 
-  updateStatusAdmin (admin: BannerInterface, event) {
-    this.apiService.connection('POST', 'master-banner-status', { status: event.checked ? 1 : 2 }, '', admin._id).subscribe({
-      next: (response: any) => {
-        this.apiService.callSnack('Success update status banner', 'Close');
-        this.loader = false;
-        this.getAllData();
-      },
-      error: ({error}: HttpErrorResponse) => {
-        this.loader = false;
-        this.apiService.processErrorHttp(!error.error ? error : error.error);
-      }
-    });
-  }
-
   onOpenAddForm () {
     const dialog = this.dialog.open(FormAddBannerComponent, {
       width: '500px',
+      maxHeight: '90vh',
       data: {}
     });
 
@@ -131,6 +118,7 @@ export class BannerComponent implements OnInit {
   onOpenEditForm (data, index) {
     const dialog = this.dialog.open(FormEditBannerComponent, {
       width: '500px',
+      maxHeight: '90vh',
       data: {
         banner: data,
         index: index
@@ -149,7 +137,7 @@ export class BannerComponent implements OnInit {
   }
 
   sortData(event) {
-    let sort = (event.direction == 'asc' || event.direction == '') ? 1 : 2;
+    let sort = (event.direction == 'asc' || event.direction == '') ? 1 : -1;
     let column = event.active;
     if (sort && column) {
       this.tableQueryData.sort_attr = column;

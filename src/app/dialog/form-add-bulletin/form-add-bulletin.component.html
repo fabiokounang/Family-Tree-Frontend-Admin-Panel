@@ -1,1 +1,64 @@
-<p>form-add-bulletin works!</p>
+<div class="form-wrapper">
+  <form [formGroup]="formBulletin" (ngSubmit)="onAddBanner()">
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="title" placeholder="Title">
+        <mat-error *ngIf="formBulletin.get('title').hasError('required')">Title required</mat-error>
+        <mat-error *ngIf="formBulletin.get('title').hasError('title')">{{formBulletin.get('title').errors['title']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="subtitle" placeholder="Subtitle">
+        <mat-error *ngIf="formBulletin.get('subtitle').hasError('required')">Subtitle required</mat-error>
+        <mat-error *ngIf="formBulletin.get('subtitle').hasError('subtitle')">{{formBulletin.get('subtitle').errors['subtitle']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <textarea matInput formControlName="description" placeholder="Content"></textarea>
+        <mat-error *ngIf="formBulletin.get('description').hasError('required')">Content required</mat-error>
+        <mat-error *ngIf="formBulletin.get('description').hasError('description')">{{formBulletin.get('description').errors['description']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="wrapper-upload">
+      <button type="button" color="primary" mat-raised-button (click)="fileInput.click()">
+        <span style="font-size: 12px">Upload Banner</span>
+      </button>
+      <input hidden accept="image/png, image/gif, image/jpeg" (change)="onChangeFile($event.target.files, $event)" #fileInput type="file" id="file">
+      <span class="img" *ngIf="imageShow">
+        <br>
+        <img [src]="imageShow" alt="">
+        <br>
+      </span>
+    </div>
+    <br>
+    <div>
+      <mat-form-field>
+        <mat-select formControlName="status" placeholder="Status">
+          <mat-option *ngFor="let status of statuses" [value]="status.id">
+            {{status.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formBulletin.get('status').hasError('required')">Status required</mat-error>
+        <mat-error *ngIf="formBulletin.get('status').hasError('status')">{{formBulletin.get('status').errors['status']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="btn-container">
+      <ng-container *ngIf="!loader">
+        <button type="button" (click)="onCloseDialog()" mat-raised-button color="warn">
+          Close
+        </button>
+        &nbsp;
+        <button type="submit" [disabled]="formBulletin.invalid" mat-raised-button color="primary">
+          Save
+        </button>
+      </ng-container>
+      <app-spinner [loader]="loader" [diameter]="20"></app-spinner>
+    </div>
+  </form>
+</div>

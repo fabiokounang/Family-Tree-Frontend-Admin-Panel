@@ -30,7 +30,7 @@ export class FormEditCityComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  onUpdateCity () {    
+  onUpdateCity () {
     if (this.cityForm.valid) {
       this.loader = true;
       this.dialogRef.disableClose = true;
@@ -43,7 +43,8 @@ export class FormEditCityComponent implements OnInit {
         },
         error: ({error}: HttpErrorResponse) => {
           this.loader = false;
-          this.dialogRef.close(true);
+          this.cityForm.enable();
+          this.dialogRef.disableClose = false;
           this.apiService.processErrorHttp(!error.error ? error : error.error);
         }
       })

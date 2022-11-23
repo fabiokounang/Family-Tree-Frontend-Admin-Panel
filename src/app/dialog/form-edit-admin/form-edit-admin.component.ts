@@ -72,6 +72,7 @@ export class FormEditAdminComponent implements OnInit {
         error: ({error}: HttpErrorResponse) => {
           this.loader = false;
           this.adminForm.enable();
+          this.dialogRef.disableClose = false;
           this.apiService.processErrorHttp(!error.error ? error : error.error);
         }
       })

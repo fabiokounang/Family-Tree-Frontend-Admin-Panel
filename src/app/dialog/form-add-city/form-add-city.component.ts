@@ -47,7 +47,8 @@ export class FormAddCityComponent implements OnInit {
         },
         error: ({error}: HttpErrorResponse) => {
           this.loader = false;
-          this.dialogRef.close(true);
+          this.dialogRef.disableClose = false;
+          this.cityForm.enable();
           this.apiService.processErrorHttp(!error.error ? error : error.error);
         }
       })

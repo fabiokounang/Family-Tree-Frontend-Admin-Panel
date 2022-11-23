@@ -135,7 +135,7 @@ export class ProvinceComponent implements OnInit {
   }
 
   sortData(event) {
-    let sort = (event.direction == 'asc' || event.direction == '') ? 1 : 2;
+    let sort = (event.direction == 'asc' || event.direction == '') ? 1 : -1;
     let column = event.active;
     if (sort && column) {
       this.tableQueryData.sort_attr = column;

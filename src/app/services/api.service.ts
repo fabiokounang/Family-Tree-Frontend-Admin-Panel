@@ -24,6 +24,13 @@ export class ApiService {
     return this.httpClient.post(url, data, { observe: 'body' });
   }
 
+  connectionBlob (url) {
+    return this.httpClient.get(url, {
+      withCredentials: true,
+      responseType: 'arraybuffer'
+    });
+  }
+
   saveToLocalStorage (data: any) {
     localStorage.setItem('_id', data._id);
     localStorage.setItem('token', data.token);
@@ -58,7 +65,7 @@ export class ApiService {
 
   processErrorHttp (error) {
     const errMsg = error ? error : this.errGeneral;
-    this.callSnack(errMsg, 'Dismiss');    
+    this.callSnack(errMsg, 'Dismiss');
   }
 
   async callSnack (text: string, action: string) {

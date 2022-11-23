@@ -2,7 +2,7 @@
   <form [formGroup]="formBanner" (ngSubmit)="onEditBanner()">
     <div class="wrapper-upload">
       <button type="button" color="primary" mat-raised-button (click)="fileInput.click()">
-        <span style="font-size: 12px">Upload Banner</span>
+        <span style="font-size: 12px">Upload Bulletin</span>
       </button>
       <input hidden accept="image/png, image/gif, image/jpeg" (change)="onChangeFile($event.target.files, $event)" #fileInput type="file" id="file">
       <span class="img" *ngIf="imageShow">

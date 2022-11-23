@@ -64,7 +64,7 @@ export class ThemeComponent implements OnInit {
         this.tableQueryData.max = response.max;
         this.totalAll = response.total;
         this.dataSource = new MatTableDataSource(response.values);
-      }, 
+      },
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
         this.apiService.processErrorHttp(!error.error ? error : error.error);
@@ -182,7 +182,7 @@ export class ThemeComponent implements OnInit {
   }
 
   sortData(event) {
-    let sort = (event.direction == 'asc' || event.direction == '') ? 1 : 2;
+    let sort = (event.direction == 'asc' || event.direction == '') ? 1 : -1;
     let column = event.active;
     if (sort && column) {
       this.tableQueryData.sort_attr = column;

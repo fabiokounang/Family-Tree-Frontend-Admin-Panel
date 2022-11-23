@@ -40,7 +40,7 @@ export class FormAddThemeComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  onAddTheme () {    
+  onAddTheme () {
     if (this.themeForm.valid) {
       this.loader = true;
       this.dialogRef.disableClose = true;
@@ -53,7 +53,8 @@ export class FormAddThemeComponent implements OnInit {
         },
         error: ({error}: HttpErrorResponse) => {
           this.loader = false;
-          this.dialogRef.close(true);
+          this.dialogRef.disableClose = false;
+          this.themeForm.enable();
           this.apiService.processErrorHttp(!error.error ? error : error.error);
         }
       })

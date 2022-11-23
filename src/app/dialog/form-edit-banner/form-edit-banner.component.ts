@@ -62,12 +62,13 @@ export class FormEditBannerComponent implements OnInit {
       this.apiService.connection('POST', 'master-banner-update', formData, '', this.data.banner._id).subscribe({
         next: (response: any) => {
           this.dialogRef.close(true);
-          this.apiService.callSnack('Success create banner', 'Close');
+          this.apiService.callSnack('Success update banner', 'Close');
           this.loader = false;
         },
         error: ({error}: HttpErrorResponse) => {
           this.loader = false;
-          this.dialogRef.close(true);
+          this.dialogRef.disableClose = false;
+          this.formBanner.enable();
           this.apiService.processErrorHttp(!error.error ? error : error.error);
         }
       })

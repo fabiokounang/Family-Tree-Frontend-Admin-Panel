@@ -58,7 +58,7 @@ export class FormAddAdminComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  onAddAdmin () {    
+  onAddAdmin () {
     if (this.adminForm.valid) {
       this.loader = true;
       this.dialogRef.disableClose = true;
@@ -71,7 +71,8 @@ export class FormAddAdminComponent implements OnInit {
         },
         error: ({error}: HttpErrorResponse) => {
           this.loader = false;
-          this.dialogRef.close(true);
+          this.dialogRef.disableClose = false;
+          this.adminForm.enable();
           this.apiService.processErrorHttp(!error.error ? error : error.error);
         }
       })
@@ -82,7 +83,7 @@ export class FormAddAdminComponent implements OnInit {
 
   onToggle (eye, type) {
     this[eye] = this[eye] == 'visibility' ? 'visibility_off' : 'visibility';
-    this[type] = this[type] == 'password' ? 'text' : 'password'; 
+    this[type] = this[type] == 'password' ? 'text' : 'password';
   }
 
 }

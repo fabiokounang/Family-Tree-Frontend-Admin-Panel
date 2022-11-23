@@ -27,7 +27,12 @@
     <ng-container matColumnDef="status">
       <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Status</th>
       <td class="imp" mat-cell *matCellDef="let element">
-        {{ element.status == 1 ? 'Active' : 'Not Active' }}
+        <mat-chip-list>
+          <mat-chip [ngClass]="{
+            'active': element.status == 1,
+            'suspend': element.status == 2
+          }">{{(element.status == 1 ? 'Active' : element.status == 2 ? 'Not Active' : '-')}}</mat-chip>
+        </mat-chip-list>
       </td>
     </ng-container>
 
@@ -42,11 +47,11 @@
     <ng-container matColumnDef="action" stickyEnd>
       <th class="imp action" mat-header-cell *matHeaderCellDef> Action </th>
       <td class="imp" mat-cell *matCellDef="let element; let i = index">
-        <button matTooltip="Update Admin" *ngIf="userRole == 1" mat-icon-button (click)="onOpenEditForm(element, i)">
+        <button matTooltip="Update Banner" *ngIf="userRole == 1" mat-icon-button (click)="onOpenEditForm(element, i)">
           <mat-icon>edit</mat-icon>
         </button>
 
-        <button *ngIf="userId != element._id && userRole == 1" matTooltip="Delete Admin" mat-icon-button (click)="onOpenConfirmation(element, 'delete')">
+        <button *ngIf="userId != element._id && userRole == 1" matTooltip="Delete Banner" mat-icon-button (click)="onOpenConfirmation(element, 'delete')">
           <mat-icon>delete</mat-icon>
         </button>
       </td>
