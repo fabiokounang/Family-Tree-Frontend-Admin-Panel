@@ -20,7 +20,7 @@ mat-toolbar {
 }
 
 mat-sidenav {
-  width: 250px;
+  width: 200px;
   box-shadow: 0px 5px 5px grey;
   background: #3A3A3A;
 }

@@ -31,13 +31,13 @@
       <p class="bold">
         {{months[month - 1]}}
       </p>
-      <span *ngFor="let d of emptyDay" class="day">
-        {{' '}}
+
+      <span *ngIf="emptyDay[month - 1] && emptyDay[month - 1].length > 0">
+        <span class="day" *ngFor="let i of emptyDay[month - 1]"></span>
       </span>
       <span
         class="day"
         (click)="onOpenFormEvent(calendar, month, day)"
-        [matTooltip]="calendar.calendar[month][day].events.length <= 1 ? calendar.calendar[month][day].events.length + ' event' : calendar.calendar[month][day].events.length + ' events'"
         [ngClass]="{ isEvent: calendar.calendar[month][day].events.length > 0 }"
         appWeekend
         [year]="calendar.year"
@@ -46,7 +46,11 @@
         [event]="calendar.calendar[month][day].events.length"
         *ngFor="let day of objectKeys(calendar.calendar[month])"
       >
-        {{day}}
+        <span [matTooltip]="calendar.calendar[month][day].events.length <= 1 ? calendar.calendar[month][day].events.length + ' event' : calendar.calendar[month][day].events.length + ' events'">
+          {{day}}
+        </span>
+        <br>
+        <small [matTooltip]="calendar.calendar[month][day].lunar">{{calendar.calendar[month][day].lunar.slice(0, 3)}}</small>
       </span>
     </div>
   </div>

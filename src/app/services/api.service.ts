@@ -24,9 +24,9 @@ export class ApiService {
     return this.httpClient.post(url, data, { observe: 'body' });
   }
 
-  connectionBlob (url) {
-    return this.httpClient.get(url, {
-      withCredentials: true,
+  connectionBlob(subHttp: string, data: any = {}, query: string = '', strData = '') {
+    const url = this.apiHttp + this.subHttp[subHttp] + (strData ? '/' + strData : '') + '?' + query + '&time=' + new Date().getTime();
+    return this.httpClient.post(url, data, {
       responseType: 'arraybuffer'
     });
   }

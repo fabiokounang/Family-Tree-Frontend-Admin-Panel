@@ -50,6 +50,11 @@ export class SharedService {
     { id: 3, name: 'National Redeem Point' }
   ]
 
+  private moons: any[] = [
+    { id: 1, name: 'Purnama' },
+    { id: 2, name: 'Mati' }
+  ]
+
   errGeneral: string = 'Something went wrong, please try again';
 
   constructor (private httpClient: HttpClient, private snack: MatSnackBar, private meta: Meta) {}
@@ -84,6 +89,10 @@ export class SharedService {
 
   getScopes () {
     return this.scopes;
+  }
+
+  getMoons () {
+    return this.moons;
   }
 
   async callSnack (text: string, action: string) {

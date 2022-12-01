@@ -3,7 +3,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { DropdownInterface } from 'src/app/interfaces/dropdown.interface';
 import { ApiService } from 'src/app/services/api.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-form-event-calendar',
@@ -15,16 +17,21 @@ export class FormEventCalendarComponent implements OnInit {
   calendar: any = null;
   month: number = null;
   day: number = null;
+  lunar: string = '';
   loader: boolean = false;
+  moons: DropdownInterface[] = [];
+  moon: any = null;
 
-  constructor (@Inject(MAT_DIALOG_DATA) private data: any, private apiService: ApiService, private dialog: MatDialog, private dialogRef: MatDialogRef<any>, private route: ActivatedRoute) {}
+  constructor (@Inject(MAT_DIALOG_DATA) private data: any, private apiService: ApiService, private dialog: MatDialog, private dialogRef: MatDialogRef<any>, private sharedService: SharedService) {}
 
 
   ngOnInit(): void {
     this.calendar = this.data.calendar;
     this.month = this.data.month;
     this.day = this.data.day;
-
+    this.moon = this.calendar.calendar[this.month][this.day].moon;
+    this.lunar = this.calendar.calendar[this.month][this.day].lunar;
+    this.moons = this.sharedService.getMoons();
     this.makeForm();
   }
 
@@ -32,6 +39,8 @@ export class FormEventCalendarComponent implements OnInit {
     this.eventForm = new FormGroup({
       month: new FormControl(this.month),
       day: new FormControl(this.day),
+      lunar: new FormControl(this.lunar, [Validators.required]),
+      moon: new FormControl(this.moon),
       events: new FormArray(this.populateEvent())
     })
   }
@@ -73,6 +82,8 @@ export class FormEventCalendarComponent implements OnInit {
     const objData = {
       "month": this.month,
       "day": this.day,
+      "lunar": this.eventForm.value.lunar,
+      "moon": this.eventForm.value.moon,
       "events": this.eventForm.value.events
     }
 

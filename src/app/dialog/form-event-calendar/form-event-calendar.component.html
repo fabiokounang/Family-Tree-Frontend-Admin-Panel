@@ -1,4 +1,26 @@
 <form (ngSubmit)="onSubmitEvent()" [formGroup]="eventForm">
+  <div>
+    <mat-form-field>
+      <mat-label>Lunar Name</mat-label>
+      <input formControlName="lunar" matInput type="text">
+      <mat-error>Lunar name required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>Moon</mat-label>
+      <mat-select formControlName="moon" placeholder="Role">
+        <mat-option *ngFor="let moon of moons" [value]="moon.id">
+          {{moon.name}}
+        </mat-option>
+      </mat-select>
+      <mat-hint>There can be only 1 full moon and 1 dead moon in a month</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <br>
+
   <div formArrayName="events">
     <div class="event" [formGroupName]="i" *ngFor="let event of eventForm.get('events')['controls']; let i = index; first as isFirst">
       <mat-form-field>

@@ -53,11 +53,13 @@
 }
 
 .day {
+  text-align: center;
   cursor: pointer;
-  width: 40px;
+  width: 14%;
   display: inline-block;
-  padding: .8rem;
-  box-sizing:border-box;
+  padding: .3rem;
+  font-size: 13px;
+  box-sizing: border-box;
 }
 
 .day:hover {
@@ -76,7 +78,7 @@
 
 .isEvent {
   color: orange;
-  font-weight: bold; 
+  font-weight: bold;
 }
 
 .isEventAndWeekdn {

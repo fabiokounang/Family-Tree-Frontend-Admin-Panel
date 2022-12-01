@@ -15,7 +15,7 @@ export class CalendarDetailComponent implements OnInit {
   calendar: any;
   loader: boolean = false;
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  emptyDay: any = [];
+  emptyDay: any = {};
   constructor (private dialog: MatDialog, private apiService: ApiService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -27,6 +27,7 @@ export class CalendarDetailComponent implements OnInit {
 		this.apiService.connection('POST', 'master-calendar-admin', {}, '', this.route.snapshot.params['id']).subscribe({
 			next: (response: any) => {
 				this.calendar = response.value;
+        this.processEmptyDay();
 			},
 			error: ({error}: HttpErrorResponse) => {
 				this.loader = false;
@@ -41,6 +42,7 @@ export class CalendarDetailComponent implements OnInit {
   onOpenFormEvent (calendar, month, day) {
     const objDialog: any = {
       width: '500px',
+      maxHeight: '90vh',
       data: {
         _id: this.route.snapshot.params['id'],
         calendar: calendar,
@@ -48,12 +50,20 @@ export class CalendarDetailComponent implements OnInit {
         day: day
       }
     }
-
-    if (calendar.calendar[month][day].events.length > 3) objDialog.height = '660px';
     const dialog = this.dialog.open(FormEventCalendarComponent, objDialog);
 
     dialog.afterClosed().subscribe((result) => {
       if (result) this.getOneCalendar();
+    });
+  }
+
+  processEmptyDay () {
+    Object.keys(this.calendar.calendar).forEach((key: any) => {
+      const year = new Date().getFullYear();
+      const month = key - 1;
+      const d = `${this.months[month]} 1, ${year} 00:00:01`;
+      const day = new Date(d).getDay();
+      this.emptyDay[month] = Array.from(Array(day).keys());
     });
   }
 

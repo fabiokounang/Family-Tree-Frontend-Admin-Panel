@@ -18,6 +18,8 @@ export class CalendarComponent implements OnInit {
 	loader: boolean = false;
   calendar: any = [];
   objectKeys = Object.keys;
+  file: any = null;
+  fileName: any = null;
 	displayedColumns: String[] = ['name', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
@@ -121,10 +123,34 @@ export class CalendarComponent implements OnInit {
 		})
   }
 
+  onChangeFile (file: File, event) {
+    this.fileName = file[0].name;
+    this.file = file[0];
+    const formData = new FormData();
+    formData.append('file', this.file);
+    this.apiService.connectionBlob('master-calendar-create', formData).subscribe({
+      next: (response: any) => {
+        this.apiService.callSnack('Success upload calendar', 'Dismiss');
+        this.getAllData();
+        this.fileName = '';
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loader = false;
+        this.apiService.callSnack('Something went wrong', 'Dismiss');
+      }
+    });
+    event.target.value = '';
+  }
+
+  onDelete () {
+    this.file = null;
+    this.fileName = null;
+  }
+
 	onOpenDetailCalendar (element) {
 		this.router.navigate([element._id], { relativeTo: this.route })
 	}
-	
+
   onSearch () {
     this.tableQueryData.search = this.searchText;
     this.getAllData();
@@ -150,5 +176,4 @@ export class CalendarComponent implements OnInit {
   identify (item, i) {
     return item.id;
   }
-
 }
