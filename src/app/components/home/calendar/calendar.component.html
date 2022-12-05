@@ -35,6 +35,11 @@
       <td class="imp" mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="year">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Year </th>
+      <td class="imp" mat-cell *matCellDef="let element"> {{element.year}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="status">
       <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Status</th>
       <td class="imp" mat-cell *matCellDef="let element">
@@ -55,11 +60,15 @@
     <ng-container matColumnDef="action" stickyEnd>
       <th class="imp action" mat-header-cell *matHeaderCellDef> Action </th>
       <td class="imp" mat-cell *matCellDef="let element; let i = index">
-        <button matTooltip="Calendar Detail" mat-icon-button (click)="onOpenDetailCalendar(element, i)">
+        <button matTooltip="Kalender Detail" mat-icon-button (click)="onOpenDetailCalendar(element, i)">
           <mat-icon>info</mat-icon>
         </button>
 
-        <button matTooltip="Delete Calendar" mat-icon-button (click)="onConfirmation(element, 'delete')">
+        <button matTooltip="Update Kalender" mat-icon-button (click)="onOpenEditCalendar(element, i)">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button matTooltip="Hapus Kalender" mat-icon-button (click)="onConfirmation(element, 'delete')">
           <mat-icon>delete</mat-icon>
         </button>
       </td>

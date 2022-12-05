@@ -40,7 +40,7 @@ export class FormAddAdminComponent implements OnInit {
 
   makeForm () {
     const form: any = {
-      username: new FormControl(null, [Validators.required]),
+      username: new FormControl(null, [Validators.required, Validators.pattern(/^[a-z0-9]+$/i)]),
       password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
       confirmation_password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
       role: new FormControl(null, [Validators.required])

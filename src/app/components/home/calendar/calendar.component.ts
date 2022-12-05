@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormConfirmationComponent } from 'src/app/dialog/form-confirmation/form-confirmation.component';
+import { FormEditCalendarComponent } from 'src/app/dialog/form-edit-calendar/form-edit-calendar.component';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class CalendarComponent implements OnInit {
   objectKeys = Object.keys;
   file: any = null;
   fileName: any = null;
-	displayedColumns: String[] = ['name', 'status', 'created_at', 'action'];
+	displayedColumns: String[] = ['name', 'year', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   searchText: string = '';
@@ -149,6 +150,16 @@ export class CalendarComponent implements OnInit {
 
 	onOpenDetailCalendar (element) {
 		this.router.navigate([element._id], { relativeTo: this.route })
+	}
+
+  onOpenEditCalendar (element) {
+		const dialog = this.dialog.open(FormEditCalendarComponent, {
+      data: element
+    });
+
+    dialog.afterClosed().subscribe((result) => {
+      if (result) this.getAllData();
+    })
 	}
 
   onSearch () {

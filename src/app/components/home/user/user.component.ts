@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { DetailUserComponent } from 'src/app/dialog/detail-user/detail-user.component';
 import { FormAddUserComponent } from 'src/app/dialog/form-add-user/form-add-user.component';
+import { FormChangePasswordUserComponent } from 'src/app/dialog/form-change-password-user/form-change-password-user.component';
 import { UserInterface } from 'src/app/interfaces/user.interface';
 import { UserPaginationInterface } from 'src/app/interfaces/userpagination.interface';
 
@@ -90,15 +91,17 @@ export class UserComponent implements OnInit {
   }
 
   onOpenChangePassword (data, index) {
-    // const dialog = this.dialog.open(FormChangePasswordAdminComponent, {
-    //   width: '500px',
-    //   data: {
-    //     type: 'admin',
-    //     rowData: data,
-    //     index: index
-    //   }
-    // });
-    // dialog.afterClosed().subscribe((result) => {});
+    const dialog = this.dialog.open(FormChangePasswordUserComponent, {
+      width: '500px',
+      data: {
+        type: 'user',
+        rowData: data,
+        index: index
+      }
+    });
+    dialog.afterClosed().subscribe((result) => {
+      if (result) this.getAllData();
+    });
   }
 
   onOpenAddForm () {

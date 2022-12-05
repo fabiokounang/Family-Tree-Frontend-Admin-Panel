@@ -4,6 +4,7 @@
       <mat-form-field>
         <input type="text" matInput formControlName="username" placeholder="Username">
         <mat-error *ngIf="adminForm.get('username').hasError('required')">Username required</mat-error>
+        <mat-error *ngIf="adminForm.get('username').hasError('pattern')">Username is alphanumeric only</mat-error>
         <mat-error *ngIf="adminForm.get('username').hasError('username')">{{adminForm.get('username').errors['username']}}</mat-error>
       </mat-form-field>
     </div>
@@ -31,7 +32,7 @@
       <mat-form-field>
         <mat-select (selectionChange)="onChangeRole($event)" formControlName="role" placeholder="Role">
           <mat-option *ngFor="let role of roles" [value]="role.id">
-            {{role.name}}              
+            {{role.name}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="adminForm.get('role').hasError('required')">Role required</mat-error>

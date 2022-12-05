@@ -1,0 +1,32 @@
+<div class="form-wrapper">
+  <form [formGroup]="calendarForm" (ngSubmit)="onUpdateCalendar()">
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="name" placeholder="Nama Kalender">
+        <mat-error *ngIf="calendarForm.get('name').hasError('required')">Nama kalender wajib diisi</mat-error>
+        <mat-error *ngIf="calendarForm.get('name').hasError('name')">{{calendarForm.get('name').errors['name']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="year" placeholder="Tahun Kalender">
+        <mat-error *ngIf="calendarForm.get('year').hasError('required')">Tahun kalender wajib diisi</mat-error>
+        <mat-error *ngIf="calendarForm.get('year').hasError('year')">{{calendarForm.get('year').errors['year']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="btn-container">
+      <ng-container *ngIf="!loader">
+        <button type="button" (click)="onCloseDialog()" mat-raised-button color="warn">
+          Close
+        </button>
+        &nbsp;
+        <button type="submit" [disabled]="calendarForm.invalid" mat-raised-button color="primary">
+          Save
+        </button>
+      </ng-container>
+      <app-spinner [loader]="loader" [diameter]="20"></app-spinner>
+    </div>
+  </form>
+</div>

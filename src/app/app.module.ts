@@ -48,6 +48,8 @@ import { FormAddBannerComponent } from './dialog/form-add-banner/form-add-banner
 import { FormEditBannerComponent } from './dialog/form-edit-banner/form-edit-banner.component';
 import { FormEditBulletinComponent } from './dialog/form-edit-bulletin/form-edit-bulletin.component';
 import { FormAddBulletinComponent } from './dialog/form-add-bulletin/form-add-bulletin.component';
+import { FormChangePasswordUserComponent } from './dialog/form-change-password-user/form-change-password-user.component';
+import { FormEditCalendarComponent } from './dialog/form-edit-calendar/form-edit-calendar.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +92,9 @@ import { FormAddBulletinComponent } from './dialog/form-add-bulletin/form-add-bu
     FormAddBannerComponent,
     FormEditBannerComponent,
     FormEditBulletinComponent,
-    FormAddBulletinComponent
+    FormAddBulletinComponent,
+    FormChangePasswordUserComponent,
+    FormEditCalendarComponent
   ],
   imports: [
     BrowserModule,
