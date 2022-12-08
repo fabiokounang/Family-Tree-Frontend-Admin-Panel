@@ -40,6 +40,8 @@ export class UserComponent implements OnInit {
   subscription: Subscription;
   isFilter: any = false;
   userRole: any = null;
+  fileName: any = null;
+  file: any = null;
 
   constructor (private apiService: ApiService, private dialog: MatDialog) {}
 
@@ -74,6 +76,25 @@ export class UserComponent implements OnInit {
         this.loader = false;
       }
     });
+  }
+
+  onChangeFile (file: File, event) {
+    this.fileName = file[0].name;
+    this.file = file[0];
+    const formData = new FormData();
+    formData.append('file', this.file);
+    this.apiService.connectionBlob('master-user-bulk-create', formData).subscribe({
+      next: (response: any) => {
+        this.apiService.callSnack('Success upload user', 'Dismiss');
+        this.getAllData();
+        this.fileName = '';
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loader = false;
+        this.apiService.callSnack('Something went wrong', 'Dismiss');
+      }
+    });
+    event.target.value = '';
   }
 
   onConfirmation (data, index, type) {

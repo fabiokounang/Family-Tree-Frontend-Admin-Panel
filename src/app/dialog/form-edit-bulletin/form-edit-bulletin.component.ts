@@ -18,18 +18,20 @@ export class FormEditBulletinComponent implements OnInit {
   statuses: DropdownInterface[] = [];
   image: string = '';
   imageShow: any = '';
+  provincies: DropdownInterface[] = [];
 
   constructor (@Inject(MAT_DIALOG_DATA) private data: any, private sharedService: SharedService, private apiService: ApiService, private dialogRef: MatDialogRef<any>) { }
 
   ngOnInit(): void {
     this.statuses = this.sharedService.getBannerStatus();
-
+    this.provincies = this.data.provincies;
     this.formBulletin = new FormGroup({
       title: new FormControl(this.data.bulletin.title, [Validators.required, Validators.maxLength(255)]),
       subtitle: new FormControl(this.data.bulletin.subtitle, [Validators.required, Validators.maxLength(500)]),
-      description: new FormControl(this.data.bulletin.description, [Validators.required, Validators.max(1500)]),
+      description: new FormControl(this.data.bulletin.description, [Validators.required, Validators.max(3000)]),
       image: new FormControl(this.data.bulletin.image, []),
-      status: new FormControl(this.data.bulletin.status, [Validators.required])
+      status: new FormControl(this.data.bulletin.status, [Validators.required]),
+      province: new FormControl(this.data.bulletin.province._id, [Validators.required])
     });
     this.imageShow = this.data.bulletin.image;
   }
@@ -58,6 +60,10 @@ export class FormEditBulletinComponent implements OnInit {
     });
   }
 
+  onCloseDialog () {
+    this.dialogRef.close(true);
+  }
+
   onEditBulletin () {
     if (this.formBulletin.valid) {
       this.loader = true;
@@ -70,6 +76,7 @@ export class FormEditBulletinComponent implements OnInit {
       formData.append('description', this.formBulletin.value.description);
       formData.append('image', this.formBulletin.value.image);
       formData.append('status', this.formBulletin.value.status);
+      formData.append('province', this.formBulletin.value.province);
       this.apiService.connection('POST', 'master-bulletin-update', formData, '', this.data.bulletin._id).subscribe({
         next: (response: any) => {
           this.dialogRef.close(true);

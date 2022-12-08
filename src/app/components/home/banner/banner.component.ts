@@ -10,6 +10,7 @@ import { FormConfirmationComponent } from 'src/app/dialog/form-confirmation/form
 import { FormEditBannerComponent } from 'src/app/dialog/form-edit-banner/form-edit-banner.component';
 import { BannerInterface } from 'src/app/interfaces/banner.interface';
 import { BannerPaginationInterface } from 'src/app/interfaces/bannerpagination.interface';
+import { DropdownInterface } from 'src/app/interfaces/dropdown.interface';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -38,6 +39,7 @@ export class BannerComponent implements OnInit {
   isFilter: any = false;
   userRole: any = null;
   userId: any = null;
+  provincies: DropdownInterface[] = [];
 
   constructor (private apiService: ApiService, private dialog: MatDialog, private meta: Meta) {}
 
@@ -64,6 +66,7 @@ export class BannerComponent implements OnInit {
         this.tableQueryData.max = response.max;
         this.totalAll = response.total;
         this.dataSource = new MatTableDataSource(response.values);
+        this.provincies = response.provincies;
       },
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
@@ -87,6 +90,7 @@ export class BannerComponent implements OnInit {
   }
 
   deleteBanner (admin: BannerInterface) {
+    this.loader = true;
     this.apiService.connection('POST', 'master-banner-delete', {}, '', admin._id).subscribe({
       next: (response: any) => {
         this.apiService.callSnack('Success delete banner', 'Close');
@@ -104,7 +108,9 @@ export class BannerComponent implements OnInit {
     const dialog = this.dialog.open(FormAddBannerComponent, {
       width: '500px',
       maxHeight: '90vh',
-      data: {}
+      data: {
+        provincies: this.provincies
+      }
     });
 
     dialog.afterClosed().subscribe((result) => {
@@ -121,7 +127,8 @@ export class BannerComponent implements OnInit {
       maxHeight: '90vh',
       data: {
         banner: data,
-        index: index
+        index: index,
+        provincies: this.provincies
       }
     });
     dialog.afterClosed().subscribe((result) => {

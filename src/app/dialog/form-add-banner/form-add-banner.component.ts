@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DropdownInterface } from 'src/app/interfaces/dropdown.interface';
 import { ApiService } from 'src/app/services/api.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -17,14 +17,16 @@ export class FormAddBannerComponent implements OnInit {
   statuses: DropdownInterface[] = [];
   image: string = '';
   imageShow: any = '';
-
-  constructor (private sharedService: SharedService, private apiService: ApiService, private dialogRef: MatDialogRef<any>) { }
+  provincies: DropdownInterface[] = [];
+  constructor (@Inject(MAT_DIALOG_DATA) private data: any, private sharedService: SharedService, private apiService: ApiService, private dialogRef: MatDialogRef<any>) { }
 
   ngOnInit(): void {
     this.statuses = this.sharedService.getBannerStatus();
+    this.provincies = this.data.provincies;
     this.formBanner = new FormGroup({
       image: new FormControl(null, [Validators.required]),
-      status: new FormControl(null, [Validators.required])
+      status: new FormControl(null, [Validators.required]),
+      province: new FormControl(null, [Validators.required]),
     });
   }
 
@@ -57,6 +59,7 @@ export class FormAddBannerComponent implements OnInit {
 
       formData.append('image', this.formBanner.value.image);
       formData.append('status', this.formBanner.value.status);
+      formData.append('province', this.formBanner.value.province);
       this.apiService.connection('POST', 'master-banner-create', formData).subscribe({
         next: (response: any) => {
           this.dialogRef.close(true);

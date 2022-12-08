@@ -16,6 +16,7 @@ import { TestComponent } from './components/home/test/test.component';
 import { ThemeComponent } from './components/home/theme/theme.component';
 import { UserComponent } from './components/home/user/user.component';
 import { LoginComponent } from './components/login/login.component';
+import { MembercardComponent } from './components/membercard/membercard.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -83,6 +84,10 @@ const routes: Routes = [
       {
         path: 'province/:id/:name/:code',
         component: CityComponent
+      },
+      {
+        path: 'membercard',
+        component: MembercardComponent
       },
     ]
   },

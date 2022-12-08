@@ -2,6 +2,18 @@
   <form [formGroup]="formBulletin" (ngSubmit)="onEditBulletin()">
     <div>
       <mat-form-field>
+        <mat-select formControlName="province" placeholder="Province">
+          <mat-option *ngFor="let province of provincies" [value]="province.id">
+            {{province.name | titlecase}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formBulletin.get('province').hasError('required')">Province required</mat-error>
+        <mat-error *ngIf="formBulletin.get('province').hasError('province')">{{formBulletin.get('province').errors['province']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
         <input type="text" matInput formControlName="title" placeholder="Title">
         <mat-error *ngIf="formBulletin.get('title').hasError('required')">Title required</mat-error>
         <mat-error *ngIf="formBulletin.get('title').hasError('title')">{{formBulletin.get('title').errors['title']}}</mat-error>

@@ -17,6 +17,10 @@
         <mat-icon>store</mat-icon>
         <span class="nav-caption">User</span>
       </a>
+      <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/membercard" (click)="onToggle(sidenav)">
+        <mat-icon>person_pin</mat-icon>
+        <span class="nav-caption">Member Card</span>
+      </a>
       <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/banner" (click)="onToggle(sidenav)">
         <mat-icon>dashboard</mat-icon>
         <span class="nav-caption">Banner</span>
@@ -25,10 +29,6 @@
         <mat-icon>library_books</mat-icon>
         <span class="nav-caption">Bulletin</span>
       </a>
-      <!-- <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/theme" (click)="onToggle(sidenav)">
-        <mat-icon>palette</mat-icon>
-        <span class="nav-caption">Theme</span>
-      </a> -->
       <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item routerLink="/home/calendar" (click)="onToggle(sidenav)">
         <mat-icon>money</mat-icon>
         <span class="nav-caption">Calendar</span>

@@ -11,6 +11,7 @@ export default {
   'master-user-create': 'api/user/signup',
   'master-user-password': 'api/user/update_password',
   'master-user-detail': 'api/user/admin',
+  'master-user-bulk-create': 'api/user/bulkcreate',
   'master-banner': 'api/banner',
   'master-banner-create': 'api/banner/create',
   'master-banner-update': 'api/banner/update',

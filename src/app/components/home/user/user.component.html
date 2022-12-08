@@ -4,6 +4,17 @@
       <span style="font-size: 12px">Add User</span>
     </button>
   </div>
+
+  <div class="wrapper-upload">
+    <button type="button" color="primary" mat-raised-button (click)="fileInput.click()">
+      <span style="font-size: 12px">Upload Calendar</span>
+    </button>
+    <input hidden accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" (change)="onChangeFile($event.target.files, $event)" #fileInput type="file" id="file">
+    <span class="img" *ngIf="fileName">
+      {{fileName}}
+    </span>
+  </div>
+
   <span class="example-spacer"></span>
   <div>
     <mat-form-field>

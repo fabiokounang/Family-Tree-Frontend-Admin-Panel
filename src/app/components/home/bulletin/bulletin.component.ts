@@ -10,6 +10,8 @@ import { FormConfirmationComponent } from 'src/app/dialog/form-confirmation/form
 import { FormEditBulletinComponent } from 'src/app/dialog/form-edit-bulletin/form-edit-bulletin.component';
 import { BulletinInterface } from 'src/app/interfaces/bulletin.interface';
 import { BulletinPaginationInterface } from 'src/app/interfaces/bulletinpagination.interface';
+import { DropdownInterface } from 'src/app/interfaces/dropdown.interface';
+import { ProvinceInterface } from 'src/app/interfaces/province.interface';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -18,7 +20,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./bulletin.component.css']
 })
 export class BulletinComponent implements OnInit {
-  displayedColumns: String[] = ['image', 'status', 'created_at', 'action'];
+  displayedColumns: String[] = ['province', 'image', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   loader: boolean = false;
@@ -38,6 +40,7 @@ export class BulletinComponent implements OnInit {
   isFilter: any = false;
   userRole: any = null;
   userId: any = null;
+  provincies: DropdownInterface[] = [];
 
   constructor (private apiService: ApiService, private dialog: MatDialog, private meta: Meta) {}
 
@@ -64,6 +67,7 @@ export class BulletinComponent implements OnInit {
         this.tableQueryData.max = response.max;
         this.totalAll = response.total;
         this.dataSource = new MatTableDataSource(response.values);
+        this.provincies = response.provincies;
       },
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
@@ -104,7 +108,9 @@ export class BulletinComponent implements OnInit {
     const dialog = this.dialog.open(FormAddBulletinComponent, {
       width: '500px',
       maxHeight: '90vh',
-      data: {}
+      data: {
+        provincies: this.provincies
+      }
     });
 
     dialog.afterClosed().subscribe((result) => {
@@ -121,7 +127,8 @@ export class BulletinComponent implements OnInit {
       maxHeight: '90vh',
       data: {
         bulletin: data,
-        index: index
+        index: index,
+        provincies: this.provincies
       }
     });
     dialog.afterClosed().subscribe((result) => {

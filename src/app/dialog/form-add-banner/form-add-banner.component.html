@@ -1,5 +1,18 @@
 <div class="form-wrapper">
   <form [formGroup]="formBanner" (ngSubmit)="onAddBanner()">
+
+    <div>
+      <mat-form-field>
+        <mat-select formControlName="province" placeholder="Province">
+          <mat-option *ngFor="let province of provincies" [value]="province.id">
+            {{province.name | titlecase}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formBanner.get('province').hasError('required')">Province required</mat-error>
+        <mat-error *ngIf="formBanner.get('province').hasError('province')">{{formBanner.get('province').errors['province']}}</mat-error>
+      </mat-form-field>
+    </div>
+
     <div class="wrapper-upload">
       <button type="button" color="primary" mat-raised-button (click)="fileInput.click()">
         <span style="font-size: 12px">Upload Banner</span>

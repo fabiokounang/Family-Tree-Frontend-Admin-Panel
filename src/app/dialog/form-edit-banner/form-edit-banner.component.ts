@@ -17,14 +17,17 @@ export class FormEditBannerComponent implements OnInit {
   statuses: DropdownInterface[] = [];
   image: string = '';
   imageShow: any = '';
+  provincies: DropdownInterface[] = [];
 
   constructor (@Inject(MAT_DIALOG_DATA) private data: any, private sharedService: SharedService, private apiService: ApiService, private dialogRef: MatDialogRef<any>) { }
 
   ngOnInit(): void {
     this.statuses = this.sharedService.getBannerStatus();
+    this.provincies = this.data.provincies;
     this.formBanner = new FormGroup({
       image: new FormControl(this.data.banner.image, [Validators.required]),
-      status: new FormControl(this.data.banner.status, [Validators.required])
+      status: new FormControl(this.data.banner.status, [Validators.required]),
+      province: new FormControl(this.data.banner.province, [Validators.required]),
     });
     this.imageShow = this.data.banner.image;
   }
@@ -51,6 +54,10 @@ export class FormEditBannerComponent implements OnInit {
     });
   }
 
+  onCloseDialog () {
+    this.dialogRef.close(true);
+  }
+
   onEditBanner () {
     if (this.formBanner.valid) {
       this.loader = true;
@@ -59,6 +66,7 @@ export class FormEditBannerComponent implements OnInit {
       const formData = new FormData();
       formData.append('image', this.formBanner.value.image);
       formData.append('status', this.formBanner.value.status);
+      formData.append('province', this.formBanner.value.province);
       this.apiService.connection('POST', 'master-banner-update', formData, '', this.data.banner._id).subscribe({
         next: (response: any) => {
           this.dialogRef.close(true);
