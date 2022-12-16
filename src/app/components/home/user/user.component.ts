@@ -7,12 +7,10 @@ import { Subscription } from 'rxjs';
 import { DetailUserComponent } from 'src/app/dialog/detail-user/detail-user.component';
 import { FormAddUserComponent } from 'src/app/dialog/form-add-user/form-add-user.component';
 import { FormChangePasswordUserComponent } from 'src/app/dialog/form-change-password-user/form-change-password-user.component';
+import { FormConfirmationComponent } from 'src/app/dialog/form-confirmation/form-confirmation.component';
 import { UserInterface } from 'src/app/interfaces/user.interface';
 import { UserPaginationInterface } from 'src/app/interfaces/userpagination.interface';
 
-// import { FormAddAdminComponent } from 'src/app/dialog/form-add-admin/form-add-admin.component';
-// import { FormChangePasswordAdminComponent } from 'src/app/dialog/form-change-password-admin/form-change-password-admin.component';
-// import { FormEditAdminComponent } from 'src/app/dialog/form-edit-admin/form-edit-admin.component';
 import { ApiService } from '../../../services/api.service';
 
 @Component({
@@ -97,18 +95,29 @@ export class UserComponent implements OnInit {
     event.target.value = '';
   }
 
-  onConfirmation (data, index, type) {
-    // const dialog = this.dialog.open(FormConfirmationComponent, {
-    //   data: {
-    //     text: 'Apakah anda yakin ingin ' + type + ' admin ini ?'
-    //   }
-    // });
-    // dialog.afterClosed().subscribe((result) => {
-    //   if (result == true) {
-    //     if (type == 'nonaktifkan') this.deactivateAdmin(data, index);
-    //     if (type == 'aktifkan') this.activateAdmin(data, index);
-    //   }
-    // })
+  onConfirmation (data, index) {
+    const dialog = this.dialog.open(FormConfirmationComponent, {
+      data: {
+        text: 'Are you sure you want to delete user <strong>' + data.fullname + '</strong> ?'
+      }
+    });
+    dialog.afterClosed().subscribe((result) => {
+      if (result) this.deleteUser(data);
+    });
+  }
+
+  deleteUser (user) {
+    this.apiService.connection('POST', 'master-user-delete', {}, '', user._id).subscribe({
+      next: (response: any) => {
+        this.apiService.callSnack('Success delete user', 'Close');
+        this.loader = false;
+        this.getAllData();
+      },
+      error: ({error}: HttpErrorResponse) => {
+        this.loader = false;
+        this.apiService.processErrorHttp(!error.error ? error : error.error);
+      }
+    });
   }
 
   onOpenChangePassword (data, index) {

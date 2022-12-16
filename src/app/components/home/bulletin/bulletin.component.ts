@@ -91,6 +91,7 @@ export class BulletinComponent implements OnInit {
   }
 
   deleteBulletin (admin: BulletinInterface) {
+    this.loader = true;
     this.apiService.connection('POST', 'master-bulletin-delete', {}, '', admin._id).subscribe({
       next: (response: any) => {
         this.apiService.callSnack('Success delete bulletin', 'Close');

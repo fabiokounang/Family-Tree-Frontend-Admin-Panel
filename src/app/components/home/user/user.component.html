@@ -6,8 +6,8 @@
   </div>
 
   <div class="wrapper-upload">
-    <button type="button" color="primary" mat-raised-button (click)="fileInput.click()">
-      <span style="font-size: 12px">Upload Calendar</span>
+    <button type="button" color="warn" mat-raised-button (click)="fileInput.click()">
+      <span style="font-size: 12px">Upload User</span>
     </button>
     <input hidden accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" (change)="onChangeFile($event.target.files, $event)" #fileInput type="file" id="file">
     <span class="img" *ngIf="fileName">
@@ -66,6 +66,10 @@
 
         <button matTooltip="Change Password User" mat-icon-button (click)="onOpenChangePassword(element, i)">
           <mat-icon>password</mat-icon>
+        </button>
+
+        <button matTooltip="Delete User" mat-icon-button (click)="onConfirmation(element, i)">
+          <mat-icon>delete</mat-icon>
         </button>
       </td>
     </ng-container>
