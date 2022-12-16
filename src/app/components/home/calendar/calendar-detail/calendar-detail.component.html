@@ -3,6 +3,8 @@
     <mat-icon routerLink="/home/calendar" class="cursor">keyboard_backspace</mat-icon>
     <div class="title-calendar">
       <span>{{calendar.name | uppercase}}</span>
+      -
+      <span>{{calendar.year}}</span>
       <span>{{calendar.status == 1 ? ' (Active)' : ' (Not Active)'}}</span>
     </div>
     <span class="example-spacer"></span>

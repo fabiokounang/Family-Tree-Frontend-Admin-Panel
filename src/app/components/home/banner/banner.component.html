@@ -17,6 +17,16 @@
 
 <div class="table-wrapper" *ngIf="dataSource.data.length > 0">
   <table #table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="dataSource" [trackBy]="identify" class="table table-data mat-elevation-z8">
+    <ng-container matColumnDef="province">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Province </th>
+      <td class="imp" mat-cell *matCellDef="let element">{{element.province.province | titlecase}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Title </th>
+      <td class="imp" mat-cell *matCellDef="let element">{{element.title | titlecase}}</td>
+    </ng-container>
+
     <ng-container matColumnDef="image">
       <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Banner </th>
       <td class="imp" mat-cell *matCellDef="let element">

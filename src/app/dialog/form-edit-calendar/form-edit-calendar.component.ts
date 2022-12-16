@@ -25,6 +25,7 @@ export class FormEditCalendarComponent implements OnInit {
     this.calendarForm = new FormGroup({
       name: new FormControl(this.data.name, [Validators.required]),
       year: new FormControl(this.data.year, [Validators.required]),
+      province: new FormControl(this.data.province, [Validators.required]),
     });
   }
 

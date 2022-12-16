@@ -3,54 +3,60 @@ import { HttpRequest, HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import HttpList from '../utils/http-list';
 import { Meta } from '@angular/platform-browser';
+import { DropdownInterface } from "../interfaces/dropdown.interface";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class SharedService {
-  private roleAdmin: any[] = [
+  private roleAdmin: DropdownInterface[] = [
     {id: 1, name: 'Superadmin'},
     {id: 2, name: 'Admin'}
   ];
 
-  private statusAdmin: any[] = [
+  private statusAdmin: DropdownInterface[] = [
     {id: 1, name: 'Active'},
     {id: 2, name: 'Not Active'}
   ];
 
-  private statusUser: any[] = [
+  private statusUser: DropdownInterface[] = [
     {id: 1, name: 'Active'},
     {id: 2, name: 'Not Active'}
   ];
 
-  private statusBanner: any[] = [
+  private statusBanner: DropdownInterface[] = [
     {id: 1, name: 'Active'},
     {id: 2, name: 'Not Active'}
   ];
 
-  private gender: any[] = [
+  private statusMemberCard: DropdownInterface[] = [
+    { id: 1, name: 'Active' },
+    { id: 2, name: 'Not Active' },
+  ]
+
+  private gender: DropdownInterface[] = [
     { id: 1, name: 'Male' },
     { id: 2, name: 'Female' }
   ];
 
-  private lifeStatus: any[] = [
+  private lifeStatus: DropdownInterface[] = [
     { id: 1, name: 'Dead' },
     { id: 2, name: 'Alive' }
   ];
 
-  private occasionType: any[] = [
+  private occasionType: DropdownInterface[] = [
     { id: 1, name: 'Add' },
     { id: 2, name: 'Decrease' }
   ]
 
-  private scopes: any[] = [
+  private scopes: DropdownInterface[] = [
     { id: 1, name: 'Local Add Point' },
     { id: 2, name: 'Local Redeem Point' },
     { id: 3, name: 'National Redeem Point' }
   ]
 
-  private moons: any[] = [
+  private moons: DropdownInterface[] = [
     { id: 1, name: 'Purnama' },
     { id: 2, name: 'Mati' }
   ]
@@ -93,6 +99,16 @@ export class SharedService {
 
   getMoons () {
     return this.moons;
+  }
+
+  getMemberCardStatus () {
+    return this.statusMemberCard;
+  }
+
+  onChangeFile (file, callback) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => callback(reader.result);
   }
 
   async callSnack (text: string, action: string) {

@@ -1,19 +1,9 @@
 <div class="filter-wrapper">
-  <!-- <div>
-    <mat-form-field>
-      <mat-label>Calendar Name</mat-label>
-      <input (keyup.enter)="addCalendar()" type="text" matInput [(ngModel)]="name">
-    </mat-form-field>
-    <button type="button" [disabled]="!name" color="primary" mat-raised-button (click)="addCalendar()">
-      <span style="font-size: 12px">Upload Calendar</span>
-    </button>
-  </div> -->
-  <div class="wrapper-upload">
-    <button type="button" color="primary" mat-raised-button (click)="onOpenAddCalendar()">
-      <span style="font-size: 12px">Add Calendar</span>
+  <div *ngIf="userRole == 1">
+    <button type="button" color="primary" mat-raised-button (click)="onOpenAddForm()">
+      <span style="font-size: 12px">Add Member Card</span>
     </button>
   </div>
-
   <span class="example-spacer"></span>
   <div>
     <mat-form-field>
@@ -27,26 +17,21 @@
 
 <div class="table-wrapper" *ngIf="dataSource.data.length > 0">
   <table #table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="dataSource" [trackBy]="identify" class="table table-data mat-elevation-z8">
-    <ng-container matColumnDef="name" sticky>
-      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Calendar Name </th>
-      <td class="imp" mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="year">
-      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Year </th>
-      <td class="imp" mat-cell *matCellDef="let element"> {{element.year}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="province">
-      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Province </th>
-      <td class="imp" mat-cell *matCellDef="let element"> {{element.province.province | titlecase}} </td>
+    <ng-container matColumnDef="image">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Member Card </th>
+      <td class="imp" mat-cell *matCellDef="let element">
+        <img src="{{element.image}}" alt="">
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
       <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Status</th>
       <td class="imp" mat-cell *matCellDef="let element">
         <mat-chip-list>
-          <mat-slide-toggle [disabled]="userRole == 2" matTooltip="Update Status Calendar" (change)="updateStatusCalendar(element, $event)" color="primary" [checked]="element.status == 1"></mat-slide-toggle>
+          <mat-chip [ngClass]="{
+            'active': element.status == 1,
+            'suspend': element.status == 2
+          }">{{(element.status == 1 ? 'Active' : element.status == 2 ? 'Not Active' : '-')}}</mat-chip>
         </mat-chip-list>
       </td>
     </ng-container>
@@ -62,15 +47,11 @@
     <ng-container matColumnDef="action" stickyEnd>
       <th class="imp action" mat-header-cell *matHeaderCellDef> Action </th>
       <td class="imp" mat-cell *matCellDef="let element; let i = index">
-        <button matTooltip="Kalender Detail" mat-icon-button (click)="onOpenDetailCalendar(element, i)">
-          <mat-icon>info</mat-icon>
-        </button>
-
-        <button matTooltip="Update Kalender" mat-icon-button (click)="onOpenEditCalendar(element, i)">
+        <button matTooltip="Update Member Card" *ngIf="userRole == 1" mat-icon-button (click)="onOpenEditForm(element, i)">
           <mat-icon>edit</mat-icon>
         </button>
 
-        <button matTooltip="Hapus Kalender" mat-icon-button (click)="onConfirmation(element, 'delete')">
+        <button *ngIf="userId != element._id && userRole == 1" matTooltip="Delete Member Card" mat-icon-button (click)="onOpenConfirmation(element, 'delete')">
           <mat-icon>delete</mat-icon>
         </button>
       </td>

@@ -12,11 +12,10 @@ import { LogComponent } from './components/home/log/log.component';
 import { PointComponent } from './components/home/point/point.component';
 import { CityComponent } from './components/home/province/city/city.component';
 import { ProvinceComponent } from './components/home/province/province.component';
-import { TestComponent } from './components/home/test/test.component';
 import { ThemeComponent } from './components/home/theme/theme.component';
 import { UserComponent } from './components/home/user/user.component';
 import { LoginComponent } from './components/login/login.component';
-import { MembercardComponent } from './components/membercard/membercard.component';
+import { MembercardComponent } from './components/home/membercard/membercard.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -56,10 +55,6 @@ const routes: Routes = [
       {
         path: 'point',
         component: PointComponent
-      },
-      {
-        path: 'event/:id',
-        component: TestComponent
       },
       {
         path: 'broadcast',

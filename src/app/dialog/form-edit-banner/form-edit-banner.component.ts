@@ -24,10 +24,14 @@ export class FormEditBannerComponent implements OnInit {
   ngOnInit(): void {
     this.statuses = this.sharedService.getBannerStatus();
     this.provincies = this.data.provincies;
+    console.log(this.data.banner)
     this.formBanner = new FormGroup({
+      title: new FormControl(this.data.banner.title, [Validators.required, Validators.maxLength(255)]),
+      subtitle: new FormControl(this.data.banner.subtitle, [Validators.required, Validators.maxLength(500)]),
+      description: new FormControl(this.data.banner.description, [Validators.required, Validators.max(3000)]),
       image: new FormControl(this.data.banner.image, [Validators.required]),
       status: new FormControl(this.data.banner.status, [Validators.required]),
-      province: new FormControl(this.data.banner.province, [Validators.required]),
+      province: new FormControl(this.data.banner.province._id, [Validators.required]),
     });
     this.imageShow = this.data.banner.image;
   }
@@ -37,14 +41,10 @@ export class FormEditBannerComponent implements OnInit {
     this.formBanner.patchValue({
       image: file[0]
     });
-
-    const reader = new FileReader();
-    reader.readAsDataURL(file[0]);
-    reader.onload = () => {
-      this.imageShow = reader.result;
-    };
-
-    event.target.value = '';
+    this.sharedService.onChangeFile(file[0], (result) => {
+      this.imageShow = result;
+      event.target.value = '';
+    });
   }
 
   onDelete () {
@@ -64,6 +64,9 @@ export class FormEditBannerComponent implements OnInit {
       this.dialogRef.disableClose = true;
       this.formBanner.disable();
       const formData = new FormData();
+      formData.append('title', this.formBanner.value.title);
+      formData.append('subtitle', this.formBanner.value.subtitle);
+      formData.append('description', this.formBanner.value.description);
       formData.append('image', this.formBanner.value.image);
       formData.append('status', this.formBanner.value.status);
       formData.append('province', this.formBanner.value.province);

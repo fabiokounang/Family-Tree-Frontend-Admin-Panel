@@ -12,6 +12,30 @@
       </mat-form-field>
     </div>
 
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="title" placeholder="Title">
+        <mat-error *ngIf="formBanner.get('title').hasError('required')">Title required</mat-error>
+        <mat-error *ngIf="formBanner.get('title').hasError('title')">{{formBanner.get('title').errors['title']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input type="text" matInput formControlName="subtitle" placeholder="Subtitle">
+        <mat-error *ngIf="formBanner.get('subtitle').hasError('required')">Subtitle required</mat-error>
+        <mat-error *ngIf="formBanner.get('subtitle').hasError('subtitle')">{{formBanner.get('subtitle').errors['subtitle']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <textarea matInput formControlName="description" placeholder="Content"></textarea>
+        <mat-error *ngIf="formBanner.get('description').hasError('required')">Content required</mat-error>
+        <mat-error *ngIf="formBanner.get('description').hasError('description')">{{formBanner.get('description').errors['description']}}</mat-error>
+      </mat-form-field>
+    </div>
+
     <div class="wrapper-upload">
       <button type="button" color="primary" mat-raised-button (click)="fileInput.click()">
         <span style="font-size: 12px">Upload Bulletin</span>

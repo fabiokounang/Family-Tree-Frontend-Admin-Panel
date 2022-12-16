@@ -6,8 +6,10 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormAddCalendarComponent } from 'src/app/dialog/form-add-calendar/form-add-calendar.component';
 import { FormConfirmationComponent } from 'src/app/dialog/form-confirmation/form-confirmation.component';
 import { FormEditCalendarComponent } from 'src/app/dialog/form-edit-calendar/form-edit-calendar.component';
+import { DropdownInterface } from 'src/app/interfaces/dropdown.interface';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -21,7 +23,7 @@ export class CalendarComponent implements OnInit {
   objectKeys = Object.keys;
   file: any = null;
   fileName: any = null;
-	displayedColumns: String[] = ['name', 'year', 'status', 'created_at', 'action'];
+	displayedColumns: String[] = ['name', 'year', 'province', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   searchText: string = '';
@@ -36,6 +38,7 @@ export class CalendarComponent implements OnInit {
     filter: {}
   }
   name: string = '';
+  provincies: DropdownInterface[] = [];
 
   constructor (private apiService: ApiService, private router: Router, private route: ActivatedRoute, private dialog: MatDialog) {}
 
@@ -48,6 +51,7 @@ export class CalendarComponent implements OnInit {
 		this.apiService.connection('POST', 'master-calendar').subscribe({
 			next: (response: any) => {
 				this.dataSource = new MatTableDataSource(response.values);
+        this.provincies = response.provincies;
 			},
 			error: ({error}: HttpErrorResponse) => {
 				this.loader = false;
@@ -81,7 +85,8 @@ export class CalendarComponent implements OnInit {
 
   updateStatusCalendar (element, event) {
     this.loader = true;
-		this.apiService.connection('POST', 'master-calendar-update-status', { status: event.checked }, '', element._id).subscribe({
+    const objData = { status: event.checked, province: element.province._id }
+		this.apiService.connection('POST', 'master-calendar-update-status', objData, '', element._id).subscribe({
 			next: (response: any) => {
         this.getAllData();
         this.apiService.callSnack('Success update status calendar', 'Dismiss');
@@ -124,25 +129,6 @@ export class CalendarComponent implements OnInit {
 		})
   }
 
-  onChangeFile (file: File, event) {
-    this.fileName = file[0].name;
-    this.file = file[0];
-    const formData = new FormData();
-    formData.append('file', this.file);
-    this.apiService.connectionBlob('master-calendar-create', formData).subscribe({
-      next: (response: any) => {
-        this.apiService.callSnack('Success upload calendar', 'Dismiss');
-        this.getAllData();
-        this.fileName = '';
-      },
-      error: (error: HttpErrorResponse) => {
-        this.loader = false;
-        this.apiService.callSnack('Something went wrong', 'Dismiss');
-      }
-    });
-    event.target.value = '';
-  }
-
   onDelete () {
     this.file = null;
     this.fileName = null;
@@ -152,14 +138,31 @@ export class CalendarComponent implements OnInit {
 		this.router.navigate([element._id], { relativeTo: this.route })
 	}
 
-  onOpenEditCalendar (element) {
-		const dialog = this.dialog.open(FormEditCalendarComponent, {
-      data: element
+  onOpenAddCalendar () {
+    const dialog = this.dialog.open(FormAddCalendarComponent, {
+      width: '400px',
+      data: {
+        provincies: this.provincies
+      }
     });
 
     dialog.afterClosed().subscribe((result) => {
       if (result) this.getAllData();
     })
+  }
+
+  onOpenEditCalendar (element) {
+		const dialog = this.dialog.open(FormEditCalendarComponent, {
+      width: '400px',
+      data: {
+        calendar: element,
+        provincies: this.provincies
+      }
+    });
+
+    dialog.afterClosed().subscribe((result) => {
+      if (result) this.getAllData();
+    });
 	}
 
   onSearch () {

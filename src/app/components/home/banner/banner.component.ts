@@ -19,7 +19,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./banner.component.css']
 })
 export class BannerComponent implements OnInit {
-  displayedColumns: String[] = ['image', 'status', 'created_at', 'action'];
+  displayedColumns: String[] = ['province', 'title', 'image', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   loader: boolean = false;

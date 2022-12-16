@@ -21,7 +21,47 @@ body, html {
   src: url(./assets/AvenirLTStd-Book.woff);
 }
 
+
+/* GLOBAL STYLE */
 table, th, td, tr, input, form, button, p {
   font-family: 'unique-sub' !important;
   font-weight: bold !important;
+}
+
+table {
+  width: 100%;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.table-wrapper {
+  max-height: calc(100vh - 29vh);
+  overflow: auto;
+}
+
+.filter-wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.filter-wrapper mat-form-field {
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+th.imp {
+  font-weight: bold;
+  vertical-align: middle !important;
+  font-size: 15px !important;
+  white-space: nowrap !important;
+  padding: 0px 10px !important;
+}
+
+td.imp {
+  vertical-align: middle !important;
+  font-size: 12px !important;
+  white-space: nowrap !important;
+  padding: .7rem !important;
 }

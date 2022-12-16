@@ -1,0 +1,53 @@
+<div class="form-wrapper">
+  <form [formGroup]="formMemberCard" (ngSubmit)="onAddMemberCard()">
+
+    <div>
+      <mat-form-field>
+        <mat-select formControlName="province" placeholder="Province">
+          <mat-option *ngFor="let province of provincies" [value]="province.id">
+            {{province.name | titlecase}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formMemberCard.get('province').hasError('required')">Province required</mat-error>
+        <mat-error *ngIf="formMemberCard.get('province').hasError('province')">{{formMemberCard.get('province').errors['province']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="wrapper-upload">
+      <button type="button" color="primary" mat-raised-button (click)="fileInput.click()">
+        <span style="font-size: 12px">Upload Banner</span>
+      </button>
+      <input hidden accept="image/png, image/gif, image/jpeg" (change)="onChangeFile($event.target.files, $event)" #fileInput type="file" id="file">
+      <span class="img" *ngIf="imageShow">
+        <br>
+        <img [src]="imageShow" alt="">
+        <br>
+      </span>
+    </div>
+    <br>
+    <div>
+      <mat-form-field>
+        <mat-select formControlName="status" placeholder="Status">
+          <mat-option *ngFor="let status of statuses" [value]="status.id">
+            {{status.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formMemberCard.get('status').hasError('required')">Status required</mat-error>
+        <mat-error *ngIf="formMemberCard.get('status').hasError('status')">{{formMemberCard.get('status').errors['status']}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="btn-container">
+      <ng-container *ngIf="!loader">
+        <button type="button" (click)="onCloseDialog()" mat-raised-button color="warn">
+          Close
+        </button>
+        &nbsp;
+        <button type="submit" [disabled]="formMemberCard.invalid" mat-raised-button color="primary">
+          Save
+        </button>
+      </ng-container>
+      <app-spinner [loader]="loader" [diameter]="20"></app-spinner>
+    </div>
+  </form>
+</div>

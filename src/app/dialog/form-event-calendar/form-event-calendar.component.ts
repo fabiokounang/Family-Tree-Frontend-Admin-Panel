@@ -50,12 +50,14 @@ export class FormEventCalendarComponent implements OnInit {
     if (calendar[this.month][this.day].events.length <= 0) {
       return [new FormGroup({
         name: new FormControl(null, [Validators.required]),
+        subtitle: new FormControl(null, [Validators.required]),
         description: new FormControl(null)
       })];
     }
     const result = calendar[this.month][this.day].events.map((value) => {
       return new FormGroup({
         name: new FormControl(value.name, [Validators.required]),
+        subtitle: new FormControl(null, [Validators.required]),
         description: new FormControl(value.description)
       });
     });
@@ -66,10 +68,9 @@ export class FormEventCalendarComponent implements OnInit {
     const control: FormArray = ( < FormArray > this.eventForm.get('events'));
     control.push(new FormGroup({
       name: new FormControl(null, [Validators.required]),
+      subtitle: new FormControl(null, [Validators.required]),
       description: new FormControl(null)
     }));
-
-    this.dialogRef.updateSize('500px', '660px');
   }
 
   removeFormArray(i) {

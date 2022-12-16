@@ -4,26 +4,25 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { Subscription } from 'rxjs';
-import { FormAddAdminComponent } from 'src/app/dialog/form-add-admin/form-add-admin.component';
+import { FormAddMembercardComponent } from 'src/app/dialog/form-add-membercard/form-add-membercard.component';
 import { FormChangePasswordAdminComponent } from 'src/app/dialog/form-change-password-admin/form-change-password-admin.component';
 import { FormConfirmationComponent } from 'src/app/dialog/form-confirmation/form-confirmation.component';
-import { FormEditAdminComponent } from 'src/app/dialog/form-edit-admin/form-edit-admin.component';
-import { AdminInterface } from 'src/app/interfaces/admin.interface';
-import { AdminPaginationInterface } from 'src/app/interfaces/adminpagination.interface';
-import { ProvinceInterface } from 'src/app/interfaces/province.interface';
+import { FormEditMembercardComponent } from 'src/app/dialog/form-edit-membercard/form-edit-membercard.component';
+import { DropdownInterface } from 'src/app/interfaces/dropdown.interface';
+import { MemberCardInterface } from 'src/app/interfaces/membercard.interface';
+import { MemberCardPaginationInterface } from 'src/app/interfaces/membercardpagination.interface';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: 'app-membercard',
+  templateUrl: './membercard.component.html',
+  styleUrls: ['./membercard.component.css']
 })
-
-export class AdminComponent implements OnInit {
-  displayedColumns: String[] = ['username', 'role', 'status', 'created_at', 'action'];
+export class MembercardComponent implements OnInit {
+  displayedColumns: String[] = ['image', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
-  provinces: ProvinceInterface[] = [];
+  provincies: DropdownInterface[]  = [];
   loader: boolean = false;
   objectKeys = Object.keys;
   searchText: string = '';
@@ -60,14 +59,14 @@ export class AdminComponent implements OnInit {
 
   getAllData () {
     this.loader = true;
-    this.apiService.connection('POST', 'master-admin', this.tableQueryData).subscribe({
-      next: (response: AdminPaginationInterface) => {
+    this.apiService.connection('POST', 'master-membercard', this.tableQueryData).subscribe({
+      next: (response: MemberCardPaginationInterface) => {
         this.tableQueryData.page = response.page;
         this.tableQueryData.limit = response.limit;
         this.tableQueryData.max = response.max;
         this.totalAll = response.total;
         this.dataSource = new MatTableDataSource(response.values);
-        this.provinces = response.province;
+        this.provincies = response.provincies;
       },
       error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
@@ -79,21 +78,21 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  onOpenConfirmation (admin: AdminInterface, type: String) {
+  onOpenConfirmation (membercard: MemberCardInterface, type: String) {
     const dialog = this.dialog.open(FormConfirmationComponent, {
       data: {
-        text: 'Are you sure you want to ' + type + ' this admin ?'
+        text: 'Are you sure you want to ' + type + ' this member card ?'
       }
     });
     dialog.afterClosed().subscribe((result) => {
-      if (result) this.deleteAdmin(admin);
+      if (result) this.deleteMemberCard(membercard);
     })
   }
 
-  deleteAdmin (admin: AdminInterface) {
-    this.apiService.connection('POST', 'master-admin-delete', {}, '', admin._id).subscribe({
+  deleteMemberCard (membercard: MemberCardInterface) {
+    this.apiService.connection('POST', 'master-membercard-delete', {}, '', membercard._id).subscribe({
       next: (response: any) => {
-        this.apiService.callSnack('Success delete admin', 'Close');
+        this.apiService.callSnack('Success delete member card', 'Close');
         this.loader = false;
         this.getAllData();
       },
@@ -104,10 +103,10 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  updateStatusAdmin (admin: AdminInterface, event) {
-    this.apiService.connection('POST', 'master-admin-status', { status: event.checked ? 1 : 2 }, '', admin._id).subscribe({
+  updateStatusAdmin (admin: MemberCardInterface, event) {
+    this.apiService.connection('POST', 'master-membercard-status', { status: event.checked ? 1 : 2 }, '', admin._id).subscribe({
       next: (response: any) => {
-        this.apiService.callSnack('Success update status admin', 'Close');
+        this.apiService.callSnack('Success update status member card', 'Close');
         this.loader = false;
         this.getAllData();
       },
@@ -118,7 +117,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  onOpenChangePassword (admin: AdminInterface, index) {
+  onOpenChangePassword (admin: MemberCardInterface, index) {
     const dialog = this.dialog.open(FormChangePasswordAdminComponent, {
       width: '500px',
       data: {
@@ -130,10 +129,10 @@ export class AdminComponent implements OnInit {
   }
 
   onOpenAddForm () {
-    const dialog = this.dialog.open(FormAddAdminComponent, {
+    const dialog = this.dialog.open(FormAddMembercardComponent, {
       width: '500px',
       data: {
-        province: this.provinces
+        provincies: this.provincies
       }
     });
 
@@ -146,12 +145,12 @@ export class AdminComponent implements OnInit {
   }
 
   onOpenEditForm (data, index) {
-    const dialog = this.dialog.open(FormEditAdminComponent, {
+    const dialog = this.dialog.open(FormEditMembercardComponent, {
       width: '500px',
       data: {
-        rowData: data,
+        membercard: data,
         index: index,
-        province: this.provinces
+        provincies: this.provincies
       }
     });
     dialog.afterClosed().subscribe((result) => {
@@ -207,4 +206,5 @@ export class AdminComponent implements OnInit {
   identify (item, i) {
     return item.id;
   }
+
 }

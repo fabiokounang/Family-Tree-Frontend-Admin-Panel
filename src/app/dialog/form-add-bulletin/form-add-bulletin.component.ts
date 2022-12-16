@@ -38,12 +38,10 @@ export class FormAddBulletinComponent implements OnInit {
     this.formBulletin.patchValue({
       image: file[0]
     });
-    const reader = new FileReader();
-    reader.readAsDataURL(file[0]);
-    reader.onload = () => {
-      this.imageShow = reader.result;
-    };
-    event.target.value = '';
+    this.sharedService.onChangeFile(file[0], (result) => {
+      this.imageShow = result;
+      event.target.value = '';
+    });
   }
 
   onDelete () {

@@ -38,19 +38,14 @@ export class FormEditBulletinComponent implements OnInit {
 
   onChangeFile (file: File, event) {
     this.formBulletin.get('image').addValidators(Validators.required);
-
     this.image = file[0].name;
     this.formBulletin.patchValue({
       image: file[0]
     });
-
-    const reader = new FileReader();
-    reader.readAsDataURL(file[0]);
-    reader.onload = () => {
-      this.imageShow = reader.result;
-    };
-
-    event.target.value = '';
+    this.sharedService.onChangeFile(file[0], (result) => {
+      this.imageShow = result;
+      event.target.value = '';
+    });
   }
 
   onDelete () {

@@ -20,7 +20,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./bulletin.component.css']
 })
 export class BulletinComponent implements OnInit {
-  displayedColumns: String[] = ['province', 'image', 'status', 'created_at', 'action'];
+  displayedColumns: String[] = ['province', 'title', 'image', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   loader: boolean = false;

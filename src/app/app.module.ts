@@ -38,7 +38,6 @@ import { FormEditProvinceComponent } from './dialog/form-edit-province/form-edit
 import { FormAddCityComponent } from './dialog/form-add-city/form-add-city.component';
 import { FormEditCityComponent } from './dialog/form-edit-city/form-edit-city.component';
 import { EventComponent } from './components/home/event/event.component';
-import { TestComponent } from './components/home/test/test.component';
 import { FormAddEventComponent } from './dialog/form-add-event/form-add-event.component';
 import { FormEditEventComponent } from './dialog/form-edit-event/form-edit-event.component';
 import { PointComponent } from './components/home/point/point.component';
@@ -50,7 +49,10 @@ import { FormEditBulletinComponent } from './dialog/form-edit-bulletin/form-edit
 import { FormAddBulletinComponent } from './dialog/form-add-bulletin/form-add-bulletin.component';
 import { FormChangePasswordUserComponent } from './dialog/form-change-password-user/form-change-password-user.component';
 import { FormEditCalendarComponent } from './dialog/form-edit-calendar/form-edit-calendar.component';
-import { MembercardComponent } from './components/membercard/membercard.component';
+import { MembercardComponent } from './components/home/membercard/membercard.component';
+import { FormAddMembercardComponent } from './dialog/form-add-membercard/form-add-membercard.component';
+import { FormEditMembercardComponent } from './dialog/form-edit-membercard/form-edit-membercard.component';
+import { FormAddCalendarComponent } from './dialog/form-add-calendar/form-add-calendar.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +86,6 @@ import { MembercardComponent } from './components/membercard/membercard.componen
     FormAddCityComponent,
     FormEditCityComponent,
     EventComponent,
-    TestComponent,
     FormAddEventComponent,
     FormEditEventComponent,
     PointComponent,
@@ -96,7 +97,10 @@ import { MembercardComponent } from './components/membercard/membercard.componen
     FormAddBulletinComponent,
     FormChangePasswordUserComponent,
     FormEditCalendarComponent,
-    MembercardComponent
+    MembercardComponent,
+    FormAddMembercardComponent,
+    FormEditMembercardComponent,
+    FormAddCalendarComponent
   ],
   imports: [
     BrowserModule,

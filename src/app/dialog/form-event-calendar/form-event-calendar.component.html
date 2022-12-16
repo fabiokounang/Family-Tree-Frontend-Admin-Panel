@@ -28,8 +28,14 @@
         <input formControlName="name" matInput type="text">
         <mat-error>Event name required</mat-error>
       </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Event Description (Optional)</mat-label>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Event Subtitle</mat-label>
+        <input formControlName="subtitle" matInput type="text">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Event Content (Optional)</mat-label>
         <textarea formControlName="description" matInput></textarea>
       </mat-form-field>
 

@@ -22,6 +22,11 @@
       <td class="imp" mat-cell *matCellDef="let element">{{element.province.province | titlecase}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="title">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Title </th>
+      <td class="imp" mat-cell *matCellDef="let element">{{element.title | titlecase}}</td>
+    </ng-container>
+
     <ng-container matColumnDef="image">
       <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Bulletin </th>
       <td class="imp" mat-cell *matCellDef="let element">
