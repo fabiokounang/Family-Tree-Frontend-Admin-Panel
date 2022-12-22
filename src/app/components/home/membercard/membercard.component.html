@@ -36,6 +36,11 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="province">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Province </th>
+      <td class="imp" mat-cell *matCellDef="let element">{{element.province.province | titlecase}}</td>
+    </ng-container>
+
     <ng-container matColumnDef="created_at">
       <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Created At</th>
       <td class="imp" mat-cell *matCellDef="let element">

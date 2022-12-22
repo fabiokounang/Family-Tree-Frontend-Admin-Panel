@@ -36,6 +36,18 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="province">
+      <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef> Province </th>
+      <td class="imp" mat-cell *matCellDef="let element">
+        <p style="margin: 0" *ngIf="element.role == 1">All Province</p>
+        <ng-container *ngIf="element.role != 1">
+          <p style="margin: 0" *ngFor="let prov of element.province">
+            {{prov.province | titlecase}}
+          </p>
+        </ng-container>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="created_at">
       <th class="imp" mat-sort-header mat-header-cell *matHeaderCellDef>Created At</th>
       <td class="imp" mat-cell *matCellDef="let element">

@@ -20,7 +20,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 
 export class AdminComponent implements OnInit {
-  displayedColumns: String[] = ['username', 'role', 'status', 'created_at', 'action'];
+  displayedColumns: String[] = ['username', 'role', 'status', 'province', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   provinces: ProvinceInterface[] = [];

@@ -19,7 +19,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./membercard.component.css']
 })
 export class MembercardComponent implements OnInit {
-  displayedColumns: String[] = ['image', 'status', 'created_at', 'action'];
+  displayedColumns: String[] = ['province', 'image', 'status', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   provincies: DropdownInterface[]  = [];
