@@ -6,7 +6,7 @@
   </div>
 
   <div class="wrapper-upload">
-    <button type="button" color="warn" mat-raised-button (click)="fileInput.click()">
+    <button [disabled]="loader" type="button" color="warn" mat-raised-button (click)="fileInput.click()">
       <span style="font-size: 12px">Upload User</span>
     </button>
     <input hidden accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" (change)="onChangeFile($event.target.files, $event)" #fileInput type="file" id="file">

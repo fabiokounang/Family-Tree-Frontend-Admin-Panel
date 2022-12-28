@@ -77,12 +77,14 @@ export class UserComponent implements OnInit {
   }
 
   onChangeFile (file: File, event) {
+    this.loader = true;
     this.fileName = file[0].name;
     this.file = file[0];
     const formData = new FormData();
     formData.append('file', this.file);
     this.apiService.connectionBlob('master-user-bulk-create', formData).subscribe({
       next: (response: any) => {
+        this.loader = false;
         this.apiService.callSnack('Success upload user', 'Dismiss');
         this.getAllData();
         this.fileName = '';
