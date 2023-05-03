@@ -16,7 +16,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./city.component.css']
 })
 export class CityComponent implements OnInit {
-  displayedColumns: String[] = ['code', 'name', 'created_at', 'action'];
+  displayedColumns: String[] = ['code', 'name', 'slug', 'created_at', 'action'];
   dataSource = new MatTableDataSource<CityInterface>([]);
   id: string = '';
   province: string = '';

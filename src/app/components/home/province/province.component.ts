@@ -18,7 +18,7 @@ import { FormConfirmationComponent } from 'src/app/dialog/form-confirmation/form
 })
 export class ProvinceComponent implements OnInit {
 
-  displayedColumns: String[] = ['code', 'name', 'created_at', 'action'];
+  displayedColumns: String[] = ['code', 'name', 'slug', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>([]);
   totalAll: any = 0;
   loader: boolean = false;

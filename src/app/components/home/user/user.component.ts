@@ -89,9 +89,9 @@ export class UserComponent implements OnInit {
         this.getAllData();
         this.fileName = '';
       },
-      error: (error: HttpErrorResponse) => {
+      error: ({ error }: HttpErrorResponse) => {
         this.loader = false;
-        this.apiService.callSnack('Something went wrong', 'Dismiss');
+        this.apiService.processErrorHttp(!error.error ? error : error.error);
       }
     });
     event.target.value = '';

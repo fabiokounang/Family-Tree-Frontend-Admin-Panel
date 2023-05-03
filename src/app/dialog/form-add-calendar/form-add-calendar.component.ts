@@ -42,6 +42,10 @@ export class FormAddCalendarComponent implements OnInit {
     event.target.value = '';
   }
 
+  onCloseDialog () {
+    this.dialogRef.close(false);
+  }
+
   onAddCalendar () {
     this.loader = true;
     if (this.formCalendar.valid) {
@@ -58,7 +62,7 @@ export class FormAddCalendarComponent implements OnInit {
         error: (error: HttpErrorResponse) => {
           this.loader = false;
           this.formCalendar.enable();
-          this.sharedService.callSnack('Something went wrong', 'Dismiss');
+          this.apiService.processErrorHttp(!error.error ? error : error.error);
         }
       });
     } else {
